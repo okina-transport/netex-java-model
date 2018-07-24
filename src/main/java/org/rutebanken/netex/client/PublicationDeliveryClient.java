@@ -41,25 +41,27 @@ public class PublicationDeliveryClient {
 
     private NeTExValidator neTExValidator = null;
 
+    private TokenService tokenService;
+
     /**
-     *
      * @param publicationDeliveryUrl Url to where to POST the publication delivery XML
-     * @param validateAgainstSchema If serialized XML should be validated against the NeTEx schema.
+     * @param validateAgainstSchema  If serialized XML should be validated against the NeTEx schema.
      * @throws JAXBException
      * @throws IOException
      * @throws SAXException
      */
-    public PublicationDeliveryClient(String publicationDeliveryUrl, boolean validateAgainstSchema) throws JAXBException, IOException, SAXException {
+    public PublicationDeliveryClient(String publicationDeliveryUrl, boolean validateAgainstSchema, TokenService tokenService) throws JAXBException, IOException, SAXException {
         this.publicationDeliveryUrl = publicationDeliveryUrl;
         this.jaxbContext = JAXBContext.newInstance(PublicationDeliveryStructure.class);
         this.validateAgainstSchema = validateAgainstSchema;
-        if(validateAgainstSchema) {
+        this.tokenService = tokenService;
+        if (validateAgainstSchema) {
             neTExValidator = new NeTExValidator();
         }
     }
 
-    public PublicationDeliveryClient(String publicationDeliveryUrl) throws JAXBException, IOException, SAXException {
-        this(publicationDeliveryUrl, false);
+    public PublicationDeliveryClient(String publicationDeliveryUrl, TokenService tokenService) throws JAXBException, IOException, SAXException {
+        this(publicationDeliveryUrl, false, tokenService);
     }
 
     public PublicationDeliveryStructure sendPublicationDelivery(PublicationDeliveryStructure publicationDelivery) throws JAXBException, IOException, SAXException {
@@ -68,17 +70,18 @@ public class PublicationDeliveryClient {
         Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
         marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
 
-        if(validateAgainstSchema) {
+        if (validateAgainstSchema) {
             marshaller.setSchema(neTExValidator.getSchema());
         }
 
         URL url = new URL(publicationDeliveryUrl);
         HttpURLConnection connection = null;
-        try  {
+        try {
             connection = (HttpURLConnection) url.openConnection();
             connection.setRequestMethod("POST");
             connection.setRequestProperty("Content-type", "application/xml");
             connection.setDoOutput(true);
+            connection.setRequestProperty("Authorization", "Bearer " + tokenService.getToken());
 
             logger.info("About to start marshalling publication delivery to output stream {}", publicationDelivery);
             marshaller.marshal(objectFactory.createPublicationDelivery(publicationDelivery), connection.getOutputStream());
@@ -94,7 +97,7 @@ public class PublicationDeliveryClient {
         } catch (Exception e) {
             throw new IOException("Error posting XML to " + publicationDeliveryUrl, e);
         } finally {
-            if(connection != null) {
+            if (connection != null) {
                 connection.disconnect();
             }
         }
