@@ -15,13 +15,13 @@
 
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <groupId>org.entur</groupId>
+    <groupId>com.okina</groupId>
     <artifactId>netex-java-model</artifactId>
     <version>1.0.9-SNAPSHOT</version>
 
     <name>netex-java-model</name>
     <description>Generates Java model from NeTEx xsds using jaxb.</description>
-    <url>https://github.com/entur/netex-java-model</url>
+    <url>https://github.com/okina-transport/netex-java-model</url>
     <licenses>
         <license>
             <name>EUPL-1.2 with modifications</name>
@@ -47,8 +47,8 @@
 
     <properties>
         <netexRepoName>NeTEx</netexRepoName>
-        <netexBranch>master</netexBranch>
-        <netexGithubUrl>https://github.com/entur/${netexRepoName}</netexGithubUrl>
+        <netexBranch>new_points_mobility</netexBranch>
+        <netexGithubUrl>https://github.com/okina-transport/${netexRepoName}</netexGithubUrl>
         <netexVersion>1.09</netexVersion>
         <assertj.core.version>3.4.1</assertj.core.version>
         <junit.version>4.12</junit.version>
@@ -154,9 +154,9 @@
                         </goals>
                         <configuration>
                             <environmentVariables>
-                                <GITHUB_URL>${netexGithubUrl}/archive/master.zip</GITHUB_URL>
+                                <GITHUB_URL>${netexGithubUrl}/archive/${netexBranch}.zip</GITHUB_URL>
                                 <DESTINATION_PATH>src/main/resources/xsd/${netexVersion}</DESTINATION_PATH>
-                                <ZIP_PATH_TO_EXTRACT>NeTEx-master/xsd/*</ZIP_PATH_TO_EXTRACT>
+                                <ZIP_PATH_TO_EXTRACT>NeTEx-${netexBranch}/xsd/*</ZIP_PATH_TO_EXTRACT>
                             </environmentVariables>
                             <executable>./bin/netex-download-extract.sh</executable>
                         </configuration>
@@ -192,38 +192,38 @@
                             <executable>./bin/netex-download-extract.sh</executable>
                         </configuration>
                     </execution>
-                    <execution>
-                        <!-- This downloads 1.07 for validation needs. This is not used to generate the model -->
-                        <id>download-extract-legacy-1.07</id>
-                        <phase>generate-resources</phase>
-                        <goals>
-                            <goal>exec</goal>
-                        </goals>
-                        <configuration>
-                            <environmentVariables>
-                                <GITHUB_URL>https://github.com/entur/NeTEx-XML-deprecated/archive/1.07.zip</GITHUB_URL>
-                                <DESTINATION_PATH>src/main/resources/xsd/1.07</DESTINATION_PATH>
-                                <ZIP_PATH_TO_EXTRACT>NeTEx-XML-deprecated-1.07/schema/xsd/*</ZIP_PATH_TO_EXTRACT>
-                            </environmentVariables>
-                            <executable>./bin/netex-download-extract.sh</executable>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <!-- This downloads 1.04beta for validation needs. This is not used to generate the model -->
-                        <id>download-extract-legacy-1.04beta</id>
-                        <phase>generate-resources</phase>
-                        <goals>
-                            <goal>exec</goal>
-                        </goals>
-                        <configuration>
-                            <environmentVariables>
-                                <GITHUB_URL>https://github.com/entur/NeTEx-XML-deprecated/archive/1.04beta.zip</GITHUB_URL>
-                                <DESTINATION_PATH>src/main/resources/xsd/1.04beta</DESTINATION_PATH>
-                                <ZIP_PATH_TO_EXTRACT>NeTEx-XML-deprecated-1.04beta/schema/xsd/*</ZIP_PATH_TO_EXTRACT>
-                            </environmentVariables>
-                            <executable>./bin/netex-download-extract.sh</executable>
-                        </configuration>
-                    </execution>
+<!--                    <execution>-->
+<!--                        &lt;!&ndash; This downloads 1.07 for validation needs. This is not used to generate the model &ndash;&gt;-->
+<!--                        <id>download-extract-legacy-1.07</id>-->
+<!--                        <phase>generate-resources</phase>-->
+<!--                        <goals>-->
+<!--                            <goal>exec</goal>-->
+<!--                        </goals>-->
+<!--                        <configuration>-->
+<!--                            <environmentVariables>-->
+<!--                                <GITHUB_URL>https://github.com/entur/NeTEx-XML-deprecated/archive/1.07.zip</GITHUB_URL>-->
+<!--                                <DESTINATION_PATH>src/main/resources/xsd/1.07</DESTINATION_PATH>-->
+<!--                                <ZIP_PATH_TO_EXTRACT>NeTEx-XML-deprecated-1.07/schema/xsd/*</ZIP_PATH_TO_EXTRACT>-->
+<!--                            </environmentVariables>-->
+<!--                            <executable>./bin/netex-download-extract.sh</executable>-->
+<!--                        </configuration>-->
+<!--                    </execution>-->
+<!--                    <execution>-->
+<!--                        &lt;!&ndash; This downloads 1.04beta for validation needs. This is not used to generate the model &ndash;&gt;-->
+<!--                        <id>download-extract-legacy-1.04beta</id>-->
+<!--                        <phase>generate-resources</phase>-->
+<!--                        <goals>-->
+<!--                            <goal>exec</goal>-->
+<!--                        </goals>-->
+<!--                        <configuration>-->
+<!--                            <environmentVariables>-->
+<!--                                <GITHUB_URL>https://github.com/entur/NeTEx-XML-deprecated/archive/1.04beta.zip</GITHUB_URL>-->
+<!--                                <DESTINATION_PATH>src/main/resources/xsd/1.04beta</DESTINATION_PATH>-->
+<!--                                <ZIP_PATH_TO_EXTRACT>NeTEx-XML-deprecated-1.04beta/schema/xsd/*</ZIP_PATH_TO_EXTRACT>-->
+<!--                            </environmentVariables>-->
+<!--                            <executable>./bin/netex-download-extract.sh</executable>-->
+<!--                        </configuration>-->
+<!--                    </execution>-->
                     <execution>
                         <id>annotation-removal</id>
                         <phase>generate-sources</phase>
