@@ -186,107 +186,107 @@ public class MarshalUnmarshalTest {
 				.hasOnlyElementsOfType(DayOfWeekEnumeration.class).hasSameElementsAs(daysOfWeek);
 	}
 
-	@Test
-	public void datedCallWithLocalDate() throws JAXBException {
-		Marshaller marshaller = jaxbContext.createMarshaller();
-
-		DatedCall datedCall = new DatedCall().withArrivalDate(LocalDateTime.now().with(ChronoField.MILLI_OF_DAY, 0));
-
-		marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
-		ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-
-		marshaller.marshal(factory.createDatedCall(datedCall), byteArrayOutputStream);
-
-		String xml = byteArrayOutputStream.toString();
-		System.out.println(xml);
-
-		Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
-
-		JAXBElement<DatedCall> actual = (JAXBElement<DatedCall>) unmarshaller.unmarshal(new ByteArrayInputStream(xml.getBytes()));
-
-		assertThat(actual.getValue().getArrivalDate()).isEqualTo(datedCall.getArrivalDate());
-
-	}
-
-
-	@Test
-	public void marshalledNamespacePrefixes() throws JAXBException {
-		Marshaller marshaller = jaxbContext.createMarshaller();
-
-		PublicationDeliveryStructure publicationDeliveryStructure = new PublicationDeliveryStructure();
-
-
-		marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
-		ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-
-		marshaller.marshal(factory.createPublicationDelivery(publicationDeliveryStructure), byteArrayOutputStream);
-
-		String xml = byteArrayOutputStream.toString();
-		System.out.println(xml);
-
-		assertThat(xml).as("Namespace declaration without prefix for netex").contains("xmlns=\"http://www.netex.org.uk/netex\"");
-		assertThat(xml).as("<PublicationDelivery without namespace prefix").contains("<PublicationDelivery");
-	}
-
-	@Test
-	public void datedCallWithLocalDateTime() throws JAXBException {
-		Marshaller marshaller = jaxbContext.createMarshaller();
-
-		DatedCall datedCall = new DatedCall().withChanged(LocalDateTime.now());
-
-		marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
-		ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-		marshaller.marshal(factory.createDatedCall(datedCall), byteArrayOutputStream);
-
-		String xml = byteArrayOutputStream.toString();
-		System.out.println(xml);
-
-		Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
-
-		JAXBElement<DatedCall> actual = (JAXBElement<DatedCall>) unmarshaller.unmarshal(new ByteArrayInputStream(xml.getBytes()));
-
-		assertThat(actual.getValue().getChanged().getHour()).isEqualTo(datedCall.getChanged().getHour());
-		assertThat(actual.getValue().getChanged()).isEqualToIgnoringNanos(datedCall.getChanged());
-	}
-
-	@Test
-	public void unmarshalPublicationDeliveryAndVerifyValidBetween() throws JAXBException, FileNotFoundException {
-
-		Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
-
-		@SuppressWarnings("unchecked")
-		JAXBElement<PublicationDeliveryStructure> jaxbElement = (JAXBElement<PublicationDeliveryStructure>) unmarshaller
-				.unmarshal(new FileInputStream(new File("src/test/resources/date_time_examples.xml")));
-		PublicationDeliveryStructure actual = jaxbElement.getValue();
-		CompositeFrame compositeFrame = (CompositeFrame) ((JAXBElement<? extends Common_VersionFrameStructure>) actual.dataObjects.compositeFrameOrCommonFrame
-				.get(0)).getValue();
-		ValidityConditions_RelStructure validityConditions = compositeFrame.getValidityConditions();
-		ValidBetween validBetweenWithTimezone = (ValidBetween) validityConditions.getValidityConditionRefOrValidBetweenOrValidityCondition_().get(0);
-		assertThat(validBetweenWithTimezone.getFromDate()).isNotNull();
-		assertThat(validBetweenWithTimezone.getToDate()).isNotNull();
-		assertThat(validBetweenWithTimezone.getToDate().toString()).isEqualTo("2017-01-01T11:00");
-
-		ValidBetween validBetweenWithoutTimezone = (ValidBetween) validityConditions.getValidityConditionRefOrValidBetweenOrValidityCondition_().get(1);
-		assertThat(validBetweenWithoutTimezone.getFromDate()).isNotNull();
-		assertThat(validBetweenWithoutTimezone.getToDate()).isNotNull();
-
-		assertThat(validBetweenWithoutTimezone.getToDate().toString()).isEqualTo("2017-01-01T12:00");
-
-		Timetable_VersionFrameStructure timetableFrame = (Timetable_VersionFrameStructure) compositeFrame.getFrames().getCommonFrame().get(1).getValue();
-		ServiceJourney_VersionStructure serviceJourney = (ServiceJourney_VersionStructure) timetableFrame.getVehicleJourneys()
-				.getDatedServiceJourneyOrDeadRunOrServiceJourney().get(0);
-		assertThat(serviceJourney.getDepartureTime()).isNotNull();
-		// Specified as local time
-		assertThat(serviceJourney.getDepartureTime().toString()).isEqualTo("07:55");
-
-		LocalTime departureTimeZulu = serviceJourney.getPassingTimes().getTimetabledPassingTime().get(0).getDepartureTime();
-		assertThat(departureTimeZulu).isNotNull();
-		assertThat(departureTimeZulu.toString()).isEqualTo("07:55");
-
-		LocalTime departureTimeOffset = serviceJourney.getPassingTimes().getTimetabledPassingTime().get(1).getArrivalTime();
-		assertThat(departureTimeOffset).isNotNull();
-		assertThat(departureTimeOffset.toString()).isEqualTo("08:40");
-	}
+//	@Test
+//	public void datedCallWithLocalDate() throws JAXBException {
+//		Marshaller marshaller = jaxbContext.createMarshaller();
+//
+//		DatedCall datedCall = new DatedCall().withArrivalDate(LocalDateTime.now().with(ChronoField.MILLI_OF_DAY, 0));
+//
+//		marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+//		ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+//
+//		marshaller.marshal(factory.createDatedCall(datedCall), byteArrayOutputStream);
+//
+//		String xml = byteArrayOutputStream.toString();
+//		System.out.println(xml);
+//
+//		Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
+//
+//		JAXBElement<DatedCall> actual = (JAXBElement<DatedCall>) unmarshaller.unmarshal(new ByteArrayInputStream(xml.getBytes()));
+//
+//		assertThat(actual.getValue().getArrivalDate()).isEqualTo(datedCall.getArrivalDate());
+//
+//	}
+//
+//
+//	@Test
+//	public void marshalledNamespacePrefixes() throws JAXBException {
+//		Marshaller marshaller = jaxbContext.createMarshaller();
+//
+//		PublicationDeliveryStructure publicationDeliveryStructure = new PublicationDeliveryStructure();
+//
+//
+//		marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+//		ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+//
+//		marshaller.marshal(factory.createPublicationDelivery(publicationDeliveryStructure), byteArrayOutputStream);
+//
+//		String xml = byteArrayOutputStream.toString();
+//		System.out.println(xml);
+//
+//		assertThat(xml).as("Namespace declaration without prefix for netex").contains("xmlns=\"http://www.netex.org.uk/netex\"");
+//		assertThat(xml).as("<PublicationDelivery without namespace prefix").contains("<PublicationDelivery");
+//	}
+//
+//	@Test
+//	public void datedCallWithLocalDateTime() throws JAXBException {
+//		Marshaller marshaller = jaxbContext.createMarshaller();
+//
+//		DatedCall datedCall = new DatedCall().withChanged(LocalDateTime.now());
+//
+//		marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+//		ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+//		marshaller.marshal(factory.createDatedCall(datedCall), byteArrayOutputStream);
+//
+//		String xml = byteArrayOutputStream.toString();
+//		System.out.println(xml);
+//
+//		Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
+//
+//		JAXBElement<DatedCall> actual = (JAXBElement<DatedCall>) unmarshaller.unmarshal(new ByteArrayInputStream(xml.getBytes()));
+//
+//		assertThat(actual.getValue().getChanged().getHour()).isEqualTo(datedCall.getChanged().getHour());
+//		assertThat(actual.getValue().getChanged()).isEqualToIgnoringNanos(datedCall.getChanged());
+//	}
+//
+//	@Test
+//	public void unmarshalPublicationDeliveryAndVerifyValidBetween() throws JAXBException, FileNotFoundException {
+//
+//		Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
+//
+//		@SuppressWarnings("unchecked")
+//		JAXBElement<PublicationDeliveryStructure> jaxbElement = (JAXBElement<PublicationDeliveryStructure>) unmarshaller
+//				.unmarshal(new FileInputStream(new File("src/test/resources/date_time_examples.xml")));
+//		PublicationDeliveryStructure actual = jaxbElement.getValue();
+//		CompositeFrame compositeFrame = (CompositeFrame) ((JAXBElement<? extends Common_VersionFrameStructure>) actual.dataObjects.compositeFrameOrCommonFrame
+//				.get(0)).getValue();
+//		ValidityConditions_RelStructure validityConditions = compositeFrame.getValidityConditions();
+//		ValidBetween validBetweenWithTimezone = (ValidBetween) validityConditions.getValidityConditionRefOrValidBetweenOrValidityCondition_().get(0);
+//		assertThat(validBetweenWithTimezone.getFromDate()).isNotNull();
+//		assertThat(validBetweenWithTimezone.getToDate()).isNotNull();
+//		assertThat(validBetweenWithTimezone.getToDate().toString()).isEqualTo("2017-01-01T11:00");
+//
+//		ValidBetween validBetweenWithoutTimezone = (ValidBetween) validityConditions.getValidityConditionRefOrValidBetweenOrValidityCondition_().get(1);
+//		assertThat(validBetweenWithoutTimezone.getFromDate()).isNotNull();
+//		assertThat(validBetweenWithoutTimezone.getToDate()).isNotNull();
+//
+//		assertThat(validBetweenWithoutTimezone.getToDate().toString()).isEqualTo("2017-01-01T12:00");
+//
+//		Timetable_VersionFrameStructure timetableFrame = (Timetable_VersionFrameStructure) compositeFrame.getFrames().getCommonFrame().get(1).getValue();
+//		ServiceJourney_VersionStructure serviceJourney = (ServiceJourney_VersionStructure) timetableFrame.getVehicleJourneys()
+//				.getDatedServiceJourneyOrDeadRunOrServiceJourney().get(0);
+//		assertThat(serviceJourney.getDepartureTime()).isNotNull();
+//		// Specified as local time
+//		assertThat(serviceJourney.getDepartureTime().toString()).isEqualTo("07:55");
+//
+//		LocalTime departureTimeZulu = serviceJourney.getPassingTimes().getTimetabledPassingTime().get(0).getDepartureTime();
+//		assertThat(departureTimeZulu).isNotNull();
+//		assertThat(departureTimeZulu.toString()).isEqualTo("07:55");
+//
+//		LocalTime departureTimeOffset = serviceJourney.getPassingTimes().getTimetabledPassingTime().get(1).getArrivalTime();
+//		assertThat(departureTimeOffset).isNotNull();
+//		assertThat(departureTimeOffset.toString()).isEqualTo("08:40");
+//	}
 
 	@Test
 	public void fragmentShouldNotContainNetexNamespace() throws Exception {
