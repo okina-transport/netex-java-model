@@ -38,7 +38,8 @@ public class NeTExValidator {
 		V1_0_7 ("1.07"),
 		v1_0_8 ("1.08"),
 		v1_0_9 ("1.09"),
-		v2_0_1 ("2.0.1");
+		v2_0_1 ("2.0.1"),
+		v2_0_2 ("2.0.2");
 
 		private final String folderName;
 
@@ -52,7 +53,7 @@ public class NeTExValidator {
 	}
 	private final Schema neTExSchema;
 
-	public static final NetexVersion LATEST = NetexVersion.v2_0_1;
+	public static final NetexVersion LATEST = NetexVersion.v2_0_2;
 
 	private static final Map<NetexVersion, NeTExValidator> VALIDATORS_PER_VERSION = new HashMap<>();
 
