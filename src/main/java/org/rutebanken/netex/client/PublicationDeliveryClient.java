@@ -23,8 +23,10 @@ import org.slf4j.LoggerFactory;
 import org.xml.sax.SAXException;
 
 import javax.xml.bind.*;
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
@@ -90,10 +92,19 @@ public class PublicationDeliveryClient {
             int responseCode = connection.getResponseCode();
             logger.info("Got response code {} after posting publication delivery to URL : {}", responseCode, url);
 
-            InputStream inputStream = connection.getInputStream();
-            JAXBElement<PublicationDeliveryStructure> element = (JAXBElement<PublicationDeliveryStructure>) unmarshaller.unmarshal(inputStream);
+            BufferedReader br = null;
+            if (100 <= connection.getResponseCode() && connection.getResponseCode() <= 399) {
+                InputStream inputStream = connection.getInputStream();
+                JAXBElement<PublicationDeliveryStructure> element = (JAXBElement<PublicationDeliveryStructure>) unmarshaller.unmarshal(inputStream);
+                return element.getValue();
+            } else {
+                br = new BufferedReader(new InputStreamReader(connection.getErrorStream()));
+                String errorMsg = br.readLine();
+                logger.error(errorMsg);
+                throw new IOException(errorMsg);
+            }
 
-            return element.getValue();
+
         } catch (Exception e) {
             throw new IOException("Error posting XML to " + publicationDeliveryUrl, e);
         } finally {
