@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns="http://www.netex.org.uk/netex" xmlns:netex="http://www.netex.org.uk/netex" xmlns:siri="http://www.siri.org.uk/siri" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.netex.org.uk/netex" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.2.2" id="netex_nm_singleJourneyPath_version">
+  <xsd:include schemaLocation="netex_nm_singleJourneyPath_support.xsd"/>
+  <xsd:include schemaLocation="../part5_nd/netex_nm_vehicleMeetingPoint_support.xsd"/>
+  <xsd:include schemaLocation="../../netex_part_1/part1_networkDescription/netex_route_support.xsd"/>
+  <xsd:include schemaLocation="../../netex_part_1/part1_tacticalPlanning/netex_servicePattern_version.xsd"/>
+  <!-- ======================================================================= -->
+  <!-- ===== SINGLE JOURNEY PATH========================================= -->
+  <xsd:complexType name="singleJourneyPaths_RelStructure">
+    <xsd:complexContent>
+      <xsd:extension base="containmentAggregationStructure">
+        <xsd:sequence>
+          <xsd:element ref="SingleJourneyPath" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:element name="SingleJourneyPath" abstract="false" substitutionGroup="LinkSequence" id="SingleJourneyPath">
+    <xsd:complexType>
+      <xsd:complexContent>
+        <xsd:restriction base="SingleJourneyPath_VersionStructure">
+          <xsd:sequence>
+            <xsd:sequence>
+              <xsd:group ref="EntityInVersionGroup" minOccurs="0"/>
+            </xsd:sequence>
+            <xsd:sequence>
+              <xsd:group ref="DataManagedObjectGroup"/>
+            </xsd:sequence>
+            <xsd:sequence>
+              <xsd:group ref="LinkSequenceGroup"/>
+            </xsd:sequence>
+            <xsd:sequence>
+              <xsd:group ref="SingleJourneyPathGroup"/>
+            </xsd:sequence>
+          </xsd:sequence>
+          <xsd:attribute name="id" type="SingleJourneyPathIdType" use="optional"/>
+        </xsd:restriction>
+      </xsd:complexContent>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:complexType name="SingleJourneyPath_VersionStructure">
+    <xsd:complexContent>
+      <xsd:extension base="LinkSequence_VersionStructure">
+        <xsd:sequence>
+          <xsd:group ref="SingleJourneyPathGroup"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:group name="SingleJourneyPathGroup">
+    <xsd:sequence>
+      <xsd:element ref="RouteRef" minOccurs="0"/>
+      <xsd:element name="pointsInSequence" type="vehicleMeetingPointsInSequence_RelStructure" minOccurs="0"/>
+    </xsd:sequence>
+  </xsd:group>
+  <!-- ===== VEHICLE MEETING POINT IN  SINGLE JOURNEY PATH ==================== -->
+  <xsd:complexType name="vehicleMeetingPointsInSequence_RelStructure">
+    <xsd:complexContent>
+      <xsd:extension base="containmentAggregationStructure">
+        <xsd:sequence>
+          <xsd:element ref="VehicleMeetingPointInPath" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:element name="VehicleMeetingPointInPath" abstract="false" substitutionGroup="PointInLinkSequence" id="VehicleMeetingPointInPath">
+    <xsd:complexType>
+      <xsd:complexContent>
+        <xsd:restriction base="VehicleMeetingPointInPath_VersionStructure">
+          <xsd:sequence>
+            <xsd:sequence>
+              <xsd:group ref="EntityInVersionGroup" minOccurs="0"/>
+            </xsd:sequence>
+            <xsd:sequence>
+              <xsd:group ref="VersionedChildGroup"/>
+            </xsd:sequence>
+            <xsd:sequence>
+              <xsd:group ref="PointInLinkSequenceGroup"/>
+            </xsd:sequence>
+            <xsd:sequence>
+              <xsd:group ref="PointInJourneyPatternGroup"/>
+            </xsd:sequence>
+            <xsd:sequence>
+              <xsd:group ref="VehicleMeetingPointInPathGroup"/>
+            </xsd:sequence>
+          </xsd:sequence>
+          <xsd:attribute name="id" type="PointInSingleJourneyPathIdType" use="optional"/>
+        </xsd:restriction>
+      </xsd:complexContent>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:complexType name="VehicleMeetingPointInPath_VersionStructure">
+    <xsd:complexContent>
+      <xsd:extension base="PointInJourneyPattern_VersionedChildStructure">
+        <xsd:sequence>
+          <xsd:group ref="VehicleMeetingPointInPathGroup"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:group name="VehicleMeetingPointInPathGroup">
+    <xsd:sequence>
+      <xsd:element ref="OnwardVehicleMeetingLinkRef" minOccurs="0"/>
+    </xsd:sequence>
+  </xsd:group>
+  <!-- ======================================================================= -->
+</xsd:schema>

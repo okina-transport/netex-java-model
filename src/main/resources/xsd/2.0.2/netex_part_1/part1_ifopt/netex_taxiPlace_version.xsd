@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns="http://www.netex.org.uk/netex" xmlns:netex="http://www.netex.org.uk/netex" xmlns:siri="http://www.siri.org.uk/siri" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.netex.org.uk/netex" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.2.2" id="netex_taxiPlace_version">
+  <xsd:include schemaLocation="netex_taxiPlace_support.xsd"/>
+  <xsd:include schemaLocation="netex_ifopt_stopPlace_version.xsd"/>
+  <xsd:include schemaLocation="netex_ifopt_parking_version.xsd"/>
+  <!-- ======================================================================= -->
+  <!-- ======TAXI RANK ======================================================== -->
+  <xsd:element name="TaxiRank" abstract="false" substitutionGroup="StopPlace_">
+    <xsd:complexType>
+      <xsd:complexContent>
+        <xsd:restriction base="TaxiRank_VersionStructure">
+          <xsd:sequence>
+            <xsd:sequence>
+              <xsd:group ref="EntityInVersionGroup" minOccurs="0"/>
+            </xsd:sequence>
+            <xsd:sequence>
+              <xsd:group ref="DataManagedObjectGroup"/>
+            </xsd:sequence>
+            <xsd:sequence>
+              <xsd:group ref="GroupOfEntitiesGroup"/>
+            </xsd:sequence>
+            <xsd:sequence>
+              <xsd:group ref="GroupOfPointsGroup"/>
+            </xsd:sequence>
+            <xsd:sequence>
+              <xsd:group ref="ZoneGroup"/>
+            </xsd:sequence>
+            <xsd:group ref="PlaceGroup"/>
+            <xsd:sequence>
+              <xsd:group ref="AddressablePlaceGroup"/>
+            </xsd:sequence>
+            <xsd:group ref="SiteElementGroup"/>
+            <xsd:sequence>
+              <xsd:group ref="SiteGroup"/>
+            </xsd:sequence>
+            <xsd:sequence>
+              <xsd:group ref="StopPlaceGroup"/>
+            </xsd:sequence>
+            <xsd:sequence>
+              <xsd:group ref="TaxiRankGroup"/>
+            </xsd:sequence>
+          </xsd:sequence>
+          <xsd:attribute name="id" type="TaxiRankIdType" use="optional"/>
+        </xsd:restriction>
+      </xsd:complexContent>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:complexType name="TaxiRank_VersionStructure" abstract="false">
+    <xsd:complexContent>
+      <xsd:extension base="StopPlace_VersionStructure">
+        <xsd:sequence>
+          <xsd:group ref="TaxiRankGroup"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:group name="TaxiRankGroup">
+    <xsd:sequence>
+      <xsd:element name="MaximumStandingDuration" type="xsd:duration" minOccurs="0"/>
+      <xsd:element name="taxiStands" type="taxiStands_RelStructure" minOccurs="0"/>
+    </xsd:sequence>
+  </xsd:group>
+  <!-- ==== TAXI STAND  ============================================================ -->
+  <xsd:complexType name="taxiStands_RelStructure">
+    <xsd:complexContent>
+      <xsd:extension base="containmentAggregationStructure">
+        <xsd:sequence>
+          <xsd:element ref="TaxiStand" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:element name="TaxiStand" abstract="false" substitutionGroup="StopPlaceComponent">
+    <xsd:complexType>
+      <xsd:complexContent>
+        <xsd:restriction base="TaxiStand_VersionStructure">
+          <xsd:sequence>
+            <xsd:sequence>
+              <xsd:group ref="EntityInVersionGroup" minOccurs="0"/>
+            </xsd:sequence>
+            <xsd:sequence>
+              <xsd:group ref="DataManagedObjectGroup"/>
+            </xsd:sequence>
+            <xsd:sequence>
+              <xsd:group ref="GroupOfEntitiesGroup"/>
+            </xsd:sequence>
+            <xsd:sequence>
+              <xsd:group ref="GroupOfPointsGroup"/>
+            </xsd:sequence>
+            <xsd:sequence>
+              <xsd:group ref="ZoneGroup"/>
+            </xsd:sequence>
+            <xsd:sequence>
+              <xsd:element name="placeTypes" type="typeOfPlaceRefs_RelStructure" minOccurs="0"/>
+            </xsd:sequence>
+            <xsd:sequence>
+              <xsd:group ref="AddressablePlaceGroup"/>
+            </xsd:sequence>
+            <xsd:sequence>
+              <xsd:element ref="AccessibilityAssessment" minOccurs="0"/>
+              <xsd:element name="AccessModes" type="AccessModeListOfEnumerations" minOccurs="0"/>
+              <xsd:group ref="SiteElementNamesGroup"/>
+              <xsd:group ref="RelativeLocationGroup"/>
+              <xsd:group ref="SiteElementPropertiesGroup"/>
+            </xsd:sequence>
+            <xsd:sequence>
+              <xsd:group ref="SiteComponentGroup"/>
+            </xsd:sequence>
+            <xsd:sequence>
+              <xsd:group ref="StopPlaceComponentPropertyGroup"/>
+            </xsd:sequence>
+            <xsd:sequence>
+              <xsd:group ref="StopPlaceSpaceGroup"/>
+            </xsd:sequence>
+            <xsd:sequence>
+              <xsd:group ref="QuayGroup"/>
+            </xsd:sequence>
+            <xsd:sequence>
+              <xsd:group ref="TaxiStandGroup"/>
+            </xsd:sequence>
+          </xsd:sequence>
+          <xsd:attribute name="id" type="TaxiStandIdType" use="optional"/>
+        </xsd:restriction>
+      </xsd:complexContent>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:complexType name="TaxiStand_VersionStructure" abstract="false">
+    <xsd:complexContent>
+      <xsd:extension base="Quay_VersionStructure">
+        <xsd:sequence>
+          <xsd:group ref="TaxiStandGroup"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:group name="TaxiStandGroup">
+    <xsd:sequence>
+      <xsd:element name="MaximumStandingDuration" type="xsd:duration" minOccurs="0"/>
+    </xsd:sequence>
+  </xsd:group>
+  <!-- ==== TAXI PARKING AREA  ============================================================ -->
+  <xsd:element name="TaxiParkingArea" abstract="false" substitutionGroup="ParkingArea_">
+    <xsd:complexType>
+      <xsd:complexContent>
+        <xsd:restriction base="TaxiParkingArea_VersionStructure">
+          <xsd:sequence>
+            <xsd:sequence>
+              <xsd:group ref="EntityInVersionGroup" minOccurs="0"/>
+            </xsd:sequence>
+            <xsd:sequence>
+              <xsd:group ref="DataManagedObjectGroup"/>
+            </xsd:sequence>
+            <xsd:sequence>
+              <xsd:group ref="GroupOfEntitiesGroup"/>
+            </xsd:sequence>
+            <xsd:sequence>
+              <xsd:group ref="GroupOfPointsGroup"/>
+            </xsd:sequence>
+            <xsd:sequence>
+              <xsd:group ref="ZoneGroup"/>
+            </xsd:sequence>
+            <xsd:group ref="PlaceGroup"/>
+            <xsd:sequence>
+              <xsd:group ref="AddressablePlaceGroup"/>
+            </xsd:sequence>
+            <xsd:group ref="SiteElementGroup"/>
+            <xsd:sequence>
+              <xsd:group ref="SiteComponentGroup"/>
+            </xsd:sequence>
+            <xsd:sequence>
+              <xsd:group ref="ParkingComponentGroup"/>
+            </xsd:sequence>
+            <xsd:sequence>
+              <xsd:group ref="ParkingAreaGroup"/>
+            </xsd:sequence>
+            <xsd:sequence>
+              <xsd:group ref="TaxiParkingAreaGroup"/>
+            </xsd:sequence>
+          </xsd:sequence>
+          <xsd:attribute name="id" type="TaxiParkingAreaIdType" use="optional"/>
+        </xsd:restriction>
+      </xsd:complexContent>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:complexType name="TaxiParkingArea_VersionStructure" abstract="false">
+    <xsd:complexContent>
+      <xsd:extension base="ParkingArea_VersionStructure">
+        <xsd:sequence>
+          <xsd:group ref="TaxiParkingAreaGroup"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:group name="TaxiParkingAreaGroup">
+    <xsd:sequence/>
+  </xsd:group>
+  <!-- ======================================================================= -->
+</xsd:schema>

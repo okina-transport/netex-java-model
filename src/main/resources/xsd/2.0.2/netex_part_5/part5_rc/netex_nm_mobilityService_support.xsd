@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns="http://www.netex.org.uk/netex" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:netex="http://www.netex.org.uk/netex" targetNamespace="http://www.netex.org.uk/netex" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.2.2" id="netex_nm_mobilityService_support">
+  <xsd:include schemaLocation="../../netex_framework/netex_reusableComponents/netex_equipment_support.xsd"/>
+  <!-- ======================================================================= -->
+  <!-- ===== MOBILITY SERVICE===================================================== -->
+  <xsd:complexType name="mobilityServiceRefs_RelStructure">
+    <xsd:complexContent>
+      <xsd:extension base="containmentAggregationStructure">
+        <xsd:choice minOccurs="0">
+          <xsd:element ref="MobilityServiceRef" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:choice>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:element name="MobilityServiceRef" type="MobilityServiceRefStructure" abstract="true" substitutionGroup="EquipmentRef"/>
+  <xsd:complexType name="MobilityServiceRefStructure">
+    <xsd:simpleContent>
+      <xsd:restriction base="EquipmentRefStructure">
+        <xsd:attribute name="ref" type="MobilityServiceIdType" use="required"/>
+      </xsd:restriction>
+    </xsd:simpleContent>
+  </xsd:complexType>
+  <xsd:simpleType name="MobilityServiceIdType">
+    <xsd:restriction base="EquipmentIdType"/>
+  </xsd:simpleType>
+  <!-- ===== COMMON VEHICLE SERVICE =========================================== -->
+  <xsd:complexType name="commonVehicleServiceRefs_RelStructure">
+    <xsd:complexContent>
+      <xsd:extension base="oneToManyRelationshipStructure">
+        <xsd:sequence>
+          <xsd:element ref="CommonVehicleServiceRef" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:simpleType name="CommonVehicleServiceIdType">
+    <xsd:restriction base="MobilityServiceIdType"/>
+  </xsd:simpleType>
+  <xsd:element name="CommonVehicleServiceRef" type="CommonVehicleServiceRefStructure" abstract="true" substitutionGroup="MobilityServiceRef"/>
+  <xsd:complexType name="CommonVehicleServiceRefStructure">
+    <xsd:simpleContent>
+      <xsd:restriction base="MobilityServiceRefStructure">
+        <xsd:attribute name="ref" type="CommonVehicleServiceIdType" use="required"/>
+      </xsd:restriction>
+    </xsd:simpleContent>
+  </xsd:complexType>
+  <!-- =====  VEHICLE POOLING SERVICE =========================================== -->
+  <xsd:simpleType name="VehiclePoolingServiceIdType">
+    <xsd:restriction base="CommonVehicleServiceIdType"/>
+  </xsd:simpleType>
+  <xsd:element name="VehiclePoolingServiceRef" type="VehiclePoolingServiceRefStructure" abstract="true" substitutionGroup="CommonVehicleServiceRef"/>
+  <xsd:complexType name="VehiclePoolingServiceRefStructure">
+    <xsd:simpleContent>
+      <xsd:restriction base="CommonVehicleServiceRefStructure">
+        <xsd:attribute name="ref" type="VehiclePoolingServiceIdType" use="required"/>
+      </xsd:restriction>
+    </xsd:simpleContent>
+  </xsd:complexType>
+  <!-- =====  GENERAL POOLING SERVICE =========================================== -->
+  <xsd:simpleType name="CarPoolingServiceIdType">
+    <xsd:restriction base="VehiclePoolingServiceIdType"/>
+  </xsd:simpleType>
+  <xsd:element name="CarPoolingServiceRef" type="CarPoolingServiceRefStructure" substitutionGroup="VehiclePoolingServiceRef"/>
+  <xsd:complexType name="CarPoolingServiceRefStructure">
+    <xsd:simpleContent>
+      <xsd:restriction base="VehiclePoolingServiceRefStructure">
+        <xsd:attribute name="ref" type="CarPoolingServiceIdType" use="required"/>
+      </xsd:restriction>
+    </xsd:simpleContent>
+  </xsd:complexType>
+  <!-- =====  TAXI SERVICE =========================================== -->
+  <xsd:simpleType name="TaxiServiceIdType">
+    <xsd:restriction base="VehiclePoolingServiceIdType"/>
+  </xsd:simpleType>
+  <xsd:element name="TaxiServiceRef" type="TaxiServiceRefStructure" substitutionGroup="VehiclePoolingServiceRef"/>
+  <xsd:complexType name="TaxiServiceRefStructure">
+    <xsd:simpleContent>
+      <xsd:restriction base="VehiclePoolingServiceRefStructure">
+        <xsd:attribute name="ref" type="TaxiServiceIdType" use="required"/>
+      </xsd:restriction>
+    </xsd:simpleContent>
+  </xsd:complexType>
+  <!-- =====  CHAUFFEURED VEHICLE SERVICE =========================================== -->
+  <xsd:simpleType name="ChauffeuredVehicleServiceIdType">
+    <xsd:restriction base="VehiclePoolingServiceIdType"/>
+  </xsd:simpleType>
+  <xsd:element name="ChauffeuredVehicleServiceRef" type="ChauffeuredVehicleServiceRefStructure" substitutionGroup="VehiclePoolingServiceRef"/>
+  <xsd:complexType name="ChauffeuredVehicleServiceRefStructure">
+    <xsd:simpleContent>
+      <xsd:restriction base="VehiclePoolingServiceRefStructure">
+        <xsd:attribute name="ref" type="ChauffeuredVehicleServiceIdType" use="required"/>
+      </xsd:restriction>
+    </xsd:simpleContent>
+  </xsd:complexType>
+  <!-- =====  VEHICLE SHARING SERVICE =========================================== -->
+  <xsd:simpleType name="VehicleSharingServiceIdType">
+    <xsd:restriction base="CommonVehicleServiceIdType"/>
+  </xsd:simpleType>
+  <xsd:element name="VehicleSharingServiceRef" type="VehicleSharingServiceRefStructure" substitutionGroup="CommonVehicleServiceRef"/>
+  <xsd:complexType name="VehicleSharingServiceRefStructure">
+    <xsd:simpleContent>
+      <xsd:restriction base="CommonVehicleServiceRefStructure">
+        <xsd:attribute name="ref" type="VehicleSharingServiceIdType" use="required"/>
+      </xsd:restriction>
+    </xsd:simpleContent>
+  </xsd:complexType>
+  <!-- =====  VEHICLE RENTAL SERVICE =========================================== -->
+  <xsd:simpleType name="VehicleRentalServiceIdType">
+    <xsd:restriction base="CommonVehicleServiceIdType"/>
+  </xsd:simpleType>
+  <xsd:element name="VehicleRentalServiceRef" type="VehicleRentalServiceRefStructure" substitutionGroup="CommonVehicleServiceRef"/>
+  <xsd:complexType name="VehicleRentalServiceRefStructure">
+    <xsd:simpleContent>
+      <xsd:restriction base="CommonVehicleServiceRefStructure">
+        <xsd:attribute name="ref" type="VehicleRentalServiceIdType" use="required"/>
+      </xsd:restriction>
+    </xsd:simpleContent>
+  </xsd:complexType>
+  <!-- ======================================================================= -->
+  <xsd:simpleType name="TypeOfMobilityServiceIdType">
+    <xsd:restriction base="TypeOfValueIdType"/>
+  </xsd:simpleType>
+  <xsd:element name="TypeOfMobilityServiceRef" type="TypeOfMobilityServiceRefStructure" substitutionGroup="TypeOfEntityRef"/>
+  <xsd:complexType name="TypeOfMobilityServiceRefStructure">
+    <xsd:simpleContent>
+      <xsd:restriction base="TypeOfValueRefStructure">
+        <xsd:attribute name="ref" type="TypeOfMobilityServiceIdType" use="required"/>
+      </xsd:restriction>
+    </xsd:simpleContent>
+  </xsd:complexType>
+  <!-- ======================================================================= -->
+</xsd:schema>

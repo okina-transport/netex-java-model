@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns="http://www.netex.org.uk/netex" xmlns:netex="http://www.netex.org.uk/netex" xmlns:siri="http://www.siri.org.uk/siri" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.netex.org.uk/netex" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.2.2" id="netex_nm_parkingCapacityAssignment_version">
+  <xsd:include schemaLocation="netex_nm_ParkingCapacityAssignment_support.xsd"/>
+  <xsd:include schemaLocation="../../netex_part_1/part1_ifopt/netex_ifopt_parking_support.xsd"/>
+  <xsd:include schemaLocation="../../netex_framework/netex_reusableComponents/netex_vehicleType_version.xsd"/>
+  <xsd:include schemaLocation="../../netex_framework/netex_genericFramework/netex_assignment_version.xsd"/>
+  <!-- ======================================================================= -->
+  <!-- ==== PARKING CAPACITY ASSIGNMENT ================================================== -->
+  <xsd:element name="ParkingAreaCapacityAssignment" abstract="false" substitutionGroup="Assignment_">
+    <xsd:complexType>
+      <xsd:complexContent>
+        <xsd:restriction base="ParkingAreaCapacityAssignment_VersionStructure">
+          <xsd:sequence>
+            <xsd:sequence>
+              <xsd:sequence>
+                <xsd:group ref="EntityInVersionGroup" minOccurs="0"/>
+              </xsd:sequence>
+              <xsd:sequence>
+                <xsd:group ref="DataManagedObjectGroup"/>
+              </xsd:sequence>
+              <xsd:sequence>
+                <xsd:group ref="AssignmentGroup"/>
+              </xsd:sequence>
+            </xsd:sequence>
+            <xsd:sequence>
+              <xsd:group ref="ParkingAreaCapacityAssignmentGroup"/>
+            </xsd:sequence>
+          </xsd:sequence>
+          <xsd:attribute name="id" type="ParkingAreaCapacityAssignmentIdType" use="optional"/>
+        </xsd:restriction>
+      </xsd:complexContent>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:complexType name="ParkingAreaCapacityAssignment_VersionStructure" abstract="false">
+    <xsd:complexContent>
+      <xsd:extension base="Assignment_VersionStructure">
+        <xsd:sequence>
+          <xsd:group ref="ParkingAreaCapacityAssignmentGroup"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:group name="ParkingAreaCapacityAssignmentGroup">
+    <xsd:sequence>
+      <xsd:element ref="TransportTypeRef"/>
+      <xsd:element ref="ParkingAreaRef"/>
+      <xsd:element name="CapacityType" type="ParkingCapacityTypeEnumeration" minOccurs="0"/>
+      <xsd:element name="NumberOfSpaces" type="xsd:nonNegativeInteger" minOccurs="0"/>
+      <xsd:element name="AdditionalVehicleCapacity" type="xsd:nonNegativeInteger" minOccurs="0"/>
+    </xsd:sequence>
+  </xsd:group>
+</xsd:schema>

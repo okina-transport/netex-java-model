@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns="http://www.netex.org.uk/netex" xmlns:netex="http://www.netex.org.uk/netex" xmlns:siri="http://www.siri.org.uk/siri" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.netex.org.uk/netex" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.2.2" id="netex_nm_vehicleMeetingPoint_version">
+  <xsd:include schemaLocation="netex_nm_vehicleMeetingPoint_support.xsd"/>
+  <!-- ======================================================================= -->
+  <xsd:include schemaLocation="../../netex_framework/netex_reusableComponents/netex_access_version.xsd"/>
+  <xsd:include schemaLocation="../../netex_framework/netex_genericFramework/netex_pointAndLink_version.xsd"/>
+  <!-- ==== MEETING POINT  ============================================================ -->
+  <xsd:complexType name="vehicleMeetingPointsInFrame_RelStructure">
+    <xsd:complexContent>
+      <xsd:extension base="containmentAggregationStructure">
+        <xsd:sequence>
+          <xsd:element ref="VehicleMeetingPoint" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:complexType name="vehicleMeetingPoints_RelStructure">
+    <xsd:complexContent>
+      <xsd:extension base="containmentAggregationStructure">
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element ref="VehicleMeetingPointRef"/>
+          <xsd:element ref="VehicleMeetingPoint"/>
+        </xsd:choice>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:element name="VehicleMeetingPoint" abstract="false" substitutionGroup="Point">
+    <xsd:complexType>
+      <xsd:complexContent>
+        <xsd:restriction base="VehicleMeetingPoint_VersionStructure">
+          <xsd:sequence>
+            <xsd:sequence>
+              <xsd:group ref="EntityInVersionGroup" minOccurs="0"/>
+            </xsd:sequence>
+            <xsd:sequence>
+              <xsd:group ref="DataManagedObjectGroup"/>
+            </xsd:sequence>
+            <xsd:sequence>
+              <xsd:group ref="PointGroup"/>
+            </xsd:sequence>
+            <xsd:sequence>
+              <xsd:group ref="VehicleMeetingPointGroup"/>
+            </xsd:sequence>
+          </xsd:sequence>
+          <xsd:attribute name="id" type="VehicleMeetingPointIdType" use="optional"/>
+        </xsd:restriction>
+      </xsd:complexContent>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:complexType name="VehicleMeetingPoint_VersionStructure" abstract="false">
+    <xsd:complexContent>
+      <xsd:extension base="Point_VersionStructure">
+        <xsd:sequence>
+          <xsd:group ref="VehicleMeetingPointGroup"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:group name="VehicleMeetingPointGroup">
+    <xsd:sequence/>
+  </xsd:group>
+  <!-- ===== MEETING LINK ======================================================= -->
+  <xsd:complexType name="vehicleMeetingLinksInFrame_RelStructure">
+    <xsd:complexContent>
+      <xsd:extension base="containmentAggregationStructure">
+        <xsd:sequence>
+          <xsd:element ref="VehicleMeetingLink" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:element name="VehicleMeetingLink" abstract="false" substitutionGroup="Link">
+    <xsd:complexType>
+      <xsd:complexContent>
+        <xsd:restriction base="VehicleMeetingLink_VersionStructure">
+          <xsd:sequence>
+            <xsd:sequence>
+              <xsd:group ref="EntityInVersionGroup" minOccurs="0"/>
+            </xsd:sequence>
+            <xsd:sequence>
+              <xsd:group ref="DataManagedObjectGroup"/>
+            </xsd:sequence>
+            <xsd:sequence>
+              <xsd:group ref="LinkGroup"/>
+            </xsd:sequence>
+            <xsd:sequence>
+              <xsd:group ref="VehicleMeetingLinkGroup"/>
+            </xsd:sequence>
+          </xsd:sequence>
+          <xsd:attribute name="id" type="VehicleMeetingLinkIdType"/>
+        </xsd:restriction>
+      </xsd:complexContent>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:complexType name="VehicleMeetingLink_VersionStructure" abstract="false">
+    <xsd:complexContent>
+      <xsd:extension base="Link_VersionStructure">
+        <xsd:sequence>
+          <xsd:group ref="VehicleMeetingLinkGroup"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:group name="VehicleMeetingLinkGroup">
+    <xsd:sequence>
+      <xsd:element name="FromPointRef" type="VehicleMeetingPointRefStructure"/>
+      <xsd:element name="ToPointRef" type="VehicleMeetingPointRefStructure"/>
+    </xsd:sequence>
+  </xsd:group>
+  <!-- ======================================================================= -->
+</xsd:schema>

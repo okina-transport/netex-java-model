@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns="http://www.netex.org.uk/netex" xmlns:netex="http://www.netex.org.uk/netex" xmlns:siri="http://www.siri.org.uk/siri" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.netex.org.uk/netex" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.2.2" id="netex_nm_mobilityServiceConstraintZone_version">
+  <xsd:include schemaLocation="../../netex_part_1/part1_ifopt/netex_ifopt_parking_support.xsd"/>
+  <xsd:include schemaLocation="../part5_rc/netex_nm_mobilityService_support.xsd"/>
+  <xsd:include schemaLocation="netex_nm_mobilityServiceConstraintZone_support.xsd"/>
+  <xsd:include schemaLocation="../../netex_framework/netex_reusableComponents/netex_vehicleType_support.xsd"/>
+  <!-- ======================================================================= -->
+  <xsd:include schemaLocation="../../netex_framework/netex_genericFramework/netex_zone_version.xsd"/>
+  <!-- ==== MOBILITY SERVICE CONSTRAINT ZONE.  ============================================================ -->
+  <xsd:group name="MobilityServiceConstraintsInFrameGroup">
+    <xsd:sequence>
+      <xsd:element name="mobilityServiceConstraintZones" type="mobilityServiceConstraintZonesInFrame_RelStructure" minOccurs="0"/>
+    </xsd:sequence>
+  </xsd:group>
+  <xsd:complexType name="mobilityServiceConstraintZonesInFrame_RelStructure">
+    <xsd:complexContent>
+      <xsd:extension base="containmentAggregationStructure">
+        <xsd:sequence>
+          <xsd:element ref="MobilityServiceConstraintZone" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:complexType name="mobilityServiceConstraintZones_RelStructure">
+    <xsd:complexContent>
+      <xsd:extension base="containmentAggregationStructure">
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element ref="MobilityServiceConstraintZoneRef"/>
+          <xsd:element ref="MobilityServiceConstraintZone"/>
+        </xsd:choice>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:element name="MobilityServiceConstraintZone" abstract="false" substitutionGroup="Zone">
+    <xsd:complexType>
+      <xsd:complexContent>
+        <xsd:restriction base="MobilityServiceConstraintZone_VersionStructure">
+          <xsd:sequence>
+            <xsd:sequence>
+              <xsd:group ref="EntityInVersionGroup" minOccurs="0"/>
+            </xsd:sequence>
+            <xsd:sequence>
+              <xsd:group ref="DataManagedObjectGroup"/>
+            </xsd:sequence>
+            <xsd:sequence>
+              <xsd:group ref="GroupOfEntitiesGroup"/>
+            </xsd:sequence>
+            <xsd:sequence>
+              <xsd:group ref="GroupOfPointsGroup"/>
+            </xsd:sequence>
+            <xsd:sequence>
+              <xsd:group ref="ZoneGroup"/>
+            </xsd:sequence>
+            <xsd:sequence>
+              <xsd:group ref="MobilityServiceConstraintZoneGroup"/>
+            </xsd:sequence>
+          </xsd:sequence>
+          <xsd:attribute name="id" type="MobilityServiceConstraintZoneIdType" use="optional"/>
+        </xsd:restriction>
+      </xsd:complexContent>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:complexType name="MobilityServiceConstraintZone_VersionStructure" abstract="false">
+    <xsd:complexContent>
+      <xsd:extension base="Zone_VersionStructure">
+        <xsd:sequence>
+          <xsd:group ref="MobilityServiceConstraintZoneGroup"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:group name="MobilityServiceConstraintZoneGroup">
+    <xsd:sequence>
+      <xsd:element name="RuleApplicability" type="ZoneRuleApplicabilityEnumeration" default="inside" minOccurs="0"/>
+      <xsd:element name="ZoneUse" type="TransportZoneUseEnumeration" minOccurs="0"/>
+      <xsd:element name="MaximumSpeed" type="SpeedType" minOccurs="0"/>
+      <xsd:element ref="MobilityServiceRef" minOccurs="0"/>
+      <xsd:element name="vehicleRestrictions" type="vehicleTypeZoneRestrictions_RelStructure" minOccurs="0"/>
+    </xsd:sequence>
+  </xsd:group>
+  <!-- ==== MOBILITY SERVICE CONSTRAINT ZONE.  ============================================================ -->
+  <xsd:complexType name="vehicleTypeZoneRestrictions_RelStructure">
+    <xsd:complexContent>
+      <xsd:extension base="containmentAggregationStructure">
+        <xsd:sequence minOccurs="0" maxOccurs="unbounded">
+          <xsd:element ref="VehicleTypeZoneRestriction" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:element name="VehicleTypeZoneRestriction" abstract="false" substitutionGroup="VersionedChild">
+    <xsd:complexType>
+      <xsd:complexContent>
+        <xsd:restriction base="VehicleTypeZoneRestriction_VersionStructure">
+          <xsd:sequence>
+            <xsd:sequence>
+              <xsd:group ref="EntityInVersionGroup" minOccurs="0"/>
+            </xsd:sequence>
+            <xsd:sequence>
+              <xsd:group ref="VersionedChildGroup"/>
+            </xsd:sequence>
+            <xsd:sequence>
+              <xsd:group ref="VehicleTypeZoneRestrictionGroup"/>
+            </xsd:sequence>
+          </xsd:sequence>
+          <xsd:attribute name="id" type="VehicleTypeZoneRestrictionIdType" use="optional"/>
+        </xsd:restriction>
+      </xsd:complexContent>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:complexType name="VehicleTypeZoneRestriction_VersionStructure" abstract="false">
+    <xsd:complexContent>
+      <xsd:extension base="VersionedChildStructure">
+        <xsd:sequence>
+          <xsd:group ref="VehicleTypeZoneRestrictionGroup"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:group name="VehicleTypeZoneRestrictionGroup">
+    <xsd:sequence>
+      <xsd:element name="ZoneUse" type="TransportZoneUseEnumeration" minOccurs="0"/>
+      <xsd:element name="MaximumSpeed" type="SpeedType" minOccurs="0"/>
+      <xsd:element ref="TransportTypeRef" minOccurs="0"/>
+    </xsd:sequence>
+  </xsd:group>
+  <!-- ======================================================================= -->
+  <!-- ==== POOL OF VEHICLEs  ============================================================ -->
+  <xsd:complexType name="poolOfVehicles_RelStructure">
+    <xsd:complexContent>
+      <xsd:extension base="containmentAggregationStructure">
+        <xsd:sequence minOccurs="0" maxOccurs="unbounded">
+          <xsd:element ref="PoolOfVehicles" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:element name="PoolOfVehicles" abstract="false" substitutionGroup="GroupOfEntities">
+    <xsd:complexType>
+      <xsd:complexContent>
+        <xsd:restriction base="PoolOfVehicles_VersionStructure">
+          <xsd:sequence>
+            <xsd:sequence>
+              <xsd:group ref="EntityInVersionGroup" minOccurs="0"/>
+            </xsd:sequence>
+            <xsd:sequence>
+              <xsd:group ref="DataManagedObjectGroup"/>
+            </xsd:sequence>
+            <xsd:sequence>
+              <xsd:group ref="GroupOfEntitiesGroup"/>
+            </xsd:sequence>
+            <xsd:sequence>
+              <xsd:group ref="PoolOfVehiclesGroup"/>
+            </xsd:sequence>
+          </xsd:sequence>
+          <xsd:attribute name="id" type="PoolOfVehiclesIdType" use="optional"/>
+        </xsd:restriction>
+      </xsd:complexContent>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:complexType name="PoolOfVehicles_VersionStructure" abstract="false">
+    <xsd:complexContent>
+      <xsd:extension base="GroupOfEntities_VersionStructure">
+        <xsd:sequence>
+          <xsd:group ref="PoolOfVehiclesGroup"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:group name="PoolOfVehiclesGroup">
+    <xsd:sequence>
+      <xsd:element ref="MobilityServiceRef" minOccurs="0"/>
+      <xsd:group ref="PoolOfVehiclesConstraintGroup"/>
+      <xsd:element name="vehicles" type="vehicleRefs_RelStructure" minOccurs="0"/>
+    </xsd:sequence>
+  </xsd:group>
+  <xsd:group name="PoolOfVehiclesConstraintGroup">
+    <xsd:sequence>
+      <xsd:element ref="MobilityServiceConstraintZoneRef" minOccurs="0"/>
+      <xsd:element ref="ParkingRef" minOccurs="0"/>
+      <xsd:element name="parkingComponents" type="parkingComponentRefs_RelStructure" minOccurs="0"/>
+      <xsd:element name="MustReturnToSameBay" type="xsd:boolean" minOccurs="0"/>
+    </xsd:sequence>
+  </xsd:group>
+  <!-- ======================================================================= -->
+</xsd:schema>

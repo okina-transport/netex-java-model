@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns="http://www.netex.org.uk/netex" xmlns:netex="http://www.netex.org.uk/netex" xmlns:siri="http://www.siri.org.uk/siri" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.netex.org.uk/netex" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.2.2" id="netex_nm_fleetEquipment_version">
+  <xsd:include schemaLocation="netex_nm_fleetEquipment_support.xsd"/>
+  <xsd:include schemaLocation="../netex_utility/netex_units.xsd"/>
+  <xsd:include schemaLocation="../netex_responsibility/netex_responsibility_version.xsd"/>
+  <!-- ======================================================================= -->
+  <!-- ===== MODEL PROFILE ======================================================== -->
+  <!-- ======  MODEL PROFILE ====================================== -->
+  <xsd:complexType name="vehicleModelProfilesInFrame_RelStructure">
+    <xsd:complexContent>
+      <xsd:extension base="containmentAggregationStructure">
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element ref="CarModelProfile"/>
+          <xsd:element ref="CycleModelProfile"/>
+        </xsd:choice>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:element name="VehicleModelProfile" abstract="true" substitutionGroup="DataManagedObject">
+    <xsd:complexType>
+      <xsd:complexContent>
+        <xsd:restriction base="VehicleModelProfile_VersionStructure">
+          <xsd:sequence>
+            <xsd:sequence>
+              <xsd:group ref="EntityInVersionGroup" minOccurs="0"/>
+            </xsd:sequence>
+            <xsd:sequence>
+              <xsd:group ref="DataManagedObjectGroup"/>
+            </xsd:sequence>
+            <xsd:sequence>
+              <xsd:group ref="VehicleModelProfileGroup"/>
+            </xsd:sequence>
+          </xsd:sequence>
+          <xsd:attribute name="id" type="VehicleModelProfileIdType"/>
+        </xsd:restriction>
+      </xsd:complexContent>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:complexType name="VehicleModelProfile_VersionStructure" abstract="true">
+    <xsd:complexContent>
+      <xsd:extension base="DataManagedObjectStructure">
+        <xsd:sequence>
+          <xsd:group ref="VehicleModelProfileGroup"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:group name="VehicleModelProfileGroup">
+    <xsd:sequence>
+      <xsd:element name="Name" type="MultilingualString" minOccurs="0"/>
+      <xsd:element name="NumberOfGears" type="xsd:nonNegativeInteger" minOccurs="0"/>
+      <xsd:element name="ChildSeat" type="ChildSeatEnumeration" minOccurs="0"/>
+      <xsd:element name="RangeBetweenRefuelling" type="DistanceType" minOccurs="0"/>
+      <xsd:element name="IsPortable" type="xsd:boolean" minOccurs="0"/>
+    </xsd:sequence>
+  </xsd:group>
+  <!-- =======CAR MODEL PROFILE================================================== -->
+  <xsd:element name="CarModelProfile" abstract="false" substitutionGroup="DataManagedObject">
+    <xsd:complexType>
+      <xsd:complexContent>
+        <xsd:restriction base="CarModelProfile_VersionStructure">
+          <xsd:sequence>
+            <xsd:sequence>
+              <xsd:group ref="EntityInVersionGroup" minOccurs="0"/>
+            </xsd:sequence>
+            <xsd:sequence>
+              <xsd:group ref="DataManagedObjectGroup"/>
+            </xsd:sequence>
+            <xsd:sequence>
+              <xsd:group ref="VehicleModelProfileGroup"/>
+            </xsd:sequence>
+            <xsd:sequence>
+              <xsd:group ref="CarModelProfileGroup"/>
+            </xsd:sequence>
+          </xsd:sequence>
+          <xsd:attribute name="id" type="CarModelProfileIdType"/>
+        </xsd:restriction>
+      </xsd:complexContent>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:complexType name="CarModelProfile_VersionStructure" abstract="false">
+    <xsd:complexContent>
+      <xsd:extension base="VehicleModelProfile_VersionStructure">
+        <xsd:sequence>
+          <xsd:group ref="CarModelProfileGroup"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:group name="CarModelProfileGroup">
+    <xsd:sequence>
+      <xsd:element name="Seats" type="xsd:nonNegativeInteger" minOccurs="0"/>
+      <xsd:element name="Doors" type="xsd:nonNegativeInteger" minOccurs="0"/>
+      <xsd:element name="Transmission" type="TransmissionEnumeration" minOccurs="0"/>
+      <xsd:element name="CruiseControl" type="xsd:boolean" minOccurs="0"/>
+      <xsd:element name="SatNav" type="xsd:boolean" minOccurs="0"/>
+      <xsd:element name="AirConditioning" type="xsd:boolean" minOccurs="0"/>
+      <xsd:element name="Convertible" type="xsd:boolean" minOccurs="0"/>
+      <xsd:element name="UsbPowerSockets" type="xsd:boolean" minOccurs="0"/>
+      <xsd:element name="WinterTyres" type="xsd:boolean" default="false" minOccurs="0"/>
+      <xsd:element name="Chains" type="xsd:boolean" default="false" minOccurs="0"/>
+      <xsd:element name="TrailerHitch" type="xsd:boolean" default="false" minOccurs="0"/>
+      <xsd:element name="RoofRack" type="xsd:boolean" default="false" minOccurs="0"/>
+      <xsd:element name="CycleRack" type="xsd:boolean" default="false" minOccurs="0"/>
+      <xsd:element name="SkiRack" type="xsd:boolean" default="false" minOccurs="0"/>
+    </xsd:sequence>
+  </xsd:group>
+  <!-- ======= CYCLE MODEL PROFILE================================================== -->
+  <xsd:element name="CycleModelProfile" substitutionGroup="DataManagedObject">
+    <xsd:complexType>
+      <xsd:complexContent>
+        <xsd:restriction base="CycleModelProfile_VersionStructure">
+          <xsd:sequence>
+            <xsd:sequence>
+              <xsd:group ref="EntityInVersionGroup" minOccurs="0"/>
+            </xsd:sequence>
+            <xsd:sequence>
+              <xsd:group ref="DataManagedObjectGroup"/>
+            </xsd:sequence>
+            <xsd:sequence>
+              <xsd:group ref="VehicleModelProfileGroup"/>
+            </xsd:sequence>
+            <xsd:sequence>
+              <xsd:group ref="CycleModelProfileGroup"/>
+            </xsd:sequence>
+          </xsd:sequence>
+          <xsd:attribute name="id" type="CycleModelProfileIdType"/>
+        </xsd:restriction>
+      </xsd:complexContent>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:complexType name="CycleModelProfile_VersionStructure" abstract="false">
+    <xsd:complexContent>
+      <xsd:extension base="VehicleModelProfile_VersionStructure">
+        <xsd:sequence>
+          <xsd:group ref="CycleModelProfileGroup"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:group name="CycleModelProfileGroup">
+    <xsd:sequence>
+      <xsd:element name="GearTypeDescriotion" type="MultilingualString" minOccurs="0"/>
+      <xsd:element name="Battery" type="xsd:boolean" minOccurs="0"/>
+      <xsd:element name="Lamps" type="xsd:boolean" minOccurs="0"/>
+      <xsd:element name="Helmet" type="xsd:boolean" minOccurs="0"/>
+      <xsd:element name="Pump" type="xsd:boolean" minOccurs="0"/>
+      <xsd:element name="Locker" type="xsd:boolean" minOccurs="0"/>
+      <xsd:element name="Basket" type="xsd:boolean" minOccurs="0"/>
+      <xsd:element name="Lock" type="xsd:boolean" minOccurs="0"/>
+    </xsd:sequence>
+  </xsd:group>
+  <!-- ======================================================================= -->
+</xsd:schema>

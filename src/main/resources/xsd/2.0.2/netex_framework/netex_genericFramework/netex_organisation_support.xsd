@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:core="http://www.govtalk.gov.uk/core" xmlns="http://www.netex.org.uk/netex" targetNamespace="http://www.netex.org.uk/netex" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.2.2" id="netex_organisation_support">
+  <xsd:include schemaLocation="../netex_responsibility/netex_responsibility_support.xsd"/>
+  <xsd:include schemaLocation="../netex_responsibility/netex_relationship_support.xsd"/>
+  <xsd:include schemaLocation="../netex_utility/netex_utility_contact.xsd"/>
+  <xsd:include schemaLocation="netex_zone_support.xsd"/>
+  <!-- ======= DEPARTMENT ==================================================== -->
+  <xsd:complexType name="departmentRefs_RelStructure">
+    <xsd:complexContent>
+      <xsd:extension base="oneToManyRelationshipStructure">
+        <xsd:sequence>
+          <xsd:element ref="DepartmentRef" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:complexType name="DepartmentRefStructure">
+    <xsd:simpleContent>
+      <xsd:restriction base="OrganisationPartRefStructure">
+        <xsd:attribute name="ref" type="DepartmentIdType" use="required"/>
+      </xsd:restriction>
+    </xsd:simpleContent>
+  </xsd:complexType>
+  <xsd:simpleType name="DepartmentIdType">
+    <xsd:restriction base="OrganisationPartIdType"/>
+  </xsd:simpleType>
+  <xsd:element name="DepartmentRef" type="DepartmentRefStructure" substitutionGroup="OrganisationPartRef"/>
+  <!-- ======= ORGANISATIIONAL UNIT ================================================= -->
+  <xsd:complexType name="organisationalUnitRefs_RelStructure">
+    <xsd:complexContent>
+      <xsd:extension base="oneToManyRelationshipStructure">
+        <xsd:sequence>
+          <xsd:element ref="OrganisationalUnitRef" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:complexType name="OrganisationalUnitRefStructure">
+    <xsd:simpleContent>
+      <xsd:restriction base="OrganisationPartRefStructure">
+        <xsd:attribute name="ref" type="OrganisationalUnitIdType" use="required"/>
+      </xsd:restriction>
+    </xsd:simpleContent>
+  </xsd:complexType>
+  <xsd:simpleType name="OrganisationalUnitIdType">
+    <xsd:restriction base="OrganisationPartIdType"/>
+  </xsd:simpleType>
+  <xsd:element name="OrganisationalUnitRef" type="OrganisationalUnitRefStructure" substitutionGroup="OrganisationPartRef"/>
+  <!-- ======== ADMINISTRATIVE ZONE ============================================ -->
+  <xsd:complexType name="administrativeZoneRefs_RelStructure">
+    <xsd:complexContent>
+      <xsd:extension base="oneToManyRelationshipStructure">
+        <xsd:sequence>
+          <xsd:element ref="AdministrativeZoneRef" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:simpleType name="AdministrativeZoneIdType">
+    <xsd:restriction base="ZoneIdType"/>
+  </xsd:simpleType>
+  <xsd:element name="AdministrativeZoneRef" substitutionGroup="ZoneRef">
+    <xsd:complexType>
+      <xsd:complexContent>
+        <xsd:extension base="AdministrativeZoneRefStructure"/>
+      </xsd:complexContent>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:complexType name="AdministrativeZoneRefStructure">
+    <xsd:complexContent>
+      <xsd:extension base="ZoneRefStructure"/>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <!-- ======== CODESPACE ASSIGNMENT =============================================== -->
+  <xsd:simpleType name="CodespaceAssignmentIdType">
+    <xsd:restriction base="ObjectIdType"/>
+  </xsd:simpleType>
+  <xsd:element name="CodespaceAssignmentRef" type="CodespaceAssignmentIdType"/>
+  <!-- ====== TYPE OF CODESPACE ASSIGNMENT   ======================= -->
+  <xsd:simpleType name="TypeOfCodespaceAssignmentIdType">
+    <xsd:restriction base="TypeOfValueIdType"/>
+  </xsd:simpleType>
+  <xsd:element name="TypeOfCodespaceAssignmentRef" type="TypeOfCodespaceAssignmentRefStructure" substitutionGroup="TypeOfValueRef"/>
+  <xsd:complexType name="TypeOfCodespaceAssignmentRefStructure">
+    <xsd:simpleContent>
+      <xsd:restriction base="TypeOfValueRefStructure">
+        <xsd:attribute name="ref" type="TypeOfCodespaceAssignmentIdType" use="required"/>
+      </xsd:restriction>
+    </xsd:simpleContent>
+  </xsd:complexType>
+  <!-- ====== TYPE OF ORGANISATION =========================================== -->
+  <xsd:complexType name="typeOfOrganisationRefs_RelStructure">
+    <xsd:complexContent>
+      <xsd:extension base="oneToManyRelationshipStructure">
+        <xsd:sequence>
+          <xsd:element ref="TypeOfOrganisationRef" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:simpleType name="TypeOfOrganisationIdType">
+    <xsd:restriction base="TypeOfValueIdType"/>
+  </xsd:simpleType>
+  <xsd:element name="TypeOfOrganisationRef" type="TypeOfOrganisationRefStructure" substitutionGroup="TypeOfEntityRef"/>
+  <xsd:complexType name="TypeOfOrganisationRefStructure">
+    <xsd:simpleContent>
+      <xsd:restriction base="TypeOfValueRefStructure">
+        <xsd:attribute name="ref" type="TypeOfOrganisationIdType" use="required"/>
+      </xsd:restriction>
+    </xsd:simpleContent>
+  </xsd:complexType>
+  <!-- ====== TYPE OF ORGANISATION PART ========================================= -->
+  <xsd:simpleType name="TypeOfOrganisationPartIdType">
+    <xsd:restriction base="TypeOfValueIdType"/>
+  </xsd:simpleType>
+  <xsd:element name="TypeOfOrganisationPartRef" substitutionGroup="TypeOfEntityRef">
+    <xsd:complexType>
+      <xsd:simpleContent>
+        <xsd:restriction base="TypeOfOrganisationPartRefStructure">
+          <xsd:attribute name="ref" type="TypeOfOrganisationPartIdType" use="required"/>
+        </xsd:restriction>
+      </xsd:simpleContent>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:complexType name="TypeOfOrganisationPartRefStructure">
+    <xsd:simpleContent>
+      <xsd:restriction base="TypeOfValueRefStructure">
+        <xsd:attribute name="ref" type="TypeOfOrganisationPartIdType" use="required"/>
+      </xsd:restriction>
+    </xsd:simpleContent>
+  </xsd:complexType>
+  <!-- ======= TYPE OF OPERATION =========================================== -->
+  <xsd:simpleType name="TypeOfOperationIdType">
+    <xsd:restriction base="TypeOfValueIdType"/>
+  </xsd:simpleType>
+  <xsd:element name="TypeOfOperationRef" type="TypeOfOperationRefStructure" substitutionGroup="TypeOfValueRef"/>
+  <xsd:complexType name="TypeOfOperationRefStructure">
+    <xsd:simpleContent>
+      <xsd:restriction base="TypeOfValueRefStructure">
+        <xsd:attribute name="ref" type="TypeOfOperationIdType" use="required"/>
+      </xsd:restriction>
+    </xsd:simpleContent>
+  </xsd:complexType>
+  <!-- ======================================================================= -->
+  <xsd:simpleType name="OrganisationTypeEnumeration">
+    <xsd:restriction base="xsd:NMTOKEN">
+      <xsd:enumeration value="authority"/>
+      <xsd:enumeration value="operator"/>
+      <xsd:enumeration value="railOperator"/>
+      <xsd:enumeration value="railFreightOperator"/>
+      <xsd:enumeration value="statutoryBody"/>
+      <xsd:enumeration value="facilityOperator"/>
+      <xsd:enumeration value="travelAgent"/>
+      <xsd:enumeration value="servicedOrganisation"/>
+      <xsd:enumeration value="retailConsortium"/>
+      <xsd:enumeration value="alternativeModeOperator"/>
+      <xsd:enumeration value="onlineProvider"/>
+      <xsd:enumeration value="other"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+  <!-- ======================================================================= -->
+  <xsd:simpleType name="RelatedOrganisationIdType">
+    <xsd:restriction base="ObjectIdType"/>
+  </xsd:simpleType>
+  <xsd:simpleType name="OrganisationRoleEnumeration">
+    <xsd:restriction base="xsd:NMTOKEN">
+      <xsd:enumeration value="subsidiary"/>
+      <xsd:enumeration value="owner"/>
+      <xsd:enumeration value="collaborator"/>
+      <xsd:enumeration value="contractIssuer"/>
+      <xsd:enumeration value="subcontractor"/>
+      <xsd:enumeration value="regulator"/>
+      <xsd:enumeration value="statutoryResponsibility"/>
+      <xsd:enumeration value="distributor"/>
+      <xsd:enumeration value="supplier"/>
+      <xsd:enumeration value="other"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+  <!-- ===== CONTACT ======================================================== -->
+  <xsd:complexType name="contactRefs_RelStructure">
+    <xsd:complexContent>
+      <xsd:extension base="oneToManyRelationshipStructure">
+        <xsd:sequence>
+          <xsd:element ref="ContactRef" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:simpleType name="ContactIdType">
+    <xsd:restriction base="ObjectIdType"/>
+  </xsd:simpleType>
+  <xsd:element name="ContactRef" type="ContactRefStructure" substitutionGroup="VersionOfObjectRef"/>
+  <xsd:complexType name="ContactRefStructure">
+    <xsd:simpleContent>
+      <xsd:restriction base="VersionOfObjectRefStructure">
+        <xsd:attribute name="ref" type="ContactIdType" use="required"/>
+      </xsd:restriction>
+    </xsd:simpleContent>
+  </xsd:complexType>
+  <xsd:simpleType name="ContactTypeEnumeration">
+    <xsd:restriction base="xsd:NMTOKEN">
+      <xsd:enumeration value="any"/>
+      <xsd:enumeration value="information"/>
+      <xsd:enumeration value="reservations"/>
+      <xsd:enumeration value="lostProperty"/>
+      <xsd:enumeration value="publicRelations"/>
+      <xsd:enumeration value="complaints"/>
+      <xsd:enumeration value="emergency"/>
+      <xsd:enumeration value="other"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+  <xsd:complexType name="ContactStructure">
+    <xsd:complexContent>
+      <xsd:extension base="ContactDetailsStructure">
+        <xsd:sequence>
+          <xsd:element ref="ContactRef" minOccurs="0"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <!-- ======================================================================= -->
+</xsd:schema>

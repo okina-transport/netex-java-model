@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns="http://www.netex.org.uk/netex" xmlns:netex="http://www.netex.org.uk/netex" xmlns:siri="http://www.siri.org.uk/siri" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:gml="http://www.opengis.net/gml/3.2" targetNamespace="http://www.netex.org.uk/netex" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.10" id="netex_individualTraveller_version">
+  <xsd:include schemaLocation="netex_nm_individualTraveller_support.xsd"/>
+  <xsd:include schemaLocation="../../netex_framework/netex_reusableComponents/netex_facility_support.xsd"/>
+  <xsd:include schemaLocation="../../netex_part_3/part3_salesTransactions/netex_salesContract_support.xsd"/>
+  <xsd:include schemaLocation="../../netex_framework/netex_reusableComponents/netex_vehicleType_support.xsd"/>
+  <xsd:include schemaLocation="../../netex_framework/netex_responsibility/netex_responsibility_version.xsd"/>
+  <!-- ======================================================================= -->
+  <!-- === ENTIITY IN VERSION IN FRAME= === ================================================== -->
+  <xsd:group name="IndividualTravellersInFrameGroup">
+    <xsd:sequence>
+      <xsd:element name="individualTravellers" type="individualTravellersInFrame_RelStructure" minOccurs="0"/>
+    </xsd:sequence>
+  </xsd:group>
+  <xsd:complexType name="individualTravellersInFrame_RelStructure">
+    <xsd:complexContent>
+      <xsd:extension base="frameContainmentStructure">
+        <xsd:sequence>
+          <xsd:element ref="IndividualTraveller" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <!-- === INDIVIDUAL TRAVELLER  ================================================= -->
+  <xsd:complexType name="individualTravellers_RelStructure">
+    <xsd:complexContent>
+      <xsd:extension base="containmentAggregationStructure">
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element ref="IndividualTravellerRef"/>
+          <xsd:element ref="IndividualTraveller"/>
+        </xsd:choice>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:element name="IndividualTraveller" abstract="false" substitutionGroup="DataManagedObject">
+    <xsd:complexType>
+      <xsd:complexContent>
+        <xsd:restriction base="IndividualTraveller_VersionStructure">
+          <xsd:sequence>
+            <xsd:sequence>
+              <xsd:group ref="EntityInVersionGroup" minOccurs="0"/>
+            </xsd:sequence>
+            <xsd:sequence>
+              <xsd:group ref="DataManagedObjectGroup"/>
+            </xsd:sequence>
+            <xsd:sequence>
+              <xsd:group ref="IndividualTravellerGroup"/>
+            </xsd:sequence>
+          </xsd:sequence>
+          <xsd:attribute name="id" type="IndividualTravellerIdType"/>
+        </xsd:restriction>
+      </xsd:complexContent>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:complexType name="IndividualTraveller_VersionStructure">
+    <xsd:complexContent>
+      <xsd:extension base="DataManagedObjectStructure">
+        <xsd:sequence>
+          <xsd:group ref="IndividualTravellerGroup"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:group name="IndividualTravellerGroup">
+    <xsd:sequence>
+      <xsd:element name="Name" type="MultilingualString" minOccurs="0"/>
+      <xsd:element ref="CustomerRef" minOccurs="0"/>
+      <xsd:element name="IdentityVerified" type="xsd:boolean" minOccurs="0"/>
+      <xsd:element name="Ranking" type="xsd:integer" minOccurs="0"/>
+      <xsd:element name="Gender" type="GenderEnumeration" minOccurs="0"/>
+      <xsd:element name="Talkative" type="xsd:boolean" minOccurs="0"/>
+      <xsd:element name="Smoker" type="xsd:boolean" minOccurs="0"/>
+      <xsd:element name="Languages" type="LanguageListOfEnumerations" minOccurs="0"/>
+      <xsd:element name="vehiclePoolingDriverInfos" type="vehiclePoolingDriverInfos_RelStructure" minOccurs="0"/>
+      <xsd:element name="individualPassengerInfos" type="individualPassengerInfos_RelStructure" minOccurs="0"/>
+    </xsd:sequence>
+  </xsd:group>
+  <!-- === VEHICLE POOLING DRIVER INFO. ================================================= -->
+  <xsd:complexType name="vehiclePoolingDriverInfos_RelStructure">
+    <xsd:complexContent>
+      <xsd:extension base="containmentAggregationStructure">
+        <xsd:sequence>
+          <xsd:element ref="VehiclePoolingDriverInfo" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:element name="VehiclePoolingDriverInfo" abstract="false" substitutionGroup="DataManagedObject">
+    <xsd:complexType>
+      <xsd:complexContent>
+        <xsd:restriction base="VehiclePoolingDriverInfo_VersionStructure">
+          <xsd:sequence>
+            <xsd:sequence>
+              <xsd:group ref="EntityInVersionGroup" minOccurs="0"/>
+            </xsd:sequence>
+            <xsd:sequence>
+              <xsd:group ref="DataManagedObjectGroup"/>
+            </xsd:sequence>
+            <xsd:sequence>
+              <xsd:group ref="VehiclePoolingDriverInfoGroup"/>
+            </xsd:sequence>
+          </xsd:sequence>
+          <xsd:attribute name="id" type="VehiclePoolingDriverInfoIdType"/>
+        </xsd:restriction>
+      </xsd:complexContent>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:complexType name="VehiclePoolingDriverInfo_VersionStructure">
+    <xsd:complexContent>
+      <xsd:extension base="DataManagedObjectStructure">
+        <xsd:sequence>
+          <xsd:group ref="VehiclePoolingDriverInfoGroup"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:group name="VehiclePoolingDriverInfoGroup">
+    <xsd:sequence>
+      <xsd:element ref="IndividualTravellerRef" minOccurs="0"/>
+      <xsd:element name="Ranking" type="xsd:integer" minOccurs="0"/>
+      <xsd:element name="LastTripDate" type="xsd:dateTime" minOccurs="0"/>
+      <xsd:element name="CommentsAbout" type="MultilingualString" minOccurs="0"/>
+      <xsd:element name="TravellingWithPet" type="xsd:boolean" minOccurs="0"/>
+      <xsd:element name="DrivingLicenceVerified" type="xsd:boolean" minOccurs="0"/>
+      <xsd:element name="InsuranceVerified" type="xsd:boolean" minOccurs="0"/>
+      <xsd:element name="DrivingStyle" type="DrivingStyleEnumeration" minOccurs="0"/>
+      <xsd:element name="NumberOfProposedTrips" type="xsd:nonNegativeInteger" minOccurs="0"/>
+      <xsd:element name="NumberOfTravellersCarried" type="xsd:nonNegativeInteger" minOccurs="0"/>
+      <xsd:element ref="VehicleRef" minOccurs="0"/>
+    </xsd:sequence>
+  </xsd:group>
+  <!-- === INDIVIDUAL PASSENGER INFO. ================================================= -->
+  <xsd:complexType name="individualPassengerInfos_RelStructure">
+    <xsd:complexContent>
+      <xsd:extension base="containmentAggregationStructure">
+        <xsd:sequence>
+          <xsd:element ref="IndividualPassengerInfo" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:element name="IndividualPassengerInfo" abstract="false" substitutionGroup="DataManagedObject">
+    <xsd:complexType>
+      <xsd:complexContent>
+        <xsd:restriction base="IndividualPassengerInfo_VersionStructure">
+          <xsd:sequence>
+            <xsd:sequence>
+              <xsd:group ref="EntityInVersionGroup" minOccurs="0"/>
+            </xsd:sequence>
+            <xsd:sequence>
+              <xsd:group ref="DataManagedObjectGroup"/>
+            </xsd:sequence>
+            <xsd:sequence>
+              <xsd:group ref="IndividualPassengerInfoGroup"/>
+            </xsd:sequence>
+          </xsd:sequence>
+          <xsd:attribute name="id" type="IndividualPassengerInfoIdType"/>
+        </xsd:restriction>
+      </xsd:complexContent>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:complexType name="IndividualPassengerInfo_VersionStructure">
+    <xsd:complexContent>
+      <xsd:extension base="DataManagedObjectStructure">
+        <xsd:sequence>
+          <xsd:group ref="IndividualPassengerInfoGroup"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:group name="IndividualPassengerInfoGroup">
+    <xsd:sequence>
+      <xsd:element ref="IndividualTravellerRef" minOccurs="0"/>
+      <xsd:element name="Ranking" type="xsd:integer" minOccurs="0"/>
+      <xsd:element name="LastTripDate" type="xsd:dateTime" minOccurs="0"/>
+      <xsd:element name="CommentsAbout" type="MultilingualString" minOccurs="0"/>
+      <xsd:element name="TravellingWithPet" type="xsd:boolean" minOccurs="0"/>
+    </xsd:sequence>
+  </xsd:group>
+</xsd:schema>

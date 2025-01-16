@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:core="http://www.govtalk.gov.uk/core" xmlns="http://www.netex.org.uk/netex" xmlns:netex="http://www.netex.org.uk/netex" targetNamespace="http://www.netex.org.uk/netex" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.2.2" id="netex_nm_vehicleMeetingPlace_support">
+  <xsd:include schemaLocation="../../netex_framework/netex_reusableComponents/netex_topographicPlace_support.xsd"/>
+  <xsd:include schemaLocation="../../netex_part_1/part1_ifopt/netex_ifopt_parking_support.xsd"/>
+  <!-- ======================================================================= -->
+  <!-- ======================================================================= -->
+  <!-- ==== VEHICLE MEETING  PLACE ============================================ -->
+  <xsd:simpleType name="VehicleMeetingPlaceIdType">
+    <xsd:restriction base="AddressablePlaceIdType"/>
+  </xsd:simpleType>
+  <xsd:element name="VehicleMeetingPlaceRef" type="VehicleMeetingPlaceRefStructure" substitutionGroup="AddressablePlaceRef"/>
+  <xsd:complexType name="VehicleMeetingPlaceRefStructure">
+    <xsd:simpleContent>
+      <xsd:restriction base="AddressablePlaceRefStructure">
+        <xsd:attribute name="ref" type="AddressablePlaceIdType" use="required"/>
+      </xsd:restriction>
+    </xsd:simpleContent>
+  </xsd:complexType>
+  <!-- ==== VEHICLE MEETING  PLACE ============================================ -->
+  <xsd:simpleType name="VehiclePoolingMeetingPlaceIdType">
+    <xsd:restriction base="VehicleMeetingPlaceIdType"/>
+  </xsd:simpleType>
+  <xsd:element name="VehiclePoolingMeetingPlaceRef" type="VehiclePoolingMeetingPlaceRefStructure" substitutionGroup="VehicleMeetingPlaceRef"/>
+  <xsd:complexType name="VehiclePoolingMeetingPlaceRefStructure">
+    <xsd:simpleContent>
+      <xsd:restriction base="VehicleMeetingPlaceRefStructure">
+        <xsd:attribute name="ref" type="AddressablePlaceIdType" use="required"/>
+      </xsd:restriction>
+    </xsd:simpleContent>
+  </xsd:complexType>
+  <!-- ======================================================================= -->
+  <!-- ====  VEHICLE SHARING PARKING ================================================== -->
+  <xsd:simpleType name="VehicleSharingParkingAreaIdType">
+    <xsd:restriction base="ParkingAreaIdType"/>
+  </xsd:simpleType>
+  <xsd:element name="VehicleSharingParkingAreaRef" type="VehicleSharingParkingAreaRefStructure" substitutionGroup="ParkingAreaRef"/>
+  <xsd:complexType name="VehicleSharingParkingAreaRefStructure">
+    <xsd:simpleContent>
+      <xsd:restriction base="ParkingAreaRefStructure">
+        <xsd:attribute name="ref" type="VehicleSharingParkingAreaIdType" use="required"/>
+      </xsd:restriction>
+    </xsd:simpleContent>
+  </xsd:complexType>
+  <!-- ====  VEHICLE POOLING PARKING ================================================== -->
+  <xsd:simpleType name="VehiclePoolingParkingAreaIdType">
+    <xsd:restriction base="ParkingAreaIdType"/>
+  </xsd:simpleType>
+  <xsd:element name="VehiclePoolingParkingAreaRef" type="VehiclePoolingParkingAreaRefStructure" substitutionGroup="ParkingAreaRef"/>
+  <xsd:complexType name="VehiclePoolingParkingAreaRefStructure">
+    <xsd:simpleContent>
+      <xsd:restriction base="ParkingAreaRefStructure">
+        <xsd:attribute name="ref" type="VehiclePoolingParkingAreaIdType" use="required"/>
+      </xsd:restriction>
+    </xsd:simpleContent>
+  </xsd:complexType>
+  <!-- ====  VEHICLE SHARING PARKING ================================================== -->
+  <xsd:simpleType name="VehicleSharingParkingBayIdType">
+    <xsd:restriction base="ParkingBayIdType"/>
+  </xsd:simpleType>
+  <xsd:element name="VehicleSharingParkingBayRef" type="VehicleSharingParkingBayRefStructure" substitutionGroup="ParkingBayRef"/>
+  <xsd:complexType name="VehicleSharingParkingBayRefStructure">
+    <xsd:simpleContent>
+      <xsd:restriction base="ParkingBayRefStructure">
+        <xsd:attribute name="ref" type="VehicleSharingParkingBayIdType" use="required"/>
+      </xsd:restriction>
+    </xsd:simpleContent>
+  </xsd:complexType>
+  <!-- ====  VEHICLE POOLING PARKING ================================================== -->
+  <xsd:simpleType name="VehiclePoolingParkingBayIdType">
+    <xsd:restriction base="ParkingBayIdType"/>
+  </xsd:simpleType>
+  <xsd:element name="VehiclePoolingParkingBayRef" type="VehiclePoolingParkingBayRefStructure" substitutionGroup="ParkingBayRef"/>
+  <xsd:complexType name="VehiclePoolingParkingBayRefStructure">
+    <xsd:simpleContent>
+      <xsd:restriction base="ParkingBayRefStructure">
+        <xsd:attribute name="ref" type="VehiclePoolingParkingBayIdType" use="required"/>
+      </xsd:restriction>
+    </xsd:simpleContent>
+  </xsd:complexType>
+  <!-- ======================================================================= -->
+</xsd:schema>

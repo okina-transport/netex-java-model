@@ -1,0 +1,276 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns="http://www.netex.org.uk/netex" xmlns:netex="http://www.netex.org.uk/netex" xmlns:siri="http://www.siri.org.uk/siri" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.netex.org.uk/netex" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.2.2" id="netex_vehicleType_support">
+  <xsd:include schemaLocation="netex_equipment_support.xsd"/>
+  <!-- ======================================================================= -->
+  <!-- ==== VEHICLE TYPE ==================================================== -->
+  <xsd:complexType name="transportTypeRefs_RelStructure">
+    <xsd:complexContent>
+      <xsd:extension base="oneToManyRelationshipStructure">
+        <xsd:sequence>
+          <xsd:element ref="TransportTypeRef" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:simpleType name="TransportTypeIdType">
+    <xsd:restriction base="ObjectIdType"/>
+  </xsd:simpleType>
+  <xsd:element name="TransportTypeRef" type="TransportTypeRefStructure" substitutionGroup="VersionOfObjectRef"/>
+  <xsd:complexType name="TransportTypeRefStructure">
+    <xsd:simpleContent>
+      <xsd:restriction base="VersionOfObjectRefStructure">
+        <xsd:attribute name="ref" type="TransportTypeIdType" use="required"/>
+      </xsd:restriction>
+    </xsd:simpleContent>
+  </xsd:complexType>
+  <!-- ==== VEHICLE TYPE ==================================================== -->
+  <xsd:complexType name="vehicleTypeRefs_RelStructure">
+    <xsd:complexContent>
+      <xsd:extension base="oneToManyRelationshipStructure">
+        <xsd:sequence>
+          <xsd:element ref="VehicleTypeRef" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:simpleType name="VehicleTypeIdType">
+    <xsd:restriction base="TransportTypeIdType"/>
+  </xsd:simpleType>
+  <xsd:element name="VehicleTypeRef" type="VehicleTypeRefStructure" substitutionGroup="TransportTypeRef"/>
+  <xsd:complexType name="VehicleTypeRefStructure">
+    <xsd:simpleContent>
+      <xsd:restriction base="TransportTypeRefStructure">
+        <xsd:attribute name="ref" type="VehicleTypeIdType" use="required"/>
+      </xsd:restriction>
+    </xsd:simpleContent>
+  </xsd:complexType>
+  <!-- ==== VEHICLE TYPE ==================================================== -->
+  <xsd:complexType name="simpleVehicleTypeRefs_RelStructure">
+    <xsd:complexContent>
+      <xsd:extension base="oneToManyRelationshipStructure">
+        <xsd:sequence>
+          <xsd:element ref="SimpleVehicleTypeRef" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:simpleType name="SimpleVehicleTypeIdType">
+    <xsd:restriction base="TransportTypeIdType"/>
+  </xsd:simpleType>
+  <xsd:element name="SimpleVehicleTypeRef" type="SimpleVehicleTypeRefStructure" substitutionGroup="TransportTypeRef"/>
+  <xsd:complexType name="SimpleVehicleTypeRefStructure">
+    <xsd:simpleContent>
+      <xsd:restriction base="TransportTypeRefStructure">
+        <xsd:attribute name="ref" type="VehicleTypeIdType" use="required"/>
+      </xsd:restriction>
+    </xsd:simpleContent>
+  </xsd:complexType>
+  <!-- ===== VEHICLE REQUIREMENT ======================================================== -->
+  <xsd:simpleType name="VehicleRequirementIdType">
+    <xsd:restriction base="ObjectIdType"/>
+  </xsd:simpleType>
+  <xsd:element name="VehicleRequirementRef" type="VehicleRequirementRefStructure" substitutionGroup="VersionOfObjectRef"/>
+  <xsd:complexType name="VehicleRequirementRefStructure">
+    <xsd:simpleContent>
+      <xsd:restriction base="VersionOfObjectRefStructure">
+        <xsd:attribute name="ref" type="VehicleRequirementIdType" use="required"/>
+      </xsd:restriction>
+    </xsd:simpleContent>
+  </xsd:complexType>
+  <!-- ====== PASSENGER CARRYING REQUIREMENT ======================================= -->
+  <xsd:simpleType name="PassengerCarryingRequirementIdType">
+    <xsd:restriction base="VehicleRequirementIdType"/>
+  </xsd:simpleType>
+  <xsd:element name="PassengerCarryingRequirementRef" type="PassengerCarryingRequirementRefStructure" substitutionGroup="VehicleRequirementRef"/>
+  <xsd:complexType name="PassengerCarryingRequirementRefStructure">
+    <xsd:simpleContent>
+      <xsd:restriction base="VehicleRequirementRefStructure">
+        <xsd:attribute name="ref" type="PassengerCarryingRequirementIdType" use="required"/>
+      </xsd:restriction>
+    </xsd:simpleContent>
+  </xsd:complexType>
+  <!-- ======= PASSENGER CAPACITY =========================================== -->
+  <xsd:simpleType name="PassengerCapacityIdType">
+    <xsd:restriction base="ObjectIdType"/>
+  </xsd:simpleType>
+  <xsd:element name="PassengerCapacityRef" type="PassengerCapacityRefStructure" substitutionGroup="VersionOfObjectRef"/>
+  <xsd:complexType name="PassengerCapacityRefStructure">
+    <xsd:simpleContent>
+      <xsd:restriction base="VersionOfObjectRefStructure">
+        <xsd:attribute name="ref" type="PassengerCapacityIdType" use="required"/>
+      </xsd:restriction>
+    </xsd:simpleContent>
+  </xsd:complexType>
+  <!-- ===== VEHICLE MANOEVRING REQUIREMENT ================================================= -->
+  <xsd:simpleType name="VehicleManoeuvringRequirementIdType">
+    <xsd:restriction base="VehicleRequirementIdType"/>
+  </xsd:simpleType>
+  <xsd:element name="VehicleManoeuvringRequirementRef" type="VehicleManoeuvringRequirementRefStructure" substitutionGroup="VehicleRequirementRef"/>
+  <xsd:complexType name="VehicleManoeuvringRequirementRefStructure">
+    <xsd:simpleContent>
+      <xsd:restriction base="VehicleRequirementRefStructure">
+        <xsd:attribute name="ref" type="VehicleManoeuvringRequirementIdType" use="required"/>
+      </xsd:restriction>
+    </xsd:simpleContent>
+  </xsd:complexType>
+  <!-- ======= FACILITY REQUIREMENT =================================================== -->
+  <xsd:simpleType name="FacilityRequirementIdType">
+    <xsd:restriction base="VehicleRequirementIdType"/>
+  </xsd:simpleType>
+  <xsd:element name="FacilityRequirementRef" type="FacilityRequirementRefStructure" substitutionGroup="VehicleRequirementRef"/>
+  <xsd:complexType name="FacilityRequirementRefStructure">
+    <xsd:simpleContent>
+      <xsd:restriction base="VehicleRequirementRefStructure">
+        <xsd:attribute name="ref" type="FacilityRequirementIdType" use="required"/>
+      </xsd:restriction>
+    </xsd:simpleContent>
+  </xsd:complexType>
+  <!-- ====== VEHICLE ================================================== -->
+  <xsd:complexType name="vehicleRefs_RelStructure">
+    <xsd:complexContent>
+      <xsd:extension base="oneToManyRelationshipStructure">
+        <xsd:sequence>
+          <xsd:element ref="VehicleRef" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:simpleType name="VehicleIdType">
+    <xsd:restriction base="ObjectIdType"/>
+  </xsd:simpleType>
+  <xsd:element name="VehicleRef" type="VehicleRefStructure" substitutionGroup="VersionOfObjectRef"/>
+  <xsd:complexType name="VehicleRefStructure">
+    <xsd:simpleContent>
+      <xsd:restriction base="VersionOfObjectRefStructure">
+        <xsd:attribute name="ref" type="VehicleIdType" use="required"/>
+      </xsd:restriction>
+    </xsd:simpleContent>
+  </xsd:complexType>
+  <!-- ===== VEHICLE MODEL ======================================================= -->
+  <xsd:simpleType name="VehicleModelIdType">
+    <xsd:restriction base="ObjectIdType"/>
+  </xsd:simpleType>
+  <xsd:element name="VehicleModelRef" type="VehicleModelRefStructure" substitutionGroup="VersionOfObjectRef"/>
+  <xsd:complexType name="VehicleModelRefStructure">
+    <xsd:simpleContent>
+      <xsd:restriction base="VersionOfObjectRefStructure">
+        <xsd:attribute name="ref" type="VehicleModelIdType" use="required"/>
+      </xsd:restriction>
+    </xsd:simpleContent>
+  </xsd:complexType>
+  <!-- ======VEHICLE EQUIPMENT PROFILE ====================================================== -->
+  <xsd:complexType name="vehicleEquipmentProfileRefs_RelStructure">
+    <xsd:complexContent>
+      <xsd:extension base="oneToManyRelationshipStructure">
+        <xsd:sequence>
+          <xsd:element ref="VehicleEquipmentProfileRef" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:simpleType name="VehicleEquipmentProfileIdType">
+    <xsd:restriction base="ObjectIdType"/>
+  </xsd:simpleType>
+  <xsd:element name="VehicleEquipmentProfileRef" type="VehicleEquipmentProfileRefStructure" substitutionGroup="VersionOfObjectRef"/>
+  <xsd:complexType name="VehicleEquipmentProfileRefStructure">
+    <xsd:simpleContent>
+      <xsd:restriction base="VersionOfObjectRefStructure">
+        <xsd:attribute name="ref" type="VehicleEquipmentProfileIdType" use="required"/>
+      </xsd:restriction>
+    </xsd:simpleContent>
+  </xsd:complexType>
+  <!-- ======================================================================= -->
+  <xsd:simpleType name="FuelTypeEnumeration">
+    <xsd:restriction base="xsd:normalizedString">
+      <xsd:enumeration value="battery"/>
+      <xsd:enumeration value="biodiesel"/>
+      <xsd:enumeration value="diesel"/>
+      <xsd:enumeration value="dieselBatteryHybrid"/>
+      <xsd:enumeration value="electricContact"/>
+      <xsd:enumeration value="electricity"/>
+      <xsd:enumeration value="ethanol"/>
+      <xsd:enumeration value="hydrogen"/>
+      <xsd:enumeration value="liquidGas"/>
+      <xsd:enumeration value="tpg"/>
+      <xsd:enumeration value="methane"/>
+      <xsd:enumeration value="naturalGas"/>
+      <xsd:enumeration value="petrol"/>
+      <xsd:enumeration value="petrolBatteryHybrid"/>
+      <xsd:enumeration value="petrolLeaded"/>
+      <xsd:enumeration value="petrolUnleaded"/>
+      <xsd:enumeration value="none"/>
+      <xsd:enumeration value="other"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+  <xsd:simpleType name="PropulsionTypeEnumeration">
+    <xsd:restriction base="xsd:normalizedString">
+      <xsd:enumeration value="combustion"/>
+      <xsd:enumeration value="electric"/>
+      <xsd:enumeration value="electricAssist"/>
+      <xsd:enumeration value="hybrid"/>
+      <xsd:enumeration value="human"/>
+      <xsd:enumeration value="other"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+  <xsd:simpleType name="LicenceRequirementsEnumeration">
+    <xsd:restriction base="xsd:normalizedString">
+      <xsd:enumeration value="full"/>
+      <xsd:enumeration value="provisional"/>
+      <xsd:enumeration value="additional"/>
+      <xsd:enumeration value="none"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+  <xsd:simpleType name="VehicleOrientationEnumeration">
+    <xsd:restriction base="xsd:normalizedString">
+      <xsd:enumeration value="forwards"/>
+      <xsd:enumeration value="backwards"/>
+      <xsd:enumeration value="unknown"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+  <xsd:simpleType name="SimpleVehicleCategoryEnumeration">
+    <xsd:restriction base="xsd:normalizedString">
+      <xsd:enumeration value="scooter"/>
+      <xsd:enumeration value="cycle"/>
+      <xsd:enumeration value="tricycle"/>
+      <xsd:enumeration value="tandem"/>
+      <xsd:enumeration value="moped"/>
+      <xsd:enumeration value="motorcycle"/>
+      <xsd:enumeration value="quadbike"/>
+      <xsd:enumeration value="car"/>
+      <xsd:enumeration value="microCar"/>
+      <xsd:enumeration value="miniCar"/>
+      <xsd:enumeration value="smallCar"/>
+      <xsd:enumeration value="mediumCar"/>
+      <xsd:enumeration value="largeCar"/>
+      <xsd:enumeration value="minivan"/>
+      <xsd:enumeration value="transporter"/>
+      <xsd:enumeration value="van"/>
+      <xsd:enumeration value="snowmobile"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+  <!-- ===== VEHICLE PROFILE ======================================================== -->
+  <xsd:simpleType name="VehicleProfileIdType">
+    <xsd:restriction base="ObjectIdType"/>
+  </xsd:simpleType>
+  <xsd:element name="VehicleProfileRef" type="VehicleProfileRefStructure" substitutionGroup="VersionOfObjectRef"/>
+  <xsd:complexType name="VehicleProfileRefStructure">
+    <xsd:simpleContent>
+      <xsd:restriction base="VersionOfObjectRefStructure">
+        <xsd:attribute name="ref" type="VehicleProfileIdType" use="required"/>
+      </xsd:restriction>
+    </xsd:simpleContent>
+  </xsd:complexType>
+  <!--==== PURPOSE OF EQUIPMENT =========================================================-->
+  <xsd:simpleType name="PurposeOfEquipmentProfileIdType">
+    <xsd:restriction base="TypeOfValueIdType"/>
+  </xsd:simpleType>
+  <xsd:element name="PurposeOfEquipmentProfileRef" type="PurposeOfEquipmentProfileRefStructure" abstract="false" substitutionGroup="TypeOfValueRef"/>
+  <xsd:complexType name="PurposeOfEquipmentProfileRefStructure" abstract="false">
+    <xsd:simpleContent>
+      <xsd:restriction base="TypeOfValueRefStructure">
+        <xsd:attribute name="ref" type="PurposeOfEquipmentProfileIdType" use="required"/>
+      </xsd:restriction>
+    </xsd:simpleContent>
+  </xsd:complexType>
+  <!-- ======================================================================= -->
+</xsd:schema>

@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:core="http://www.govtalk.gov.uk/core" xmlns="http://www.netex.org.uk/netex" xmlns:netex="http://www.netex.org.uk/netex" targetNamespace="http://www.netex.org.uk/netex" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.2.2" id="netex_mediumApplication_support">
+  <xsd:include schemaLocation="../../netex_framework/netex_reusableComponents/netex_securityList_support.xsd"/>
+  <!-- ======================================================================= -->
+  <!-- ======================================================================= -->
+  <!-- ====  MEDIUM ACCESS DEVICE ============================================ -->
+  <xsd:complexType name="mediumAccessDeviceRefs_RelStructure">
+    <xsd:complexContent>
+      <xsd:extension base="oneToManyRelationshipStructure">
+        <xsd:sequence>
+          <xsd:element ref="MediumAccessDeviceRef"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:simpleType name="MediumAccessDeviceIdType">
+    <xsd:restriction base="ObjectIdType"/>
+  </xsd:simpleType>
+  <xsd:element name="MediumAccessDeviceRef" type="MediumAccessDeviceRefStructure" abstract="true" substitutionGroup="VersionOfObjectRef"/>
+  <xsd:complexType name="MediumAccessDeviceRefStructure">
+    <xsd:simpleContent>
+      <xsd:restriction base="VersionOfObjectRefStructure">
+        <xsd:attribute name="ref" type="MediumAccessDeviceIdType" use="required"/>
+      </xsd:restriction>
+    </xsd:simpleContent>
+  </xsd:complexType>
+  <!-- ==== SMARTCARD  ============================================ -->
+  <xsd:simpleType name="SmartcardIdType">
+    <xsd:restriction base="MediumAccessDeviceIdType"/>
+  </xsd:simpleType>
+  <xsd:element name="SmartcardRef" type="SmartcardRefStructure" substitutionGroup="MediumAccessDeviceRef"/>
+  <xsd:complexType name="SmartcardRefStructure">
+    <xsd:simpleContent>
+      <xsd:restriction base="MediumAccessDeviceRefStructure">
+        <xsd:attribute name="ref" type="SmartcardIdType" use="required"/>
+      </xsd:restriction>
+    </xsd:simpleContent>
+  </xsd:complexType>
+  <!-- ==== EMV CARD  ============================================ -->
+  <xsd:simpleType name="EmvCardIdType">
+    <xsd:restriction base="MediumAccessDeviceIdType"/>
+  </xsd:simpleType>
+  <xsd:element name="EmvCardRef" type="EmvCardRefStructure" substitutionGroup="MediumAccessDeviceRef"/>
+  <xsd:complexType name="EmvCardRefStructure">
+    <xsd:simpleContent>
+      <xsd:restriction base="MediumAccessDeviceRefStructure">
+        <xsd:attribute name="ref" type="EmvCardIdType" use="required"/>
+      </xsd:restriction>
+    </xsd:simpleContent>
+  </xsd:complexType>
+  <!-- ==== MOBILE DEVICE  ============================================ -->
+  <xsd:simpleType name="MobileDeviceIdType">
+    <xsd:restriction base="MediumAccessDeviceIdType"/>
+  </xsd:simpleType>
+  <xsd:element name="MobileDeviceRef" type="MobileDeviceRefStructure" substitutionGroup="MediumAccessDeviceRef"/>
+  <xsd:complexType name="MobileDeviceRefStructure">
+    <xsd:simpleContent>
+      <xsd:restriction base="MediumAccessDeviceRefStructure">
+        <xsd:attribute name="ref" type="MobileDeviceIdType" use="required"/>
+      </xsd:restriction>
+    </xsd:simpleContent>
+  </xsd:complexType>
+  <!-- ====  MEDIUM APPLICATION INSTANCE ============================================ -->
+  <xsd:complexType name="mediumApplicationInstanceRefs_RelStructure">
+    <xsd:complexContent>
+      <xsd:extension base="oneToManyRelationshipStructure">
+        <xsd:sequence>
+          <xsd:element ref="MediumApplicationInstanceRef"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:simpleType name="MediumApplicationInstanceIdType">
+    <xsd:restriction base="ObjectIdType"/>
+  </xsd:simpleType>
+  <xsd:element name="MediumApplicationInstanceRef" type="MediumApplicationInstanceRefStructure" substitutionGroup="VersionOfObjectRef"/>
+  <xsd:complexType name="MediumApplicationInstanceRefStructure">
+    <xsd:simpleContent>
+      <xsd:restriction base="VersionOfObjectRefStructure">
+        <xsd:attribute name="ref" type="MediumApplicationInstanceIdType" use="required"/>
+      </xsd:restriction>
+    </xsd:simpleContent>
+  </xsd:complexType>
+  <!-- ==== TYPE OF MEDIUM ACCESS DEVICE. ================================================== -->
+  <xsd:simpleType name="TypeOfMediumAccessDeviceIdType">
+    <xsd:restriction base="TypeOfValueIdType"/>
+  </xsd:simpleType>
+  <xsd:element name="TypeOfMediumAccessDeviceRef" type="TypeOfMediumAccessDeviceRefStructure" abstract="false" substitutionGroup="TypeOfValueRef"/>
+  <xsd:complexType name="TypeOfMediumAccessDeviceRefStructure" abstract="false">
+    <xsd:simpleContent>
+      <xsd:restriction base="TypeOfValueRefStructure">
+        <xsd:attribute name="ref" type="TypeOfMediumAccessDeviceIdType" use="required"/>
+      </xsd:restriction>
+    </xsd:simpleContent>
+  </xsd:complexType>
+  <!-- ====  MEDIUM ACCESS DEVICE SECURITY LISTING .======================================================== -->
+  <xsd:complexType name="mediumAccessDeviceSecurityListingRefs_RelStructure">
+    <xsd:complexContent>
+      <xsd:extension base="oneToManyRelationshipStructure">
+        <xsd:sequence>
+          <xsd:element ref="MediumAccessDeviceSecurityListingRef" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:simpleType name="MediumAccessDeviceSecurityListingIdType">
+    <xsd:restriction base="SecurityListingIdType"/>
+  </xsd:simpleType>
+  <xsd:element name="MediumAccessDeviceSecurityListingRef" type="MediumAccessDeviceSecurityListingRefStructure" substitutionGroup="SecurityListingRef"/>
+  <xsd:complexType name="MediumAccessDeviceSecurityListingRefStructure">
+    <xsd:simpleContent>
+      <xsd:restriction base="SecurityListingRefStructure">
+        <xsd:attribute name="ref" type="MediumAccessDeviceSecurityListingIdType" use="required"/>
+      </xsd:restriction>
+    </xsd:simpleContent>
+  </xsd:complexType>
+  <!-- ======================================================================= -->
+</xsd:schema>

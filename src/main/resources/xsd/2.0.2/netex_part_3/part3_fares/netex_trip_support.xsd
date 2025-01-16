@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns="http://www.netex.org.uk/netex" xmlns:netex="http://www.netex.org.uk/netex" xmlns:siri="http://www.siri.org.uk/siri" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.netex.org.uk/netex" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.2.2" id="netex_trip_support">
+  <xsd:include schemaLocation="../../netex_framework/netex_genericFramework/netex_pointAndLinkSequence_support.xsd"/>
+  <!-- ======================================================================= -->
+  <!-- ===  TRIP PATTERN ====================================================== -->
+  <xsd:simpleType name="TripPatternIdType">
+    <xsd:restriction base="LinkSequenceIdType"/>
+  </xsd:simpleType>
+  <xsd:element name="TripPatternTripRef" type="TripPatternRefStructure" substitutionGroup="LinkSequenceRef"/>
+  <xsd:complexType name="TripPatternRefStructure">
+    <xsd:simpleContent>
+      <xsd:restriction base="LinkSequenceRefStructure">
+        <xsd:attribute name="ref" type="TripPatternIdType" use="required"/>
+      </xsd:restriction>
+    </xsd:simpleContent>
+  </xsd:complexType>
+  <!-- ===  TRIP ====================================================== -->
+  <xsd:simpleType name="TripIdType">
+    <xsd:restriction base="LinkSequenceIdType"/>
+  </xsd:simpleType>
+  <xsd:element name="TripRef" type="TripRefStructure" substitutionGroup="LinkSequenceRef"/>
+  <xsd:complexType name="TripRefStructure">
+    <xsd:simpleContent>
+      <xsd:restriction base="LinkSequenceRefStructure">
+        <xsd:attribute name="ref" type="TripIdType" use="required"/>
+      </xsd:restriction>
+    </xsd:simpleContent>
+  </xsd:complexType>
+  <!-- ===  TRIP PATTERN ====================================================== -->
+  <xsd:simpleType name="TripLegIdType">
+    <xsd:restriction base="ObjectIdType"/>
+  </xsd:simpleType>
+  <xsd:element name="TripLegRef" type="TripLegRefStructure" substitutionGroup="VersionOfObjectRef"/>
+  <xsd:complexType name="TripLegRefStructure">
+    <xsd:complexContent>
+      <xsd:extension base="VersionOfObjectRefStructure"/>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <!-- === TRIP  P ====================================================== -->
+</xsd:schema>

@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns="http://www.netex.org.uk/netex" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:netex="http://www.netex.org.uk/netex" targetNamespace="http://www.netex.org.uk/netex" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.2.2" id="netex_nm_equipmentEnergy_support">
+  <xsd:include schemaLocation="netex_equipment_support.xsd"/>
+  <!-- ======================================================================= -->
+  <!-- ==== VEHICLE CHARGING EQUIPMENT =========================================== -->
+  <xsd:simpleType name="VehicleChargingEquipmentIdType">
+    <xsd:restriction base="EquipmentIdType"/>
+  </xsd:simpleType>
+  <xsd:element name="VehicleChargingEquipmentRef" type="VehicleChargingEquipmentRefStructure" substitutionGroup="EquipmentRef"/>
+  <xsd:complexType name="VehicleChargingEquipmentRefStructure">
+    <xsd:simpleContent>
+      <xsd:restriction base="EquipmentRefStructure">
+        <xsd:attribute name="ref" type="VehicleChargingEquipmentIdType" use="required"/>
+      </xsd:restriction>
+    </xsd:simpleContent>
+  </xsd:complexType>
+  <!-- =====REFUELLING EQUIPMENT =================================================== -->
+  <xsd:simpleType name="RefuellingEquipmentIdType">
+    <xsd:restriction base="EquipmentIdType"/>
+  </xsd:simpleType>
+  <xsd:element name="RefuellingEquipmentRef" type="RefuellingEquipmentRefStructure" substitutionGroup="EquipmentRef"/>
+  <xsd:complexType name="RefuellingEquipmentRefStructure">
+    <xsd:simpleContent>
+      <xsd:restriction base="EquipmentRefStructure">
+        <xsd:attribute name="ref" type="RefuellingEquipmentIdType" use="required"/>
+      </xsd:restriction>
+    </xsd:simpleContent>
+  </xsd:complexType>
+  <!-- =====BATTERY EQUIPMENT =================================================== -->
+  <xsd:simpleType name="BatteryEquipmentIdType">
+    <xsd:restriction base="EquipmentIdType"/>
+  </xsd:simpleType>
+  <xsd:element name="BatteryEquipmentRef" type="BatteryEquipmentRefStructure" substitutionGroup="EquipmentRef"/>
+  <xsd:complexType name="BatteryEquipmentRefStructure">
+    <xsd:simpleContent>
+      <xsd:restriction base="EquipmentRefStructure">
+        <xsd:attribute name="ref" type="BatteryEquipmentIdType" use="required"/>
+      </xsd:restriction>
+    </xsd:simpleContent>
+  </xsd:complexType>
+  <!-- =====TYPE OF BATTERY CHEMISTRY =================================================== -->
+  <xsd:simpleType name="TypeOfBatteryChemistryIdType">
+    <xsd:restriction base="TypeOfValueIdType"/>
+  </xsd:simpleType>
+  <xsd:element name="TypeOfBatteryChemistryRef" type="TypeOfBatteryChemistryRefStructure" abstract="false" substitutionGroup="TypeOfEntityRef"/>
+  <xsd:complexType name="TypeOfBatteryChemistryRefStructure">
+    <xsd:simpleContent>
+      <xsd:restriction base="TypeOfValueRefStructure">
+        <xsd:attribute name="ref" type="TypeOfBatteryChemistryIdType" use="required"/>
+      </xsd:restriction>
+    </xsd:simpleContent>
+  </xsd:complexType>
+  <!-- =====TYPE OF  PLUG =================================================== -->
+  <xsd:simpleType name="TypeOfPlugIdType">
+    <xsd:restriction base="TypeOfValueIdType"/>
+  </xsd:simpleType>
+  <xsd:element name="TypeOfPlugRef" type="TypeOfPlugRefStructure" abstract="false" substitutionGroup="TypeOfEntityRef"/>
+  <xsd:complexType name="TypeOfPlugRefStructure">
+    <xsd:simpleContent>
+      <xsd:restriction base="TypeOfValueRefStructure">
+        <xsd:attribute name="ref" type="TypeOfPlugIdType" use="required"/>
+      </xsd:restriction>
+    </xsd:simpleContent>
+  </xsd:complexType>
+  <!-- ======================================================================= -->
+  <xsd:simpleType name="PlugTypeEnumeration">
+    <xsd:restriction base="xsd:NMTOKEN">
+      <xsd:enumeration value="undefined"/>
+      <xsd:enumeration value="type1"/>
+      <xsd:enumeration value="type2"/>
+      <xsd:enumeration value="type3"/>
+      <xsd:enumeration value="typeE"/>
+      <xsd:enumeration value="typeF"/>
+      <xsd:enumeration value="typeG"/>
+      <xsd:enumeration value="typeJ"/>
+      <xsd:enumeration value="combinedChargingSystem"/>
+      <xsd:enumeration value="ccsCombo1Plug"/>
+      <xsd:enumeration value="ccsCombo2Plug"/>
+      <xsd:enumeration value="tesla"/>
+      <xsd:enumeration value="nema5-20"/>
+      <xsd:enumeration value="avcon"/>
+      <xsd:enumeration value="CHAdeMO"/>
+      <xsd:enumeration value="shockproof"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+  <xsd:simpleType name="CouplingTypeEnumeration">
+    <xsd:restriction base="xsd:NMTOKEN">
+      <xsd:enumeration value="undefined"/>
+      <xsd:enumeration value="plug"/>
+      <xsd:enumeration value="pantographABove"/>
+      <xsd:enumeration value="pantographABove"/>
+      <xsd:enumeration value="induction"/>
+      <xsd:enumeration value="other"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+  <xsd:simpleType name="CurrentTypeEnumeration">
+    <xsd:restriction base="xsd:NMTOKEN">
+      <xsd:enumeration value="undefined"/>
+      <xsd:enumeration value="1-PhaseAC"/>
+      <xsd:enumeration value="3-PhaseAC"/>
+      <xsd:enumeration value="DC"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+  <!-- ======================================================================= -->
+</xsd:schema>

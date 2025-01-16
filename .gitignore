@@ -10,4 +10,5 @@ buildNumber.properties
 profile
 .idea
 *.iml
-src/main/resources/xsd/
+src/main/resources/xsd/2.0.0
+src/main/resources/xsd/2.0.4

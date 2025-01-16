@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns="http://www.netex.org.uk/netex" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:netex="http://www.netex.org.uk/netex" targetNamespace="http://www.netex.org.uk/netex" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.2.2" id="netex_nm_chargingEquipmentProfile_version">
+  <xsd:include schemaLocation="netex_nm_chargingEquipmentProfile_support.xsd"/>
+  <xsd:include schemaLocation="netex_nm_equipmentEnergy_support.xsd"/>
+  <xsd:include schemaLocation="netex_vehicleType_version.xsd"/>
+  <!-- ======================================================================= -->
+  <!-- === VEHICLE CHARGING EQUIPMENT PROFILE ============================================ -->
+  <xsd:complexType name="chargingEquipmenProfilesInFrame_RelStructure">
+    <xsd:complexContent>
+      <xsd:extension base="containmentAggregationStructure">
+        <xsd:sequence>
+          <xsd:element ref="ChargingEquipmentProfile" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:element name="ChargingEquipmentProfile" substitutionGroup="DataManagedObject">
+    <xsd:complexType>
+      <xsd:complexContent>
+        <xsd:restriction base="ChargingEquipmentProfile_VersionStructure">
+          <xsd:sequence>
+            <xsd:sequence>
+              <xsd:group ref="EntityInVersionGroup" minOccurs="0"/>
+            </xsd:sequence>
+            <xsd:sequence>
+              <xsd:group ref="DataManagedObjectGroup"/>
+            </xsd:sequence>
+            <xsd:group ref="VehicleEquipmentProfileGroup"/>
+            <xsd:sequence>
+              <xsd:group ref="ChargingEquipmentProfileGroup"/>
+            </xsd:sequence>
+          </xsd:sequence>
+          <xsd:attribute name="id" type="ChargingEquipmentProfileIdType" use="optional"/>
+        </xsd:restriction>
+      </xsd:complexContent>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:complexType name="ChargingEquipmentProfile_VersionStructure" abstract="false">
+    <xsd:complexContent>
+      <xsd:extension base="VehicleEquipmentProfile_VersionStructure">
+        <xsd:sequence>
+          <xsd:group ref="ChargingEquipmentProfileGroup"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:group name="ChargingEquipmentProfileGroup">
+    <xsd:sequence>
+      <xsd:element name="CouplingType" type="CouplingTypeEnumeration" minOccurs="0"/>
+      <xsd:element name="PlugType" type="PlugTypeEnumeration" minOccurs="0"/>
+      <xsd:element ref="TypeOfPlugRef" minOccurs="0"/>
+      <xsd:element name="CurrentType" type="CurrentTypeEnumeration" minOccurs="0"/>
+      <xsd:element name="ChargingVoltage" type="VoltageType" minOccurs="0"/>
+      <xsd:element name="MaximumChargingPower" type="WattageType" minOccurs="0"/>
+      <xsd:element name="PreparationDuration" type="xsd:duration" minOccurs="0"/>
+      <xsd:element name="FinalisationDuration" type="xsd:duration" minOccurs="0"/>
+    </xsd:sequence>
+  </xsd:group>
+  <!-- ======================================================================= -->
+</xsd:schema>

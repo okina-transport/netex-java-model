@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns="http://www.netex.org.uk/netex" xmlns:netex="http://www.netex.org.uk/netex" xmlns:siri="http://www.siri.org.uk/siri" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.netex.org.uk/netex" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.2.2" id="netex_nm_singleJourneyService_version">
+  <xsd:include schemaLocation="netex_nm_singleJourneyPath_support.xsd"/>
+  <xsd:include schemaLocation="netex_nm_singleJourneyService_support.xsd"/>
+  <xsd:include schemaLocation="../../netex_framework/netex_reusableComponents/netex_vehicleType_support.xsd"/>
+  <xsd:include schemaLocation="../part5_rc/netex_nm_mobilityService_support.xsd"/>
+  <xsd:include schemaLocation="../../netex_part_2/part2_journeyTimes/netex_journey_version.xsd"/>
+  <xsd:include schemaLocation="../../netex_part_2/part2_journeyTimes/netex_datedPassingTimes_version.xsd"/>
+  <xsd:include schemaLocation="../../netex_framework/netex_reusableComponents/netex_serviceCalendar_version.xsd"/>
+  <xsd:include schemaLocation="../part5_nd/netex_nm_vehicleMeetingPointAssignment_version.xsd"/>
+  <!-- ======================================================================= -->
+  <!-- ===== SINGLE JOURNEY ========================================= -->
+  <xsd:complexType name="singleJourneys_RelStructure">
+    <xsd:complexContent>
+      <xsd:extension base="containmentAggregationStructure">
+        <xsd:sequence>
+          <xsd:element ref="SingleJourney" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:element name="SingleJourney" abstract="false" substitutionGroup="Journey_" id="SingleJourney">
+    <xsd:complexType>
+      <xsd:complexContent>
+        <xsd:restriction base="SingleJourney_VersionStructure">
+          <xsd:sequence>
+            <xsd:sequence>
+              <xsd:group ref="EntityInVersionGroup" minOccurs="0"/>
+            </xsd:sequence>
+            <xsd:sequence>
+              <xsd:group ref="DataManagedObjectGroup"/>
+            </xsd:sequence>
+            <xsd:sequence>
+              <xsd:group ref="LinkSequenceGroup"/>
+            </xsd:sequence>
+            <xsd:group ref="JourneyGroup"/>
+            <xsd:sequence>
+              <xsd:group ref="SingleJourneyGroup"/>
+            </xsd:sequence>
+          </xsd:sequence>
+          <xsd:attribute name="id" type="SingleJourneyIdType" use="optional"/>
+        </xsd:restriction>
+      </xsd:complexContent>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:complexType name="SingleJourney_VersionStructure">
+    <xsd:complexContent>
+      <xsd:extension base="Journey_VersionStructure">
+        <xsd:sequence>
+          <xsd:group ref="SingleJourneyGroup"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:group name="SingleJourneyGroup">
+    <xsd:sequence>
+      <xsd:group ref="SingleJourneyReferencesGroup"/>
+      <xsd:element name="DepartureTime" type="xsd:time" minOccurs="0"/>
+      <xsd:element name="DepartureDayOffset" type="DayOffsetType" minOccurs="0"/>
+      <xsd:element ref="OperatingDayRef" minOccurs="0"/>
+      <xsd:element name="datedPassingTimes" type="targetPassingTimes_RelStructure" minOccurs="0"/>
+      <xsd:element name="meetingPointAssignments" type="vehicleMeetingPointAssignments_RelStructure" minOccurs="0"/>
+    </xsd:sequence>
+  </xsd:group>
+  <xsd:group name="SingleJourneyReferencesGroup">
+    <xsd:sequence>
+      <xsd:element ref="CommonVehicleServiceRef" minOccurs="0"/>
+      <xsd:element ref="VehicleRef" minOccurs="0"/>
+      <xsd:element ref="SingleJourneyPathRef" minOccurs="0"/>
+    </xsd:sequence>
+  </xsd:group>
+  <!-- === GROUP OF SINGLE JOURNEYs ============================================================ -->
+  <xsd:complexType name="groupsOfSingleJourneys_RelStructure">
+    <xsd:complexContent>
+      <xsd:extension base="containmentAggregationStructure">
+        <xsd:sequence>
+          <xsd:element ref="GroupOfSingleJourneys" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:element name="GroupOfSingleJourneys" abstract="false" substitutionGroup="GroupOfEntities">
+    <xsd:complexType>
+      <xsd:complexContent>
+        <xsd:restriction base="GroupOfSingleJourneys_VersionStructure">
+          <xsd:sequence>
+            <xsd:sequence>
+              <xsd:group ref="EntityInVersionGroup" minOccurs="0"/>
+            </xsd:sequence>
+            <xsd:sequence>
+              <xsd:group ref="DataManagedObjectGroup"/>
+            </xsd:sequence>
+            <xsd:sequence>
+              <xsd:group ref="GroupOfEntitiesGroup"/>
+            </xsd:sequence>
+            <xsd:sequence>
+              <xsd:group ref="GroupOfSingleJourneysGroup"/>
+            </xsd:sequence>
+          </xsd:sequence>
+          <xsd:attribute name="id" type="GroupOfSingleJourneysIdType"/>
+        </xsd:restriction>
+      </xsd:complexContent>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:complexType name="GroupOfSingleJourneys_VersionStructure">
+    <xsd:complexContent>
+      <xsd:extension base="GroupOfEntities_VersionStructure">
+        <xsd:sequence>
+          <xsd:group ref="GroupOfSingleJourneysGroup"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:group name="GroupOfSingleJourneysGroup">
+    <xsd:sequence>
+      <xsd:element name="members" type="singleJourneyRefs_RelStructure" minOccurs="0"/>
+      <xsd:element name="noticeAssignments" type="noticeAssignments_RelStructure" minOccurs="0"/>
+    </xsd:sequence>
+  </xsd:group>
+  <!-- ======================================================================= -->
+</xsd:schema>

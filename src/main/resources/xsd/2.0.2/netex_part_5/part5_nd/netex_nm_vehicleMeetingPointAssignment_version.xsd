@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns="http://www.netex.org.uk/netex" xmlns:netex="http://www.netex.org.uk/netex" xmlns:siri="http://www.siri.org.uk/siri" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.netex.org.uk/netex" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.2.2" id="netex_nm_vehicleMeetingPointAssignment_version">
+  <xsd:include schemaLocation="netex_nm_vehicleMeetingPoint_support.xsd"/>
+  <xsd:include schemaLocation="netex_nm_vehicleMeetingPointAssignment_support.xsd"/>
+  <xsd:include schemaLocation="../../netex_part_1/part1_ifopt/netex_ifopt_stopPlace_support.xsd"/>
+  <xsd:include schemaLocation="../../netex_part_1/part1_ifopt/netex_ifopt_parking_support.xsd"/>
+  <xsd:include schemaLocation="../../netex_framework/netex_genericFramework/netex_assignment_version.xsd"/>
+  <!-- ======================================================================= -->
+  <!-- ======================================================================= -->
+  <xsd:complexType name="vehicleMeetingPointAssignmentsInFrame_RelStructure">
+    <xsd:complexContent>
+      <xsd:extension base="containmentAggregationStructure">
+        <xsd:sequence>
+          <xsd:element ref="VehicleMeetingPointAssignment" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <!-- ==== VEHICLE MEETING POINT ASSIGNMENT ================================================== -->
+  <xsd:complexType name="vehicleMeetingPointAssignments_RelStructure">
+    <xsd:complexContent>
+      <xsd:extension base="containmentAggregationStructure">
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element ref="VehicleMeetingPointAssignmentRef"/>
+          <xsd:element ref="VehicleMeetingPointAssignment" minOccurs="0"/>
+        </xsd:choice>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:element name="VehicleMeetingPointAssignment_" abstract="false" substitutionGroup="Assignment_">
+    <xsd:complexType>
+      <xsd:complexContent>
+        <xsd:restriction base="Assignment_VersionStructure">
+          <xsd:sequence>
+            <xsd:sequence>
+              <xsd:group ref="EntityInVersionGroup" minOccurs="0"/>
+            </xsd:sequence>
+            <xsd:sequence>
+              <xsd:group ref="DataManagedObjectGroup"/>
+            </xsd:sequence>
+            <xsd:sequence>
+              <xsd:group ref="AssignmentGroup"/>
+            </xsd:sequence>
+          </xsd:sequence>
+          <xsd:attribute name="id" type="VehicleMeetingPointAssignmentIdType" use="optional"/>
+        </xsd:restriction>
+      </xsd:complexContent>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:element name="VehicleMeetingPointAssignment" abstract="false" substitutionGroup="Assignment_">
+    <xsd:complexType>
+      <xsd:complexContent>
+        <xsd:restriction base="VehicleMeetingPointAssignment_VersionStructure">
+          <xsd:sequence>
+            <xsd:sequence>
+              <xsd:sequence>
+                <xsd:group ref="EntityInVersionGroup" minOccurs="0"/>
+              </xsd:sequence>
+              <xsd:sequence>
+                <xsd:group ref="DataManagedObjectGroup"/>
+              </xsd:sequence>
+              <xsd:sequence>
+                <xsd:group ref="AssignmentGroup"/>
+              </xsd:sequence>
+            </xsd:sequence>
+            <xsd:sequence>
+              <xsd:group ref="VehicleMeetingPointAssignmentGroup"/>
+            </xsd:sequence>
+          </xsd:sequence>
+          <xsd:attribute name="id" type="VehicleMeetingPointAssignmentIdType" use="optional"/>
+        </xsd:restriction>
+      </xsd:complexContent>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:complexType name="VehicleMeetingPointAssignment_VersionStructure" abstract="false">
+    <xsd:complexContent>
+      <xsd:extension base="Assignment_VersionStructure">
+        <xsd:sequence>
+          <xsd:group ref="VehicleMeetingPointAssignmentGroup"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:group name="VehicleMeetingPointAssignmentGroup">
+    <xsd:sequence>
+      <xsd:element ref="VehicleMeetingPointRef"/>
+      <xsd:element ref="AddressablePlaceRef" minOccurs="0"/>
+      <xsd:element name="Usage" type="MeetingUsageEnumeration" minOccurs="0"/>
+    </xsd:sequence>
+  </xsd:group>
+  <!-- ====== DYNAMIC VEHICLE MEETING POINT ASSIGNMENT ========================================== -->
+  <xsd:element name="DynamicVehicleMeetingPointAssignment" abstract="false" substitutionGroup="Assignment_">
+    <xsd:complexType>
+      <xsd:complexContent>
+        <xsd:restriction base="DynamicVehicleMeetingPointAssignment_VersionStructure">
+          <xsd:sequence>
+            <xsd:sequence>
+              <xsd:sequence>
+                <xsd:group ref="EntityInVersionGroup" minOccurs="0"/>
+              </xsd:sequence>
+              <xsd:sequence>
+                <xsd:group ref="DataManagedObjectGroup"/>
+              </xsd:sequence>
+              <xsd:sequence>
+                <xsd:group ref="AssignmentGroup"/>
+              </xsd:sequence>
+            </xsd:sequence>
+            <xsd:sequence>
+              <xsd:group ref="VehicleMeetingPointAssignmentGroup"/>
+            </xsd:sequence>
+            <xsd:sequence>
+              <xsd:group ref="DynamicVehicleMeetingPointAssignmentGroup"/>
+            </xsd:sequence>
+          </xsd:sequence>
+          <xsd:attribute name="id" type="DynamicVehicleMeetingPointAssignmentIdType" use="optional"/>
+        </xsd:restriction>
+      </xsd:complexContent>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:complexType name="DynamicVehicleMeetingPointAssignment_VersionStructure" abstract="false">
+    <xsd:complexContent>
+      <xsd:extension base="VehicleMeetingPointAssignment_VersionStructure">
+        <xsd:sequence>
+          <xsd:group ref="DynamicVehicleMeetingPointAssignmentGroup"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:group name="DynamicVehicleMeetingPointAssignmentGroup">
+    <xsd:sequence>
+      <xsd:element ref="VehicleMeetingPointAssignmentRef"/>
+    </xsd:sequence>
+  </xsd:group>
+  <!-- ======================================================================= -->
+</xsd:schema>

@@ -1,0 +1,333 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns="http://www.netex.org.uk/netex" xmlns:netex="http://www.netex.org.uk/netex" xmlns:siri="http://www.siri.org.uk/siri" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.netex.org.uk/netex" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.2.2" id="netex_nm_vehicleMeetingPlace_version">
+  <xsd:include schemaLocation="netex_nm_vehicleMeetingPlace_support.xsd"/>
+  <xsd:include schemaLocation="../../netex_part_1/part1_ifopt/netex_ifopt_stopPlace_version.xsd"/>
+  <xsd:include schemaLocation="../../netex_part_1/part1_ifopt/netex_ifopt_parking_version.xsd"/>
+  <!-- ======================================================================= -->
+  <!-- ====== VEHICLE MEETING PLACE ======================================================== -->
+  <xsd:complexType name="vehicleMeetingPlaces_RelStructure">
+    <xsd:complexContent>
+      <xsd:extension base="containmentAggregationStructure">
+        <xsd:sequence>
+          <xsd:element ref="VehicleMeetingPlace_" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:element name="VehicleMeetingPlace_" type="AddressablePlace_VersionStructure" abstract="false" substitutionGroup="Place"/>
+  <xsd:element name="VehicleMeetingPlace" abstract="false" substitutionGroup="Place">
+    <xsd:complexType>
+      <xsd:complexContent>
+        <xsd:restriction base="VehicleMeetingPlace_VersionStructure">
+          <xsd:sequence>
+            <xsd:sequence>
+              <xsd:group ref="EntityInVersionGroup" minOccurs="0"/>
+            </xsd:sequence>
+            <xsd:sequence>
+              <xsd:group ref="DataManagedObjectGroup"/>
+            </xsd:sequence>
+            <xsd:sequence>
+              <xsd:group ref="GroupOfEntitiesGroup"/>
+            </xsd:sequence>
+            <xsd:sequence>
+              <xsd:group ref="GroupOfPointsGroup"/>
+            </xsd:sequence>
+            <xsd:sequence>
+              <xsd:group ref="ZoneGroup"/>
+            </xsd:sequence>
+            <xsd:group ref="PlaceGroup"/>
+            <xsd:sequence>
+              <xsd:group ref="AddressablePlaceGroup"/>
+            </xsd:sequence>
+            <xsd:sequence>
+              <xsd:group ref="VehicleMeetingPlaceGroup"/>
+            </xsd:sequence>
+          </xsd:sequence>
+          <xsd:attribute name="id" type="VehicleMeetingPlaceIdType" use="optional"/>
+        </xsd:restriction>
+      </xsd:complexContent>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:complexType name="VehicleMeetingPlace_VersionStructure" abstract="false">
+    <xsd:complexContent>
+      <xsd:extension base="AddressablePlace_VersionStructure">
+        <xsd:sequence>
+          <xsd:group ref="VehicleMeetingPlaceGroup"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:group name="VehicleMeetingPlaceGroup">
+    <xsd:sequence>
+      <xsd:element ref="TopographicPlaceRef" minOccurs="0"/>
+      <xsd:element ref="SiteElementRef" minOccurs="0"/>
+    </xsd:sequence>
+  </xsd:group>
+  <!-- ====== VEHICLE MEETING PLACE ======================================================== -->
+  <xsd:element name="VehiclePoolingMeetingPlace" abstract="false" substitutionGroup="VehicleMeetingPlace_">
+    <xsd:complexType>
+      <xsd:complexContent>
+        <xsd:restriction base="VehiclePoolingMeetingPlace_VersionStructure">
+          <xsd:sequence>
+            <xsd:sequence>
+              <xsd:group ref="EntityInVersionGroup" minOccurs="0"/>
+            </xsd:sequence>
+            <xsd:sequence>
+              <xsd:group ref="DataManagedObjectGroup"/>
+            </xsd:sequence>
+            <xsd:sequence>
+              <xsd:group ref="GroupOfEntitiesGroup"/>
+            </xsd:sequence>
+            <xsd:sequence>
+              <xsd:group ref="GroupOfPointsGroup"/>
+            </xsd:sequence>
+            <xsd:sequence>
+              <xsd:group ref="ZoneGroup"/>
+            </xsd:sequence>
+            <xsd:group ref="PlaceGroup"/>
+            <xsd:sequence>
+              <xsd:group ref="AddressablePlaceGroup"/>
+            </xsd:sequence>
+            <xsd:sequence>
+              <xsd:group ref="VehicleMeetingPlaceGroup"/>
+            </xsd:sequence>
+          </xsd:sequence>
+          <xsd:attribute name="id" type="VehiclePoolingMeetingPlaceIdType" use="optional"/>
+        </xsd:restriction>
+      </xsd:complexContent>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:complexType name="VehiclePoolingMeetingPlace_VersionStructure" abstract="false">
+    <xsd:complexContent>
+      <xsd:extension base="VehicleMeetingPlace_VersionStructure"/>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:group name="VehiclePoolingMeetingPlaceGroup">
+    <xsd:sequence/>
+  </xsd:group>
+  <!-- ==== VEHICLE SHARING PARKING AREA  ============================================================ -->
+  <xsd:element name="VehicleSharingParkingArea" abstract="false" substitutionGroup="ParkingArea_">
+    <xsd:complexType>
+      <xsd:complexContent>
+        <xsd:restriction base="VehicleSharingParkingArea_VersionStructure">
+          <xsd:sequence>
+            <xsd:sequence>
+              <xsd:group ref="EntityInVersionGroup" minOccurs="0"/>
+            </xsd:sequence>
+            <xsd:sequence>
+              <xsd:group ref="DataManagedObjectGroup"/>
+            </xsd:sequence>
+            <xsd:sequence>
+              <xsd:group ref="GroupOfEntitiesGroup"/>
+            </xsd:sequence>
+            <xsd:sequence>
+              <xsd:group ref="GroupOfPointsGroup"/>
+            </xsd:sequence>
+            <xsd:sequence>
+              <xsd:group ref="ZoneGroup"/>
+            </xsd:sequence>
+            <xsd:group ref="PlaceGroup"/>
+            <xsd:sequence>
+              <xsd:group ref="AddressablePlaceGroup"/>
+            </xsd:sequence>
+            <xsd:group ref="SiteElementGroup"/>
+            <xsd:sequence>
+              <xsd:group ref="SiteComponentGroup"/>
+            </xsd:sequence>
+            <xsd:sequence>
+              <xsd:group ref="ParkingComponentGroup"/>
+            </xsd:sequence>
+            <xsd:sequence>
+              <xsd:group ref="ParkingAreaGroup"/>
+            </xsd:sequence>
+            <xsd:sequence>
+              <xsd:group ref="VehicleSharingParkingAreaGroup"/>
+            </xsd:sequence>
+          </xsd:sequence>
+          <xsd:attribute name="id" type="VehicleSharingParkingAreaIdType" use="optional"/>
+        </xsd:restriction>
+      </xsd:complexContent>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:complexType name="VehicleSharingParkingArea_VersionStructure" abstract="false">
+    <xsd:complexContent>
+      <xsd:extension base="ParkingArea_VersionStructure">
+        <xsd:sequence>
+          <xsd:group ref="VehicleSharingParkingAreaGroup"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:group name="VehicleSharingParkingAreaGroup">
+    <xsd:sequence/>
+  </xsd:group>
+  <!-- ==== VEHICLE POOLING PARKING AREA  ============================================================ -->
+  <xsd:element name="VehiclePoolingParkingArea" abstract="false" substitutionGroup="ParkingArea_">
+    <xsd:complexType>
+      <xsd:complexContent>
+        <xsd:restriction base="VehiclePoolingParkingArea_VersionStructure">
+          <xsd:sequence>
+            <xsd:sequence>
+              <xsd:group ref="EntityInVersionGroup" minOccurs="0"/>
+            </xsd:sequence>
+            <xsd:sequence>
+              <xsd:group ref="DataManagedObjectGroup"/>
+            </xsd:sequence>
+            <xsd:sequence>
+              <xsd:group ref="GroupOfEntitiesGroup"/>
+            </xsd:sequence>
+            <xsd:sequence>
+              <xsd:group ref="GroupOfPointsGroup"/>
+            </xsd:sequence>
+            <xsd:sequence>
+              <xsd:group ref="ZoneGroup"/>
+            </xsd:sequence>
+            <xsd:group ref="PlaceGroup"/>
+            <xsd:sequence>
+              <xsd:group ref="AddressablePlaceGroup"/>
+            </xsd:sequence>
+            <xsd:group ref="SiteElementGroup"/>
+            <xsd:sequence>
+              <xsd:group ref="SiteComponentGroup"/>
+            </xsd:sequence>
+            <xsd:sequence>
+              <xsd:group ref="ParkingComponentGroup"/>
+            </xsd:sequence>
+            <xsd:sequence>
+              <xsd:group ref="ParkingAreaGroup"/>
+            </xsd:sequence>
+            <xsd:sequence>
+              <xsd:group ref="VehiclePoolingParkingAreaGroup"/>
+            </xsd:sequence>
+          </xsd:sequence>
+          <xsd:attribute name="id" type="VehiclePoolingParkingAreaIdType" use="optional"/>
+        </xsd:restriction>
+      </xsd:complexContent>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:complexType name="VehiclePoolingParkingArea_VersionStructure" abstract="false">
+    <xsd:complexContent>
+      <xsd:extension base="ParkingArea_VersionStructure">
+        <xsd:sequence>
+          <xsd:group ref="VehiclePoolingParkingAreaGroup"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:group name="VehiclePoolingParkingAreaGroup">
+    <xsd:sequence/>
+  </xsd:group>
+  <!-- ==== VEHICLE SHARING PARKING BAY  ============================================================ -->
+  <xsd:element name="VehicleSharingParkingBay" abstract="false" substitutionGroup="ParkingBay_">
+    <xsd:complexType>
+      <xsd:complexContent>
+        <xsd:restriction base="VehicleSharingParkingBay_VersionStructure">
+          <xsd:sequence>
+            <xsd:sequence>
+              <xsd:group ref="EntityInVersionGroup" minOccurs="0"/>
+            </xsd:sequence>
+            <xsd:sequence>
+              <xsd:group ref="DataManagedObjectGroup"/>
+            </xsd:sequence>
+            <xsd:sequence>
+              <xsd:group ref="GroupOfEntitiesGroup"/>
+            </xsd:sequence>
+            <xsd:sequence>
+              <xsd:group ref="GroupOfPointsGroup"/>
+            </xsd:sequence>
+            <xsd:sequence>
+              <xsd:group ref="ZoneGroup"/>
+            </xsd:sequence>
+            <xsd:group ref="PlaceGroup"/>
+            <xsd:sequence>
+              <xsd:group ref="AddressablePlaceGroup"/>
+            </xsd:sequence>
+            <xsd:group ref="SiteElementGroup"/>
+            <xsd:sequence>
+              <xsd:group ref="SiteComponentGroup"/>
+            </xsd:sequence>
+            <xsd:sequence>
+              <xsd:group ref="ParkingComponentGroup"/>
+            </xsd:sequence>
+            <xsd:sequence>
+              <xsd:group ref="ParkingBayGroup"/>
+            </xsd:sequence>
+            <xsd:sequence>
+              <xsd:group ref="VehicleSharingParkingBayGroup"/>
+            </xsd:sequence>
+          </xsd:sequence>
+          <xsd:attribute name="id" type="VehicleSharingParkingBayIdType" use="optional"/>
+        </xsd:restriction>
+      </xsd:complexContent>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:complexType name="VehicleSharingParkingBay_VersionStructure" abstract="false">
+    <xsd:complexContent>
+      <xsd:extension base="ParkingBay_VersionStructure">
+        <xsd:sequence>
+          <xsd:group ref="VehicleSharingParkingBayGroup"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:group name="VehicleSharingParkingBayGroup">
+    <xsd:sequence/>
+  </xsd:group>
+  <!-- ==== VEHICLE POOLING PARKING BAY  ============================================================ -->
+  <xsd:element name="VehiclePoolingParkingBay" abstract="false" substitutionGroup="ParkingBay_">
+    <xsd:complexType>
+      <xsd:complexContent>
+        <xsd:restriction base="VehiclePoolingParkingBay_VersionStructure">
+          <xsd:sequence>
+            <xsd:sequence>
+              <xsd:group ref="EntityInVersionGroup" minOccurs="0"/>
+            </xsd:sequence>
+            <xsd:sequence>
+              <xsd:group ref="DataManagedObjectGroup"/>
+            </xsd:sequence>
+            <xsd:sequence>
+              <xsd:group ref="GroupOfEntitiesGroup"/>
+            </xsd:sequence>
+            <xsd:sequence>
+              <xsd:group ref="GroupOfPointsGroup"/>
+            </xsd:sequence>
+            <xsd:sequence>
+              <xsd:group ref="ZoneGroup"/>
+            </xsd:sequence>
+            <xsd:group ref="PlaceGroup"/>
+            <xsd:sequence>
+              <xsd:group ref="AddressablePlaceGroup"/>
+            </xsd:sequence>
+            <xsd:group ref="SiteElementGroup"/>
+            <xsd:sequence>
+              <xsd:group ref="SiteComponentGroup"/>
+            </xsd:sequence>
+            <xsd:sequence>
+              <xsd:group ref="ParkingComponentGroup"/>
+            </xsd:sequence>
+            <xsd:sequence>
+              <xsd:group ref="ParkingBayGroup"/>
+            </xsd:sequence>
+            <xsd:sequence>
+              <xsd:group ref="VehiclePoolingParkingBayGroup"/>
+            </xsd:sequence>
+          </xsd:sequence>
+          <xsd:attribute name="id" type="VehiclePoolingParkingBayIdType" use="optional"/>
+        </xsd:restriction>
+      </xsd:complexContent>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:complexType name="VehiclePoolingParkingBay_VersionStructure" abstract="false">
+    <xsd:complexContent>
+      <xsd:extension base="ParkingBay_VersionStructure">
+        <xsd:sequence>
+          <xsd:group ref="VehiclePoolingParkingBayGroup"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:group name="VehiclePoolingParkingBayGroup">
+    <xsd:sequence/>
+  </xsd:group>
+  <!-- ======================================================================= -->
+</xsd:schema>

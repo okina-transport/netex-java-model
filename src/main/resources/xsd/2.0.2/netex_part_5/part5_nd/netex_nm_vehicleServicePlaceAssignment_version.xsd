@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns="http://www.netex.org.uk/netex" xmlns:netex="http://www.netex.org.uk/netex" xmlns:siri="http://www.siri.org.uk/siri" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.netex.org.uk/netex" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.2.2" id="netex_nm_vehicleServicePlaceAssignment_version">
+  <xsd:include schemaLocation="netex_nm_vehicleMeetingPoint_support.xsd"/>
+  <xsd:include schemaLocation="netex_nm_vehicleServicePlaceAssignment_support.xsd"/>
+  <xsd:include schemaLocation="../part5_rc/netex_nm_mobilityService_support.xsd"/>
+  <xsd:include schemaLocation="netex_nm_vehicleMeetingPlace_support.xsd"/>
+  <xsd:include schemaLocation="../../netex_part_1/part1_ifopt/netex_taxiPlace_support.xsd"/>
+  <xsd:include schemaLocation="../../netex_framework/netex_genericFramework/netex_assignment_version.xsd"/>
+  <!-- ======================================================================= -->
+  <!-- ==== VEHICLE SERVICE PLACE ASSIGNMENT ================================================== -->
+  <xsd:complexType name="vehicleServicePlaceAssignments_RelStructure">
+    <xsd:complexContent>
+      <xsd:extension base="oneToManyRelationshipStructure">
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element ref="VehicleSharingPlaceAssignment"/>
+          <xsd:element ref="VehiclePoolingPlaceAssignment"/>
+          <xsd:element ref="TaxiServicePlaceAssignment"/>
+        </xsd:choice>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:element name="VehicleServicePlaceAssignment_" abstract="false" substitutionGroup="Assignment_">
+    <xsd:complexType>
+      <xsd:complexContent>
+        <xsd:restriction base="Assignment_VersionStructure">
+          <xsd:sequence>
+            <xsd:sequence>
+              <xsd:group ref="EntityInVersionGroup" minOccurs="0"/>
+            </xsd:sequence>
+            <xsd:sequence>
+              <xsd:group ref="DataManagedObjectGroup"/>
+            </xsd:sequence>
+            <xsd:sequence>
+              <xsd:group ref="AssignmentGroup"/>
+            </xsd:sequence>
+          </xsd:sequence>
+          <xsd:attribute name="id" type="VehicleServicePlaceAssignmentIdType" use="optional"/>
+        </xsd:restriction>
+      </xsd:complexContent>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:element name="VehicleServicePlaceAssignment" abstract="false" substitutionGroup="Assignment_">
+    <xsd:complexType>
+      <xsd:complexContent>
+        <xsd:restriction base="VehicleServicePlaceAssignment_VersionStructure">
+          <xsd:sequence>
+            <xsd:sequence>
+              <xsd:sequence>
+                <xsd:group ref="EntityInVersionGroup" minOccurs="0"/>
+              </xsd:sequence>
+              <xsd:sequence>
+                <xsd:group ref="DataManagedObjectGroup"/>
+              </xsd:sequence>
+              <xsd:sequence>
+                <xsd:group ref="AssignmentGroup"/>
+              </xsd:sequence>
+            </xsd:sequence>
+            <xsd:sequence>
+              <xsd:group ref="VehicleServicePlaceAssignmentGroup"/>
+            </xsd:sequence>
+          </xsd:sequence>
+          <xsd:attribute name="id" type="VehicleServicePlaceAssignmentIdType" use="optional"/>
+        </xsd:restriction>
+      </xsd:complexContent>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:complexType name="VehicleServicePlaceAssignment_VersionStructure" abstract="false">
+    <xsd:complexContent>
+      <xsd:extension base="Assignment_VersionStructure">
+        <xsd:sequence>
+          <xsd:group ref="VehicleServicePlaceAssignmentGroup"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:group name="VehicleServicePlaceAssignmentGroup">
+    <xsd:sequence/>
+  </xsd:group>
+  <!-- ====== TAXI SERVICE PLACE ASSIGNMENT ========================================== -->
+  <xsd:element name="TaxiServicePlaceAssignment" abstract="false" substitutionGroup="Assignment_">
+    <xsd:complexType>
+      <xsd:complexContent>
+        <xsd:restriction base="TaxiServicePlaceAssignment_VersionStructure">
+          <xsd:sequence>
+            <xsd:sequence>
+              <xsd:sequence>
+                <xsd:group ref="EntityInVersionGroup" minOccurs="0"/>
+              </xsd:sequence>
+              <xsd:sequence>
+                <xsd:group ref="DataManagedObjectGroup"/>
+              </xsd:sequence>
+              <xsd:sequence>
+                <xsd:group ref="AssignmentGroup"/>
+              </xsd:sequence>
+            </xsd:sequence>
+            <xsd:sequence>
+              <xsd:group ref="VehicleServicePlaceAssignmentGroup"/>
+            </xsd:sequence>
+            <xsd:sequence>
+              <xsd:group ref="TaxiServicePlaceAssignmentGroup"/>
+            </xsd:sequence>
+          </xsd:sequence>
+          <xsd:attribute name="id" type="TaxiServicePlaceAssignmentIdType" use="optional"/>
+        </xsd:restriction>
+      </xsd:complexContent>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:complexType name="TaxiServicePlaceAssignment_VersionStructure" abstract="false">
+    <xsd:complexContent>
+      <xsd:extension base="VehicleServicePlaceAssignment_VersionStructure">
+        <xsd:sequence>
+          <xsd:group ref="TaxiServicePlaceAssignmentGroup"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:group name="TaxiServicePlaceAssignmentGroup">
+    <xsd:sequence>
+      <xsd:element ref="TaxiServiceRef"/>
+      <xsd:element ref="TaxiParkingAreaRef" minOccurs="0"/>
+      <xsd:element ref="TaxiStandRef" minOccurs="0"/>
+      <xsd:element ref="ParkingBayRef" minOccurs="0"/>
+    </xsd:sequence>
+  </xsd:group>
+  <!-- ====== VEHICLE POOLING PLACE ASSIGNMENT ========================================== -->
+  <xsd:element name="VehiclePoolingPlaceAssignment" abstract="false" substitutionGroup="Assignment_">
+    <xsd:complexType>
+      <xsd:complexContent>
+        <xsd:restriction base="VehiclePoolingPlaceAssignment_VersionStructure">
+          <xsd:sequence>
+            <xsd:sequence>
+              <xsd:sequence>
+                <xsd:group ref="EntityInVersionGroup" minOccurs="0"/>
+              </xsd:sequence>
+              <xsd:sequence>
+                <xsd:group ref="DataManagedObjectGroup"/>
+              </xsd:sequence>
+              <xsd:sequence>
+                <xsd:group ref="AssignmentGroup"/>
+              </xsd:sequence>
+            </xsd:sequence>
+            <xsd:sequence>
+              <xsd:group ref="VehicleServicePlaceAssignmentGroup"/>
+            </xsd:sequence>
+            <xsd:sequence>
+              <xsd:group ref="VehiclePoolingPlaceAssignmentGroup"/>
+            </xsd:sequence>
+          </xsd:sequence>
+          <xsd:attribute name="id" type="VehiclePoolingPlaceAssignmentIdType" use="optional"/>
+        </xsd:restriction>
+      </xsd:complexContent>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:complexType name="VehiclePoolingPlaceAssignment_VersionStructure" abstract="false">
+    <xsd:complexContent>
+      <xsd:extension base="VehicleServicePlaceAssignment_VersionStructure">
+        <xsd:sequence>
+          <xsd:group ref="VehiclePoolingPlaceAssignmentGroup"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:group name="VehiclePoolingPlaceAssignmentGroup">
+    <xsd:sequence>
+      <xsd:element ref="VehiclePoolingServiceRef"/>
+      <xsd:choice>
+        <xsd:element ref="VehiclePoolingMeetingPlaceRef"/>
+        <xsd:element ref="VehiclePoolingParkingAreaRef"/>
+      </xsd:choice>
+      <xsd:element ref="ParkingBayRef" minOccurs="0"/>
+    </xsd:sequence>
+  </xsd:group>
+  <!-- ====== VEHICLE POOLING PLACE ASSIGNMENT ========================================== -->
+  <xsd:element name="VehicleSharingPlaceAssignment" abstract="false" substitutionGroup="Assignment_">
+    <xsd:complexType>
+      <xsd:complexContent>
+        <xsd:restriction base="VehicleSharingPlaceAssignment_VersionStructure">
+          <xsd:sequence>
+            <xsd:sequence>
+              <xsd:sequence>
+                <xsd:group ref="EntityInVersionGroup" minOccurs="0"/>
+              </xsd:sequence>
+              <xsd:sequence>
+                <xsd:group ref="DataManagedObjectGroup"/>
+              </xsd:sequence>
+              <xsd:sequence>
+                <xsd:group ref="AssignmentGroup"/>
+              </xsd:sequence>
+            </xsd:sequence>
+            <xsd:sequence>
+              <xsd:group ref="VehicleServicePlaceAssignmentGroup"/>
+            </xsd:sequence>
+            <xsd:sequence>
+              <xsd:group ref="VehicleSharingPlaceAssignmentGroup"/>
+            </xsd:sequence>
+          </xsd:sequence>
+          <xsd:attribute name="id" type="VehicleSharingPlaceAssignmentIdType" use="optional"/>
+        </xsd:restriction>
+      </xsd:complexContent>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:complexType name="VehicleSharingPlaceAssignment_VersionStructure" abstract="false">
+    <xsd:complexContent>
+      <xsd:extension base="VehicleServicePlaceAssignment_VersionStructure">
+        <xsd:sequence>
+          <xsd:group ref="VehicleSharingPlaceAssignmentGroup"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:group name="VehicleSharingPlaceAssignmentGroup">
+    <xsd:sequence>
+      <xsd:element ref="CommonVehicleServiceRef"/>
+      <xsd:element ref="VehicleSharingParkingAreaRef"/>
+      <xsd:element ref="ParkingBayRef" minOccurs="0"/>
+    </xsd:sequence>
+  </xsd:group>
+  <!-- ======================================================================= -->
+</xsd:schema>

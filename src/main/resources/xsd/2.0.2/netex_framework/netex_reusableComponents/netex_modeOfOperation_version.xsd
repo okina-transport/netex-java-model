@@ -1,0 +1,369 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns="http://www.netex.org.uk/netex" xmlns:netex="http://www.netex.org.uk/netex" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:core="http://www.govtalk.gov.uk/core" targetNamespace="http://www.netex.org.uk/netex" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.2.2" id="netex_modeOfOperation_version">
+  <!-- ======================================================================= -->
+  <xsd:include schemaLocation="netex_modeOfOperation_support.xsd"/>
+  <xsd:include schemaLocation="netex_mode_version.xsd"/>
+  <!-- ======================================================================= -->
+  <xsd:group name="VehicleModeCharacterisationGroup">
+    <xsd:sequence>
+      <xsd:element name="TransportMode" type="AllVehicleModesOfTransportEnumeration"/>
+      <xsd:group ref="AllSubmodeChoiceGroup"/>
+      <xsd:element ref="ModeOfOperation" minOccurs="0"/>
+    </xsd:sequence>
+  </xsd:group>
+  <xsd:group name="ModesInFrameGroup">
+    <xsd:sequence>
+      <xsd:element name="openModes" type="openModesRelStructure" minOccurs="0"/>
+      <xsd:element name="modesOfOperation" type="modesOfOperationRelStructure" minOccurs="0"/>
+    </xsd:sequence>
+  </xsd:group>
+  <!-- ==== MODES OF OPERATION =================================================== -->
+  <xsd:complexType name="modesOfOperationRelStructure">
+    <xsd:complexContent>
+      <xsd:extension base="containmentAggregationStructure">
+        <xsd:sequence>
+          <xsd:element ref="ModeOfOperation_" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:element name="ModeOfOperation_" type="DataManagedObjectStructure" abstract="true" substitutionGroup="DataManagedObject"/>
+  <xsd:element name="ModeOfOperation" abstract="true" substitutionGroup="ModeOfOperation_">
+    <xsd:complexType>
+      <xsd:complexContent>
+        <xsd:restriction base="ModeOfOperation_ValueStructure">
+          <xsd:sequence>
+            <xsd:sequence>
+              <xsd:group ref="EntityInVersionGroup" minOccurs="0"/>
+            </xsd:sequence>
+            <xsd:sequence>
+              <xsd:group ref="DataManagedObjectGroup"/>
+            </xsd:sequence>
+            <xsd:sequence>
+              <xsd:group ref="TypeOfValueGroup"/>
+            </xsd:sequence>
+            <xsd:sequence>
+              <xsd:group ref="ModeOfOperationGroup"/>
+            </xsd:sequence>
+          </xsd:sequence>
+          <xsd:attribute name="id" type="ModeOfOperationIdType" use="optional"/>
+        </xsd:restriction>
+      </xsd:complexContent>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:complexType name="ModeOfOperation_ValueStructure" abstract="false">
+    <xsd:complexContent>
+      <xsd:extension base="TypeOfValue_VersionStructure">
+        <xsd:sequence>
+          <xsd:group ref="ModeOfOperationGroup"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:group name="ModeOfOperationGroup">
+    <xsd:sequence>
+      <xsd:element ref="TypeOfModeOfOperationRef" minOccurs="0"/>
+      <xsd:element name="submodes" type="submodes_RelStructure" minOccurs="0"/>
+    </xsd:sequence>
+  </xsd:group>
+  <!-- ======================================================================= -->
+  <!-- ===== CONVENTIONAL MODEs ================================================= -->
+  <xsd:element name="ConventionalModeOfOperation_" type="DataManagedObjectStructure" abstract="true" substitutionGroup="ModeOfOperation_"/>
+  <xsd:element name="ConventionalModeOfOperation" abstract="true" substitutionGroup="ModeOfOperation_">
+    <xsd:complexType>
+      <xsd:complexContent>
+        <xsd:restriction base="ConventionalModeOfOperation_ValueStructure">
+          <xsd:sequence>
+            <xsd:sequence>
+              <xsd:group ref="EntityInVersionGroup" minOccurs="0"/>
+            </xsd:sequence>
+            <xsd:sequence>
+              <xsd:group ref="DataManagedObjectGroup"/>
+            </xsd:sequence>
+            <xsd:sequence>
+              <xsd:group ref="TypeOfValueGroup"/>
+            </xsd:sequence>
+            <xsd:sequence>
+              <xsd:group ref="ModeOfOperationGroup"/>
+            </xsd:sequence>
+          </xsd:sequence>
+          <xsd:attribute name="id" type="ConventionalModeOfOperationIdType" use="optional"/>
+        </xsd:restriction>
+      </xsd:complexContent>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:complexType name="ConventionalModeOfOperation_ValueStructure">
+    <xsd:complexContent>
+      <xsd:extension base="ModeOfOperation_ValueStructure"/>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <!-- ======================================================================= -->
+  <xsd:element name="ScheduledOperation" abstract="false" substitutionGroup="ConventionalModeOfOperation_">
+    <xsd:complexType>
+      <xsd:complexContent>
+        <xsd:restriction base="ScheduledModeOfOperation_ValueStructure">
+          <xsd:sequence>
+            <xsd:sequence>
+              <xsd:group ref="EntityInVersionGroup" minOccurs="0"/>
+            </xsd:sequence>
+            <xsd:sequence>
+              <xsd:group ref="DataManagedObjectGroup"/>
+            </xsd:sequence>
+            <xsd:sequence>
+              <xsd:group ref="TypeOfValueGroup"/>
+            </xsd:sequence>
+            <xsd:sequence>
+              <xsd:group ref="ModeOfOperationGroup"/>
+            </xsd:sequence>
+            <xsd:group ref="ScheduledModeOfOperationGroup"/>
+          </xsd:sequence>
+          <xsd:attribute name="id" type="ScheduledModeOfOperationIdType" use="optional"/>
+        </xsd:restriction>
+      </xsd:complexContent>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:complexType name="ScheduledModeOfOperation_ValueStructure">
+    <xsd:complexContent>
+      <xsd:extension base="ConventionalModeOfOperation_ValueStructure">
+        <xsd:group ref="ScheduledModeOfOperationGroup"/>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:group name="ScheduledModeOfOperationGroup">
+    <xsd:sequence>
+      <xsd:element name="ScheduledOperationType" type="ScheduledOperationTypeEnumeration" minOccurs="0"/>
+    </xsd:sequence>
+  </xsd:group>
+  <!-- ======================================================================= -->
+  <xsd:element name="FlexibleOperation" abstract="false" substitutionGroup="ConventionalModeOfOperation_">
+    <xsd:complexType>
+      <xsd:complexContent>
+        <xsd:extension base="FlexibleModeOfOperation_ValueStructure"/>
+      </xsd:complexContent>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:complexType name="FlexibleModeOfOperation_ValueStructure">
+    <xsd:complexContent>
+      <xsd:extension base="ConventionalModeOfOperation_ValueStructure">
+        <xsd:group ref="FlexibleModeOfOperationGroup"/>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:group name="FlexibleModeOfOperationGroup">
+    <xsd:sequence>
+      <xsd:element name="FlexibleOperationType" type="FlexibleOperationTypeEnumeration" minOccurs="0"/>
+    </xsd:sequence>
+  </xsd:group>
+  <!-- ======================================================================= -->
+  <!-- ====== ALTERNATIVE MODEs =================================================== -->
+  <xsd:element name="AlternativeModeOfOperation_" type="DataManagedObjectStructure" abstract="true" substitutionGroup="ModeOfOperation_"/>
+  <xsd:element name="AlternativeModeOfOperation" substitutionGroup="ModeOfOperation_">
+    <xsd:complexType>
+      <xsd:complexContent>
+        <xsd:restriction base="AlternativeModeOfOperation_ValueStructure">
+          <xsd:sequence>
+            <xsd:sequence>
+              <xsd:group ref="EntityInVersionGroup" minOccurs="0"/>
+            </xsd:sequence>
+            <xsd:sequence>
+              <xsd:group ref="DataManagedObjectGroup"/>
+            </xsd:sequence>
+            <xsd:sequence>
+              <xsd:group ref="TypeOfValueGroup"/>
+            </xsd:sequence>
+            <xsd:sequence>
+              <xsd:group ref="ModeOfOperationGroup"/>
+            </xsd:sequence>
+          </xsd:sequence>
+          <xsd:attribute name="id" type="AlternativeModeOfOperationIdType" use="optional"/>
+        </xsd:restriction>
+      </xsd:complexContent>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:complexType name="AlternativeModeOfOperation_ValueStructure">
+    <xsd:complexContent>
+      <xsd:extension base="ModeOfOperation_ValueStructure"/>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <!-- ======================================================================= -->
+  <xsd:element name="VehicleRental" substitutionGroup="AlternativeModeOfOperation_">
+    <xsd:complexType>
+      <xsd:complexContent>
+        <xsd:restriction base="VehicleRentalModeOfOperation_ValueStructure">
+          <xsd:sequence>
+            <xsd:sequence>
+              <xsd:group ref="EntityInVersionGroup" minOccurs="0"/>
+            </xsd:sequence>
+            <xsd:sequence>
+              <xsd:group ref="DataManagedObjectGroup"/>
+            </xsd:sequence>
+            <xsd:sequence>
+              <xsd:group ref="TypeOfValueGroup"/>
+            </xsd:sequence>
+            <xsd:sequence>
+              <xsd:group ref="ModeOfOperationGroup"/>
+            </xsd:sequence>
+            <xsd:group ref="VehicleRentalModeOfOperationGroup"/>
+          </xsd:sequence>
+          <xsd:attribute name="id" type="VehicleRentalIdType" use="optional"/>
+        </xsd:restriction>
+      </xsd:complexContent>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:complexType name="VehicleRentalModeOfOperation_ValueStructure">
+    <xsd:complexContent>
+      <xsd:extension base="AlternativeModeOfOperation_ValueStructure">
+        <xsd:group ref="VehicleRentalModeOfOperationGroup"/>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:group name="VehicleRentalModeOfOperationGroup">
+    <xsd:sequence>
+      <xsd:element name="VehicleRentalType" type="VehicleRentalTypeEnumeration" minOccurs="0"/>
+    </xsd:sequence>
+  </xsd:group>
+  <!-- ======================================================================= -->
+  <xsd:element name="VehicleSharing" substitutionGroup="AlternativeModeOfOperation_">
+    <xsd:complexType>
+      <xsd:complexContent>
+        <xsd:restriction base="VehicleSharingModeOfOperation_ValueStructure">
+          <xsd:sequence>
+            <xsd:sequence>
+              <xsd:group ref="EntityInVersionGroup" minOccurs="0"/>
+            </xsd:sequence>
+            <xsd:sequence>
+              <xsd:group ref="DataManagedObjectGroup"/>
+            </xsd:sequence>
+            <xsd:sequence>
+              <xsd:group ref="TypeOfValueGroup"/>
+            </xsd:sequence>
+            <xsd:sequence>
+              <xsd:group ref="ModeOfOperationGroup"/>
+            </xsd:sequence>
+            <xsd:sequence>
+              <xsd:element name="VehicleSharingType" type="VehicleSharingTypeEnumeration" minOccurs="0"/>
+            </xsd:sequence>
+          </xsd:sequence>
+          <xsd:attribute name="id" type="VehicleSharingIdType" use="optional"/>
+        </xsd:restriction>
+      </xsd:complexContent>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:complexType name="VehicleSharingModeOfOperation_ValueStructure">
+    <xsd:complexContent>
+      <xsd:extension base="AlternativeModeOfOperation_ValueStructure">
+        <xsd:group ref="VehicleSharingModeOfOperationGroup"/>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:group name="VehicleSharingModeOfOperationGroup">
+    <xsd:sequence>
+      <xsd:element name="VehicleSharingType" type="VehicleSharingTypeEnumeration" minOccurs="0"/>
+    </xsd:sequence>
+  </xsd:group>
+  <!-- ======================================================================= -->
+  <xsd:element name="VehiclePooling" substitutionGroup="AlternativeModeOfOperation_">
+    <xsd:complexType>
+      <xsd:complexContent>
+        <xsd:restriction base="VehiclePoolingModeOfOperation_ValueStructure">
+          <xsd:sequence>
+            <xsd:sequence>
+              <xsd:group ref="EntityInVersionGroup" minOccurs="0"/>
+            </xsd:sequence>
+            <xsd:sequence>
+              <xsd:group ref="DataManagedObjectGroup"/>
+            </xsd:sequence>
+            <xsd:sequence>
+              <xsd:group ref="TypeOfValueGroup"/>
+            </xsd:sequence>
+            <xsd:sequence>
+              <xsd:group ref="ModeOfOperationGroup"/>
+            </xsd:sequence>
+            <xsd:group ref="VehiclePoolingModeOfOperationGroup"/>
+          </xsd:sequence>
+          <xsd:attribute name="id" type="VehiclePoolingIdType" use="optional"/>
+          <xsd:attribute name="changed" type="xsd:dateTime" use="optional"/>
+        </xsd:restriction>
+      </xsd:complexContent>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:complexType name="VehiclePoolingModeOfOperation_ValueStructure">
+    <xsd:complexContent>
+      <xsd:extension base="AlternativeModeOfOperation_ValueStructure">
+        <xsd:group ref="VehiclePoolingModeOfOperationGroup"/>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:group name="VehiclePoolingModeOfOperationGroup">
+    <xsd:sequence>
+      <xsd:element name="VehiclePoolingType" type="VehiclePoolingTypeEnumeration" minOccurs="0"/>
+    </xsd:sequence>
+  </xsd:group>
+  <!-- ======================================================================= -->
+  <!-- ====== PERSONAL MODEs  ============================================ -->
+  <xsd:element name="PersonalModeOfOperation" abstract="false" substitutionGroup="ModeOfOperation_">
+    <xsd:complexType>
+      <xsd:complexContent>
+        <xsd:restriction base="PersonalModeOfOperation_ValueStructure">
+          <xsd:sequence>
+            <xsd:sequence>
+              <xsd:group ref="EntityInVersionGroup" minOccurs="0"/>
+            </xsd:sequence>
+            <xsd:sequence>
+              <xsd:group ref="DataManagedObjectGroup"/>
+            </xsd:sequence>
+            <xsd:sequence>
+              <xsd:group ref="TypeOfValueGroup"/>
+            </xsd:sequence>
+            <xsd:sequence>
+              <xsd:group ref="ModeOfOperationGroup"/>
+            </xsd:sequence>
+            <xsd:sequence>
+              <xsd:element name="PersonalOperationType" type="PersonalOperationTypeEnumeration" minOccurs="0"/>
+            </xsd:sequence>
+          </xsd:sequence>
+          <xsd:attribute name="id" type="PersonalModeOfOperationIdType" use="optional"/>
+        </xsd:restriction>
+      </xsd:complexContent>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:complexType name="PersonalModeOfOperation_ValueStructure">
+    <xsd:complexContent>
+      <xsd:extension base="ModeOfOperation_ValueStructure">
+        <xsd:group ref="PersonalModeOfOperationGroup"/>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:group name="PersonalModeOfOperationGroup">
+    <xsd:sequence>
+      <xsd:element name="PersonalOperationType" type="PersonalOperationTypeEnumeration" minOccurs="0"/>
+    </xsd:sequence>
+  </xsd:group>
+  <!--====== TYPES OF MODE=======================================================-->
+  <xsd:element name="TypeOfModeOfOperation" substitutionGroup="TypeOfEntity">
+    <xsd:complexType>
+      <xsd:complexContent>
+        <xsd:restriction base="TypeOfModeOfOperation_ValueStructure">
+          <xsd:sequence>
+            <xsd:sequence>
+              <xsd:group ref="EntityInVersionGroup" minOccurs="0"/>
+            </xsd:sequence>
+            <xsd:sequence>
+              <xsd:group ref="DataManagedObjectGroup"/>
+            </xsd:sequence>
+            <xsd:sequence>
+              <xsd:group ref="TypeOfValueGroup"/>
+            </xsd:sequence>
+          </xsd:sequence>
+          <xsd:attribute name="id" type="TypeOfModeOfOperationIdType"/>
+        </xsd:restriction>
+      </xsd:complexContent>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:complexType name="TypeOfModeOfOperation_ValueStructure">
+    <xsd:complexContent>
+      <xsd:extension base="TypeOfEntity_VersionStructure"/>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <!-- ======================================================================= -->
+</xsd:schema>
