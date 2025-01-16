@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns="http://www.netex.org.uk/netex" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:netex="http://www.netex.org.uk/netex" targetNamespace="http://www.netex.org.uk/netex" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.2.2" id="netex_nm_chargingEquipmentProfile_support">
+  <xsd:include schemaLocation="netex_vehicleType_support.xsd"/>
+  <!-- ======================================================================= -->
+  <!-- ====   CHARGING EQUIPMENT PROFILE =========================================== -->
+  <xsd:simpleType name="ChargingEquipmentProfileIdType">
+    <xsd:restriction base="VehicleEquipmentProfileIdType"/>
+  </xsd:simpleType>
+  <xsd:element name="ChargingEquipmentProfileRef" type="ChargingEquipmentProfileRefStructure" substitutionGroup="VehicleEquipmentProfileRef"/>
+  <xsd:complexType name="ChargingEquipmentProfileRefStructure">
+    <xsd:simpleContent>
+      <xsd:restriction base="VehicleEquipmentProfileRefStructure">
+        <xsd:attribute name="ref" type="ChargingEquipmentProfileIdType" use="required"/>
+      </xsd:restriction>
+    </xsd:simpleContent>
+  </xsd:complexType>
+  <!-- ======================================================================= -->
+</xsd:schema>

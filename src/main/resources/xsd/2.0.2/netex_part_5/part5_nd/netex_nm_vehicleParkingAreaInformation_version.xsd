@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns="http://www.netex.org.uk/netex" xmlns:netex="http://www.netex.org.uk/netex" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.netex.org.uk/netex" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.2.2" id="netex_nm_vehicleMeetingPlace_version">
+  <xsd:include schemaLocation="netex_nm_vehicleParkingAreaInformation_support.xsd"/>
+  <xsd:include schemaLocation="netex_nm_vehicleMeetingPlace_version.xsd"/>
+  <xsd:include schemaLocation="../../netex_framework/netex_genericFramework/netex_loggable_version.xsd"/>
+  <!-- ======================================================================= -->
+  <xsd:element name="ParkingLogEntry_" type="DataManagedObjectStructure" abstract="true" substitutionGroup="DataManagedObject"/>
+  <xsd:complexType name="parkingLogEntries_RelStructure">
+    <xsd:complexContent>
+      <xsd:extension base="containmentAggregationStructure">
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element ref="ParkingBayConditionRef"/>
+          <xsd:element ref="RentalAvailabilityRef"/>
+          <xsd:element ref="ParkingLogEntry_"/>
+        </xsd:choice>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:complexType name="parkingLogEntriesInFrame_RelStructure">
+    <xsd:complexContent>
+      <xsd:extension base="containmentAggregationStructure">
+        <xsd:sequence>
+          <xsd:element ref="ParkingLogEntry_" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <!-- ==== VEHICLE SHARING PARKING BAY  ============================================================ -->
+  <xsd:element name="MonitoredVehicleSharingParkingBay" abstract="false" substitutionGroup="ParkingBay_">
+    <xsd:complexType>
+      <xsd:complexContent>
+        <xsd:restriction base="MonitoredVehicleSharingParkingBay_VersionStructure">
+          <xsd:sequence>
+            <xsd:sequence>
+              <xsd:group ref="EntityInVersionGroup" minOccurs="0"/>
+            </xsd:sequence>
+            <xsd:sequence>
+              <xsd:group ref="DataManagedObjectGroup"/>
+            </xsd:sequence>
+            <xsd:sequence>
+              <xsd:group ref="GroupOfEntitiesGroup"/>
+            </xsd:sequence>
+            <xsd:sequence>
+              <xsd:group ref="GroupOfPointsGroup"/>
+            </xsd:sequence>
+            <xsd:sequence>
+              <xsd:group ref="ZoneGroup"/>
+            </xsd:sequence>
+            <xsd:group ref="PlaceGroup"/>
+            <xsd:sequence>
+              <xsd:group ref="AddressablePlaceGroup"/>
+            </xsd:sequence>
+            <xsd:group ref="SiteElementGroup"/>
+            <xsd:sequence>
+              <xsd:group ref="SiteComponentGroup"/>
+            </xsd:sequence>
+            <xsd:sequence>
+              <xsd:group ref="ParkingComponentGroup"/>
+            </xsd:sequence>
+            <xsd:sequence>
+              <xsd:group ref="ParkingBayGroup"/>
+            </xsd:sequence>
+            <xsd:sequence>
+              <xsd:group ref="VehicleSharingParkingBayGroup"/>
+            </xsd:sequence>
+            <xsd:sequence>
+              <xsd:group ref="MonitoredVehicleSharingParkingBayGroup"/>
+            </xsd:sequence>
+          </xsd:sequence>
+          <xsd:attribute name="id" type="MonitoredVehicleSharingParkingBayIdType" use="optional"/>
+        </xsd:restriction>
+      </xsd:complexContent>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:complexType name="MonitoredVehicleSharingParkingBay_VersionStructure" abstract="false">
+    <xsd:complexContent>
+      <xsd:extension base="VehicleSharingParkingBay_VersionStructure">
+        <xsd:sequence>
+          <xsd:group ref="MonitoredVehicleSharingParkingBayGroup"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:group name="MonitoredVehicleSharingParkingBayGroup">
+    <xsd:sequence>
+      <xsd:element name="Status" type="ParkingBayStatusEnumeration" minOccurs="0"/>
+      <xsd:element ref="ParkingBayStatusRef" minOccurs="0"/>
+    </xsd:sequence>
+  </xsd:group>
+  <!-- ==== PARKING BAY STATUS ============================================================ -->
+  <xsd:element name="ParkingBayStatus" abstract="false" substitutionGroup="TypeOfValue">
+    <xsd:complexType>
+      <xsd:complexContent>
+        <xsd:restriction base="ParkingBayStatus_ValueStructure">
+          <xsd:sequence>
+            <xsd:sequence>
+              <xsd:group ref="EntityInVersionGroup" minOccurs="0"/>
+            </xsd:sequence>
+            <xsd:sequence>
+              <xsd:group ref="DataManagedObjectGroup"/>
+            </xsd:sequence>
+            <xsd:sequence>
+              <xsd:group ref="TypeOfValueGroup"/>
+            </xsd:sequence>
+            <xsd:sequence>
+              <xsd:element name="Status" type="ParkingBayStatusEnumeration" minOccurs="0"/>
+            </xsd:sequence>
+          </xsd:sequence>
+          <xsd:attribute name="id" type="ParkingBayStatusIdType"/>
+        </xsd:restriction>
+      </xsd:complexContent>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:complexType name="ParkingBayStatus_ValueStructure" abstract="false">
+    <xsd:complexContent>
+      <xsd:extension base="TypeOfValue_VersionStructure">
+        <xsd:group ref="ParkingBayStatusGroup"/>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:group name="ParkingBayStatusGroup">
+    <xsd:sequence>
+      <xsd:element name="Status" type="ParkingBayStatusEnumeration" minOccurs="0"/>
+    </xsd:sequence>
+  </xsd:group>
+  <!-- ====RENTAL AVAILABILITY ============================================================ -->
+  <xsd:element name="RentalAvailability" abstract="false" substitutionGroup="ParkingLogEntry_">
+    <xsd:complexType>
+      <xsd:complexContent>
+        <xsd:restriction base="RentalAvailability_VersionStructure">
+          <xsd:sequence>
+            <xsd:sequence>
+              <xsd:group ref="EntityInVersionGroup" minOccurs="0"/>
+            </xsd:sequence>
+            <xsd:sequence>
+              <xsd:group ref="DataManagedObjectGroup"/>
+            </xsd:sequence>
+            <xsd:sequence>
+              <xsd:group ref="LogEntryGroup"/>
+            </xsd:sequence>
+            <xsd:group ref="RentalAvailabilityGroup"/>
+          </xsd:sequence>
+          <xsd:attribute name="id" type="RentalAvailabilityIdType"/>
+        </xsd:restriction>
+      </xsd:complexContent>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:complexType name="RentalAvailability_VersionStructure" abstract="false">
+    <xsd:complexContent>
+      <xsd:extension base="LogEntry_VersionStructure">
+        <xsd:group ref="RentalAvailabilityGroup"/>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:group name="RentalAvailabilityGroup">
+    <xsd:sequence>
+      <xsd:element ref="ParkingRef"/>
+      <xsd:element name="IsOperational" type="xsd:boolean" minOccurs="0"/>
+      <xsd:element name="IsRenting" type="xsd:boolean" minOccurs="0"/>
+      <xsd:element name="IsAcceptingReturns" type="xsd:boolean" minOccurs="0"/>
+      <xsd:element name="AvailableVehicles" type="xsd:nonNegativeInteger" minOccurs="0"/>
+      <xsd:element name="DisabledVehicles" type="xsd:nonNegativeInteger" minOccurs="0"/>
+      <xsd:element name="AvailableDocks" type="xsd:nonNegativeInteger" minOccurs="0"/>
+      <xsd:element name="DisabledDocks" type="xsd:nonNegativeInteger" minOccurs="0"/>
+    </xsd:sequence>
+  </xsd:group>
+  <!-- ==== PARKING BAY STATUS ============================================================ -->
+  <xsd:element name="ParkingBayCondition" abstract="false" substitutionGroup="ParkingLogEntry_">
+    <xsd:complexType>
+      <xsd:complexContent>
+        <xsd:restriction base="ParkingBayCondition_VersionStructure">
+          <xsd:sequence>
+            <xsd:sequence>
+              <xsd:group ref="EntityInVersionGroup" minOccurs="0"/>
+            </xsd:sequence>
+            <xsd:sequence>
+              <xsd:group ref="DataManagedObjectGroup"/>
+            </xsd:sequence>
+            <xsd:sequence>
+              <xsd:group ref="LogEntryGroup"/>
+            </xsd:sequence>
+            <xsd:sequence>
+              <xsd:group ref="ParkingBayConditionGroup"/>
+            </xsd:sequence>
+          </xsd:sequence>
+          <xsd:attribute name="id" type="ParkingBayConditionIdType"/>
+        </xsd:restriction>
+      </xsd:complexContent>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:complexType name="ParkingBayCondition_VersionStructure" abstract="false">
+    <xsd:complexContent>
+      <xsd:extension base="LogEntry_VersionStructure">
+        <xsd:sequence>
+          <xsd:group ref="ParkingBayConditionGroup"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:group name="ParkingBayConditionGroup">
+    <xsd:sequence>
+      <xsd:element ref="ParkingBayRef"/>
+      <xsd:element name="Status" type="ParkingBayStatusEnumeration" minOccurs="0"/>
+      <xsd:element ref="ParkingBayStatusRef" minOccurs="0"/>
+    </xsd:sequence>
+  </xsd:group>
+  <!-- ======================================================================= -->
+</xsd:schema>

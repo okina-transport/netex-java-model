@@ -1,0 +1,393 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns="http://www.netex.org.uk/netex" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:netex="http://www.netex.org.uk/netex" targetNamespace="http://www.netex.org.uk/netex" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.2.2" id="netex_nm_mobilityService_version">
+  <xsd:include schemaLocation="../../netex_framework/netex_reusableComponents/netex_equipment_version.xsd"/>
+  <xsd:include schemaLocation="netex_nm_mobilityService_support.xsd"/>
+  <xsd:include schemaLocation="netex_nm_onlineService_support.xsd"/>
+  <xsd:include schemaLocation="../../netex_framework/netex_reusableComponents/netex_nm_fleet_support.xsd"/>
+  <xsd:include schemaLocation="../../netex_framework/netex_reusableComponents/netex_transportOrganisation_support.xsd"/>
+  <xsd:include schemaLocation="../../netex_framework/netex_reusableComponents/netex_modeOfOperation_support.xsd"/>
+  <xsd:include schemaLocation="../../netex_framework/netex_reusableComponents/netex_topographicPlace_support.xsd"/>
+  <xsd:include schemaLocation="../../netex_framework/netex_reusableComponents/netex_serviceRestrictions_version.xsd"/>
+  <!-- ======================================================================= -->
+  <!-- ======================================================================= -->
+  <!-- ==== MOBILITY SERVICE ================================================================ -->
+  <xsd:complexType name="mobilityServices_RelStructure">
+    <xsd:complexContent>
+      <xsd:extension base="containmentAggregationStructure">
+        <xsd:sequence>
+          <xsd:element ref="MobilityService_" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:element name="MobilityService_" type="Equipment_VersionStructure" abstract="true" substitutionGroup="Equipment"/>
+  <xsd:element name="MobilityService" type="MobilityService_VersionStructure" abstract="true" substitutionGroup="MobilityService_"/>
+  <xsd:complexType name="MobilityService_VersionStructure" abstract="true">
+    <xsd:complexContent>
+      <xsd:extension base="Equipment_VersionStructure">
+        <xsd:sequence>
+          <xsd:group ref="MobilityServiceGroup"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:group name="MobilityServiceGroup">
+    <xsd:sequence>
+      <xsd:element name="ShortName" type="MultilingualString" minOccurs="0"/>
+      <xsd:element name="StartDate" type="xsd:date" minOccurs="0"/>
+      <xsd:element ref="TypeOfMobilityServiceRef" minOccurs="0"/>
+      <xsd:element ref="OrganisationRef" minOccurs="0"/>
+      <xsd:element ref="TopographicPlaceRef" minOccurs="0"/>
+      <xsd:element name="ServiceBookingArrangements" type="ServiceBookingArrangementsStructure" minOccurs="0"/>
+    </xsd:sequence>
+  </xsd:group>
+  <!-- ===== COMMON VEHICLE SERVICE ============================================= -->
+  <xsd:element name="CommonVehicleService_" type="Equipment_VersionStructure" abstract="true" substitutionGroup="MobilityService_"/>
+  <xsd:element name="CommonVehicleService" abstract="true" substitutionGroup="CommonVehicleService_">
+    <xsd:complexType>
+      <xsd:complexContent>
+        <xsd:restriction base="CommonVehicleService_VersionStructure">
+          <xsd:sequence>
+            <xsd:sequence>
+              <xsd:group ref="EntityInVersionGroup" minOccurs="0"/>
+            </xsd:sequence>
+            <xsd:sequence>
+              <xsd:group ref="DataManagedObjectGroup"/>
+            </xsd:sequence>
+            <xsd:sequence>
+              <xsd:group ref="EquipmentGroup"/>
+            </xsd:sequence>
+            <xsd:sequence>
+              <xsd:group ref="MobilityServiceGroup"/>
+            </xsd:sequence>
+            <xsd:sequence>
+              <xsd:group ref="CommonVehicleServiceGroup"/>
+            </xsd:sequence>
+          </xsd:sequence>
+          <xsd:attribute name="id" type="CommonVehicleServiceIdType" use="optional"/>
+        </xsd:restriction>
+      </xsd:complexContent>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:complexType name="CommonVehicleService_VersionStructure" abstract="false">
+    <xsd:complexContent>
+      <xsd:extension base="MobilityService_VersionStructure">
+        <xsd:sequence>
+          <xsd:group ref="CommonVehicleServiceGroup"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:group name="CommonVehicleServiceGroup">
+    <xsd:sequence>
+      <xsd:element name="BookingRequired" type="xsd:boolean" minOccurs="0"/>
+      <xsd:element name="RegistrationRequired" type="xsd:boolean" minOccurs="0"/>
+      <xsd:element name="proposedByServices" type="onlineServiceRefs_RelStructure" minOccurs="0"/>
+    </xsd:sequence>
+  </xsd:group>
+  <!-- =====  VEHICLE POOLING SERVICE ============================================= -->
+  <xsd:element name="VehiclePoolingService_" type="MobilityService_VersionStructure" abstract="true" substitutionGroup="CommonVehicleService_"/>
+  <xsd:element name="VehiclePoolingService" abstract="true" substitutionGroup="VehiclePoolingService_">
+    <xsd:complexType>
+      <xsd:complexContent>
+        <xsd:restriction base="VehiclePoolingService_VersionStructure">
+          <xsd:sequence>
+            <xsd:sequence>
+              <xsd:group ref="EntityInVersionGroup" minOccurs="0"/>
+            </xsd:sequence>
+            <xsd:sequence>
+              <xsd:group ref="DataManagedObjectGroup"/>
+            </xsd:sequence>
+            <xsd:sequence>
+              <xsd:group ref="EquipmentGroup"/>
+            </xsd:sequence>
+            <xsd:sequence>
+              <xsd:group ref="MobilityServiceGroup"/>
+            </xsd:sequence>
+            <xsd:sequence>
+              <xsd:group ref="CommonVehicleServiceGroup"/>
+            </xsd:sequence>
+            <xsd:sequence>
+              <xsd:group ref="VehiclePoolingServiceGroup"/>
+            </xsd:sequence>
+          </xsd:sequence>
+          <xsd:attribute name="id" type="VehiclePoolingServiceIdType" use="optional"/>
+        </xsd:restriction>
+      </xsd:complexContent>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:complexType name="VehiclePoolingService_VersionStructure" abstract="false">
+    <xsd:complexContent>
+      <xsd:extension base="CommonVehicleService_VersionStructure">
+        <xsd:sequence>
+          <xsd:group ref="VehiclePoolingServiceGroup"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:group name="VehiclePoolingServiceGroup">
+    <xsd:sequence>
+      <xsd:element ref="VehiclePoolingRef"/>
+      <xsd:element name="PoolingPolicyUrl" type="xsd:anyURI" minOccurs="0"/>
+    </xsd:sequence>
+  </xsd:group>
+  <!-- =====  TAXI SERVICE ============================================= -->
+  <xsd:element name="TaxiService" substitutionGroup="VehiclePoolingService_">
+    <xsd:complexType>
+      <xsd:complexContent>
+        <xsd:restriction base="TaxiService_VersionStructure">
+          <xsd:sequence>
+            <xsd:sequence>
+              <xsd:group ref="EntityInVersionGroup" minOccurs="0"/>
+            </xsd:sequence>
+            <xsd:sequence>
+              <xsd:group ref="DataManagedObjectGroup"/>
+            </xsd:sequence>
+            <xsd:sequence>
+              <xsd:group ref="EquipmentGroup"/>
+            </xsd:sequence>
+            <xsd:sequence>
+              <xsd:group ref="MobilityServiceGroup"/>
+            </xsd:sequence>
+            <xsd:sequence>
+              <xsd:group ref="CommonVehicleServiceGroup"/>
+            </xsd:sequence>
+            <xsd:sequence>
+              <xsd:group ref="VehiclePoolingServiceGroup"/>
+            </xsd:sequence>
+            <xsd:sequence>
+              <xsd:group ref="TaxiServiceGroup"/>
+            </xsd:sequence>
+          </xsd:sequence>
+          <xsd:attribute name="id" type="TaxiServiceIdType" use="optional"/>
+        </xsd:restriction>
+      </xsd:complexContent>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:complexType name="TaxiService_VersionStructure" abstract="false">
+    <xsd:complexContent>
+      <xsd:extension base="VehiclePoolingService_VersionStructure">
+        <xsd:sequence>
+          <xsd:group ref="TaxiServiceGroup"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:group name="TaxiServiceGroup">
+    <xsd:sequence/>
+  </xsd:group>
+  <!-- =====  GENERAL POOLING SERVICE ============================================= -->
+  <xsd:element name="CarPoolingService" substitutionGroup="VehiclePoolingService_">
+    <xsd:complexType>
+      <xsd:complexContent>
+        <xsd:restriction base="CarPoolingService_VersionStructure">
+          <xsd:sequence>
+            <xsd:sequence>
+              <xsd:group ref="EntityInVersionGroup" minOccurs="0"/>
+            </xsd:sequence>
+            <xsd:sequence>
+              <xsd:group ref="DataManagedObjectGroup"/>
+            </xsd:sequence>
+            <xsd:sequence>
+              <xsd:group ref="EquipmentGroup"/>
+            </xsd:sequence>
+            <xsd:sequence>
+              <xsd:group ref="MobilityServiceGroup"/>
+            </xsd:sequence>
+            <xsd:sequence>
+              <xsd:group ref="CommonVehicleServiceGroup"/>
+            </xsd:sequence>
+            <xsd:sequence>
+              <xsd:group ref="VehiclePoolingServiceGroup"/>
+            </xsd:sequence>
+            <xsd:sequence>
+              <xsd:group ref="CarPoolingServiceGroup"/>
+            </xsd:sequence>
+          </xsd:sequence>
+          <xsd:attribute name="id" type="CarPoolingServiceIdType" use="optional"/>
+        </xsd:restriction>
+      </xsd:complexContent>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:complexType name="CarPoolingService_VersionStructure" abstract="false">
+    <xsd:complexContent>
+      <xsd:extension base="VehiclePoolingService_VersionStructure">
+        <xsd:sequence>
+          <xsd:group ref="CarPoolingServiceGroup"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:group name="CarPoolingServiceGroup">
+    <xsd:sequence/>
+  </xsd:group>
+  <!-- =====  ChauffeuredVehicle SERVICE ============================================= -->
+  <xsd:element name="ChauffeuredVehicleService" substitutionGroup="VehiclePoolingService_">
+    <xsd:complexType>
+      <xsd:complexContent>
+        <xsd:restriction base="ChauffeuredVehicleService_VersionStructure">
+          <xsd:sequence>
+            <xsd:sequence>
+              <xsd:group ref="EntityInVersionGroup" minOccurs="0"/>
+            </xsd:sequence>
+            <xsd:sequence>
+              <xsd:group ref="DataManagedObjectGroup"/>
+            </xsd:sequence>
+            <xsd:sequence>
+              <xsd:group ref="EquipmentGroup"/>
+            </xsd:sequence>
+            <xsd:sequence>
+              <xsd:group ref="MobilityServiceGroup"/>
+            </xsd:sequence>
+            <xsd:sequence>
+              <xsd:group ref="CommonVehicleServiceGroup"/>
+            </xsd:sequence>
+            <xsd:sequence>
+              <xsd:group ref="VehiclePoolingServiceGroup"/>
+            </xsd:sequence>
+            <xsd:sequence>
+              <xsd:group ref="ChauffeuredVehicleServiceGroup"/>
+            </xsd:sequence>
+          </xsd:sequence>
+          <xsd:attribute name="id" type="ChauffeuredVehicleServiceIdType" use="optional"/>
+        </xsd:restriction>
+      </xsd:complexContent>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:complexType name="ChauffeuredVehicleService_VersionStructure" abstract="false">
+    <xsd:complexContent>
+      <xsd:extension base="VehiclePoolingService_VersionStructure">
+        <xsd:sequence>
+          <xsd:group ref="ChauffeuredVehicleServiceGroup"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:group name="ChauffeuredVehicleServiceGroup">
+    <xsd:sequence/>
+  </xsd:group>
+  <!-- =====  VEHICLE SHARING SERVICE ============================================= -->
+  <xsd:element name="VehicleSharingService" substitutionGroup="CommonVehicleService_">
+    <xsd:complexType>
+      <xsd:complexContent>
+        <xsd:restriction base="VehicleSharingService_VersionStructure">
+          <xsd:sequence>
+            <xsd:sequence>
+              <xsd:group ref="EntityInVersionGroup" minOccurs="0"/>
+            </xsd:sequence>
+            <xsd:sequence>
+              <xsd:group ref="DataManagedObjectGroup"/>
+            </xsd:sequence>
+            <xsd:sequence>
+              <xsd:group ref="EquipmentGroup"/>
+            </xsd:sequence>
+            <xsd:sequence>
+              <xsd:group ref="MobilityServiceGroup"/>
+            </xsd:sequence>
+            <xsd:sequence>
+              <xsd:group ref="CommonVehicleServiceGroup"/>
+            </xsd:sequence>
+            <xsd:sequence>
+              <xsd:group ref="VehicleSharingServiceGroup"/>
+            </xsd:sequence>
+          </xsd:sequence>
+          <xsd:attribute name="id" type="VehicleSharingServiceIdType" use="optional"/>
+        </xsd:restriction>
+      </xsd:complexContent>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:complexType name="VehicleSharingService_VersionStructure" abstract="false">
+    <xsd:complexContent>
+      <xsd:extension base="CommonVehicleService_VersionStructure">
+        <xsd:sequence>
+          <xsd:group ref="VehicleSharingServiceGroup"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:group name="VehicleSharingServiceGroup">
+    <xsd:sequence>
+      <xsd:element ref="VehicleSharingRef"/>
+      <xsd:element name="SharingPolicyUrl" type="xsd:anyURI" minOccurs="0"/>
+      <xsd:element name="MinimumSharingPeriod" type="xsd:duration" minOccurs="0"/>
+      <xsd:element name="MaximumSharingPeriod" type="xsd:duration" minOccurs="0"/>
+      <xsd:element name="FloatingVehicles" type="xsd:boolean" default="false" minOccurs="0"/>
+      <xsd:element name="fleets" type="fleetRefs_RelStructure" minOccurs="0"/>
+    </xsd:sequence>
+  </xsd:group>
+  <!-- =====  VEHICLE RENTAL SERVICE ============================================= -->
+  <xsd:element name="VehicleRentalService" substitutionGroup="CommonVehicleService_">
+    <xsd:complexType>
+      <xsd:complexContent>
+        <xsd:restriction base="VehicleRentalService_VersionStructure">
+          <xsd:sequence>
+            <xsd:sequence>
+              <xsd:group ref="EntityInVersionGroup" minOccurs="0"/>
+            </xsd:sequence>
+            <xsd:sequence>
+              <xsd:group ref="DataManagedObjectGroup"/>
+            </xsd:sequence>
+            <xsd:sequence>
+              <xsd:group ref="EquipmentGroup"/>
+            </xsd:sequence>
+            <xsd:sequence>
+              <xsd:group ref="MobilityServiceGroup"/>
+            </xsd:sequence>
+            <xsd:sequence>
+              <xsd:group ref="CommonVehicleServiceGroup"/>
+            </xsd:sequence>
+            <xsd:sequence>
+              <xsd:group ref="VehicleRentalServiceGroup"/>
+            </xsd:sequence>
+          </xsd:sequence>
+          <xsd:attribute name="id" type="VehicleRentalServiceIdType" use="optional"/>
+        </xsd:restriction>
+      </xsd:complexContent>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:complexType name="VehicleRentalService_VersionStructure" abstract="false">
+    <xsd:complexContent>
+      <xsd:extension base="CommonVehicleService_VersionStructure">
+        <xsd:sequence>
+          <xsd:group ref="VehicleRentalServiceGroup"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:group name="VehicleRentalServiceGroup">
+    <xsd:sequence>
+      <xsd:element ref="VehicleRentalRef"/>
+      <xsd:element name="MaximumRentalPeriod" type="xsd:duration" minOccurs="0"/>
+      <xsd:element name="MinimumRentalPeriod" type="xsd:duration" minOccurs="0"/>
+      <xsd:element name="RentalPolicyUrl" type="xsd:anyURI" minOccurs="0"/>
+      <xsd:element name="fleets" type="fleetRefs_RelStructure" minOccurs="0"/>
+    </xsd:sequence>
+  </xsd:group>
+  <!-- ====== TYPE OF MOBILITY SERVICE ======================================== -->
+  <xsd:element name="TypeOfMobilityService" abstract="false" substitutionGroup="TypeOfEntity">
+    <xsd:complexType>
+      <xsd:complexContent>
+        <xsd:restriction base="TypeOfMobilityService_ValueStructure">
+          <xsd:sequence>
+            <xsd:sequence>
+              <xsd:group ref="EntityInVersionGroup" minOccurs="0"/>
+            </xsd:sequence>
+            <xsd:sequence>
+              <xsd:group ref="DataManagedObjectGroup"/>
+            </xsd:sequence>
+            <xsd:sequence>
+              <xsd:group ref="TypeOfValueGroup"/>
+            </xsd:sequence>
+          </xsd:sequence>
+          <xsd:attribute name="id" type="TypeOfMobilityServiceIdType"/>
+        </xsd:restriction>
+      </xsd:complexContent>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:complexType name="TypeOfMobilityService_ValueStructure" abstract="false">
+    <xsd:complexContent>
+      <xsd:extension base="TypeOfEntity_VersionStructure"/>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <!-- ======================================================================= -->
+</xsd:schema>

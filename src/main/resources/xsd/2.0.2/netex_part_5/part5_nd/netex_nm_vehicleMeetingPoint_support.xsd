@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:core="http://www.govtalk.gov.uk/core" xmlns="http://www.netex.org.uk/netex" xmlns:netex="http://www.netex.org.uk/netex" targetNamespace="http://www.netex.org.uk/netex" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.2.2" id="netex_nm_vehicleMeetingPoint_support">
+  <xsd:include schemaLocation="../../netex_framework/netex_genericFramework/netex_pointAndLink_support.xsd"/>
+  <!-- ======================================================================= -->
+  <!-- ======================================================================= -->
+  <!-- ==== VEHICLE MEETING POINT ============================================ -->
+  <xsd:complexType name="vehicleMeetingPointRefs_RelStructure">
+    <xsd:complexContent>
+      <xsd:extension base="oneToManyRelationshipStructure">
+        <xsd:sequence>
+          <xsd:element ref="VehicleMeetingPointRef"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:simpleType name="VehicleMeetingPointIdType">
+    <xsd:restriction base="PointIdType"/>
+  </xsd:simpleType>
+  <xsd:element name="VehicleMeetingPointRef" type="VehicleMeetingPointRefStructure" substitutionGroup="PointRef"/>
+  <xsd:complexType name="VehicleMeetingPointRefStructure">
+    <xsd:simpleContent>
+      <xsd:restriction base="PointRefStructure">
+        <xsd:attribute name="ref" type="VehicleMeetingPointIdType" use="required"/>
+      </xsd:restriction>
+    </xsd:simpleContent>
+  </xsd:complexType>
+  <!-- ======================================================================= -->
+  <!-- ==== VEHICLE MEETING LINK ================================================== -->
+  <xsd:simpleType name="VehicleMeetingLinkIdType">
+    <xsd:restriction base="LinkIdType"/>
+  </xsd:simpleType>
+  <xsd:element name="VehicleMeetingLinkRef" type="VehicleMeetingLinkRefStructure" substitutionGroup="LinkRef"/>
+  <xsd:complexType name="VehicleMeetingLinkRefStructure">
+    <xsd:simpleContent>
+      <xsd:restriction base="LinkRefStructure">
+        <xsd:attribute name="ref" type="VehicleMeetingLinkIdType" use="required"/>
+      </xsd:restriction>
+    </xsd:simpleContent>
+  </xsd:complexType>
+  <!-- ======================================================================= -->
+  <xsd:element name="OnwardVehicleMeetingLinkRef" type="VehicleMeetingLinkRefStructure" substitutionGroup="LinkRef"/>
+</xsd:schema>

@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns="http://www.netex.org.uk/netex" xmlns:netex="http://www.netex.org.uk/netex" xmlns:siri="http://www.siri.org.uk/siri" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.netex.org.uk/netex" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.2.2" id="netex_modeOfOperation_support">
+  <xsd:include schemaLocation="../netex_responsibility/netex_relationship.xsd"/>
+  <!-- ======================================================================= -->
+  <!-- ======================================================================= -->
+  <xsd:simpleType name="ModeOfOperationIdType">
+    <xsd:restriction base="TypeOfValueIdType"/>
+  </xsd:simpleType>
+  <xsd:element name="ModeOfOperationRef" type="ModeOfOperationRefStructure" abstract="true" substitutionGroup="TypeOfEntityRef"/>
+  <xsd:complexType name="ModeOfOperationRefStructure">
+    <xsd:simpleContent>
+      <xsd:restriction base="TypeOfValueRefStructure">
+        <xsd:attribute name="ref" type="ModeOfOperationIdType" use="required"/>
+      </xsd:restriction>
+    </xsd:simpleContent>
+  </xsd:complexType>
+  <!-- ======================================================================= -->
+  <xsd:simpleType name="ConventionalModeOfOperationIdType">
+    <xsd:restriction base="ModeOfOperationIdType"/>
+  </xsd:simpleType>
+  <xsd:element name="ConventionalModeOfOperationRef" type="ConventionalModeOfOperationRefStructure" abstract="true" substitutionGroup="ModeOfOperationRef"/>
+  <xsd:complexType name="ConventionalModeOfOperationRefStructure">
+    <xsd:simpleContent>
+      <xsd:restriction base="ModeOfOperationRefStructure">
+        <xsd:attribute name="ref" type="ConventionalModeOfOperationIdType" use="required"/>
+      </xsd:restriction>
+    </xsd:simpleContent>
+  </xsd:complexType>
+  <!-- ======================================================================= -->
+  <xsd:simpleType name="ScheduledModeOfOperationIdType">
+    <xsd:restriction base="ConventionalModeOfOperationIdType"/>
+  </xsd:simpleType>
+  <xsd:element name="ScheduledModeOfOperationRef" type="ScheduledModeOfOperationRefStructure" abstract="false" substitutionGroup="ConventionalModeOfOperationRef"/>
+  <xsd:complexType name="ScheduledModeOfOperationRefStructure">
+    <xsd:simpleContent>
+      <xsd:restriction base="ConventionalModeOfOperationRefStructure">
+        <xsd:attribute name="ref" type="ScheduledModeOfOperationIdType" use="required"/>
+      </xsd:restriction>
+    </xsd:simpleContent>
+  </xsd:complexType>
+  <xsd:simpleType name="ScheduledOperationTypeEnumeration">
+    <xsd:restriction base="xsd:NMTOKEN">
+      <xsd:enumeration value="scheduledService"/>
+      <xsd:enumeration value="eventBasedService"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+  <!-- ======================================================================= -->
+  <xsd:simpleType name="FlexibleModeOfOperationIdType">
+    <xsd:restriction base="ConventionalModeOfOperationIdType"/>
+  </xsd:simpleType>
+  <xsd:element name="FlexibleModeOfOperationRef" type="FlexibleModeOfOperationRefStructure" abstract="false" substitutionGroup="ConventionalModeOfOperationRef"/>
+  <xsd:complexType name="FlexibleModeOfOperationRefStructure">
+    <xsd:simpleContent>
+      <xsd:restriction base="ConventionalModeOfOperationRefStructure">
+        <xsd:attribute name="ref" type="FlexibleModeOfOperationIdType" use="required"/>
+      </xsd:restriction>
+    </xsd:simpleContent>
+  </xsd:complexType>
+  <xsd:simpleType name="FlexibleOperationTypeEnumeration">
+    <xsd:restriction base="xsd:NMTOKEN">
+      <xsd:enumeration value="flexibleRoute"/>
+      <xsd:enumeration value="flexibleArea"/>
+      <xsd:enumeration value="demandResponsive"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+  <!-- ======================================================================= -->
+  <xsd:simpleType name="AlternativeModeOfOperationIdType">
+    <xsd:restriction base="ModeOfOperationIdType"/>
+  </xsd:simpleType>
+  <xsd:element name="AlternativeModeOfOperationRef" type="AlternativeModeOfOperationRefStructure" abstract="true" substitutionGroup="ModeOfOperationRef"/>
+  <xsd:complexType name="AlternativeModeOfOperationRefStructure">
+    <xsd:simpleContent>
+      <xsd:restriction base="ModeOfOperationRefStructure">
+        <xsd:attribute name="ref" type="AlternativeModeOfOperationIdType" use="required"/>
+      </xsd:restriction>
+    </xsd:simpleContent>
+  </xsd:complexType>
+  <!-- ======================================================================= -->
+  <xsd:simpleType name="VehicleRentalIdType">
+    <xsd:restriction base="AlternativeModeOfOperationIdType"/>
+  </xsd:simpleType>
+  <xsd:element name="VehicleRentalRef" type="VehicleRentalModeOfOperationRefStructure" abstract="false" substitutionGroup="AlternativeModeOfOperationRef"/>
+  <xsd:complexType name="VehicleRentalModeOfOperationRefStructure">
+    <xsd:simpleContent>
+      <xsd:restriction base="AlternativeModeOfOperationRefStructure">
+        <xsd:attribute name="ref" type="VehicleRentalIdType" use="required"/>
+      </xsd:restriction>
+    </xsd:simpleContent>
+  </xsd:complexType>
+  <xsd:simpleType name="VehicleRentalTypeEnumeration">
+    <xsd:restriction base="xsd:NMTOKEN">
+      <xsd:enumeration value="vehicleHire"/>
+      <xsd:enumeration value="vehicleLease"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+  <!-- ======================================================================= -->
+  <xsd:simpleType name="VehicleSharingIdType">
+    <xsd:restriction base="AlternativeModeOfOperationIdType"/>
+  </xsd:simpleType>
+  <xsd:element name="VehicleSharingRef" type="VehicleSharingModeOfOperationRefStructure" abstract="false" substitutionGroup="AlternativeModeOfOperationRef"/>
+  <xsd:complexType name="VehicleSharingModeOfOperationRefStructure">
+    <xsd:simpleContent>
+      <xsd:restriction base="AlternativeModeOfOperationRefStructure">
+        <xsd:attribute name="ref" type="VehicleSharingIdType" use="required"/>
+      </xsd:restriction>
+    </xsd:simpleContent>
+  </xsd:complexType>
+  <xsd:simpleType name="VehicleSharingTypeEnumeration">
+    <xsd:restriction base="xsd:NMTOKEN">
+      <xsd:enumeration value="carSharingClub"/>
+      <xsd:enumeration value="peerToPeerCarSharing"/>
+      <xsd:enumeration value="vehicleSharing"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+  <!-- ======================================================================= -->
+  <xsd:simpleType name="VehiclePoolingIdType">
+    <xsd:restriction base="AlternativeModeOfOperationIdType"/>
+  </xsd:simpleType>
+  <xsd:element name="VehiclePoolingRef" type="VehiclePoolingModeOfOperationRefStructure" abstract="false" substitutionGroup="AlternativeModeOfOperationRef"/>
+  <xsd:complexType name="VehiclePoolingModeOfOperationRefStructure">
+    <xsd:simpleContent>
+      <xsd:restriction base="AlternativeModeOfOperationRefStructure">
+        <xsd:attribute name="ref" type="VehiclePoolingIdType" use="required"/>
+      </xsd:restriction>
+    </xsd:simpleContent>
+  </xsd:complexType>
+  <xsd:simpleType name="VehiclePoolingTypeEnumeration">
+    <xsd:restriction base="xsd:NMTOKEN">
+      <xsd:enumeration value="taxi"/>
+      <xsd:enumeration value="appBookedTaxi"/>
+      <xsd:enumeration value="sharedTaxi"/>
+      <xsd:enumeration value="prebookedTaxi"/>
+      <xsd:enumeration value="chaffeuredVehicle"/>
+      <xsd:enumeration value="dynamicCarPooling"/>
+      <xsd:enumeration value="longDistanceCarPooling"/>
+      <xsd:enumeration value="commuterCarPooling"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+  <!-- ======================================================================= -->
+  <xsd:simpleType name="PersonalModeOfOperationIdType">
+    <xsd:restriction base="ModeOfOperationIdType"/>
+  </xsd:simpleType>
+  <xsd:element name="PersonalModeOfOperationRef" type="PersonalModeOfOperationRefStructure" abstract="false" substitutionGroup="ModeOfOperationRef"/>
+  <xsd:complexType name="PersonalModeOfOperationRefStructure">
+    <xsd:simpleContent>
+      <xsd:restriction base="ModeOfOperationRefStructure">
+        <xsd:attribute name="ref" type="PersonalModeOfOperationIdType" use="required"/>
+      </xsd:restriction>
+    </xsd:simpleContent>
+  </xsd:complexType>
+  <xsd:simpleType name="PersonalOperationTypeEnumeration">
+    <xsd:restriction base="xsd:NMTOKEN">
+      <xsd:enumeration value="ownCar"/>
+      <xsd:enumeration value="privateLift"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+  <!-- ======================================================================= -->
+  <xsd:simpleType name="TypeOfModeOfOperationIdType">
+    <xsd:restriction base="TypeOfValueIdType"/>
+  </xsd:simpleType>
+  <xsd:element name="TypeOfModeOfOperationRef" type="TypeOfModeOfOperationRefStructure" substitutionGroup="TypeOfEntityRef"/>
+  <xsd:complexType name="TypeOfModeOfOperationRefStructure">
+    <xsd:simpleContent>
+      <xsd:restriction base="TypeOfValueRefStructure">
+        <xsd:attribute name="ref" type="TypeOfModeOfOperationIdType" use="required"/>
+      </xsd:restriction>
+    </xsd:simpleContent>
+  </xsd:complexType>
+  <!-- ======================================================================= -->
+</xsd:schema>

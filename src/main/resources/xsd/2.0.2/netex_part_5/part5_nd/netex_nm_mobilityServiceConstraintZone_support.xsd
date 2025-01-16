@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns="http://www.netex.org.uk/netex" xmlns:netex="http://www.netex.org.uk/netex" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:core="http://www.govtalk.gov.uk/core" targetNamespace="http://www.netex.org.uk/netex" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.2.2" id="netex_nm_mobilityServiceConstraintZone_support">
+  <xsd:include schemaLocation="../../netex_framework/netex_genericFramework/netex_zone_support.xsd"/>
+  <!-- ======================================================================= -->
+  <xsd:complexType name="mobilityServiceConstraintZoneRefs_RelStructure">
+    <xsd:complexContent>
+      <xsd:extension base="oneToManyRelationshipStructure">
+        <xsd:sequence>
+          <xsd:element ref="MobilityServiceConstraintZoneRef" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:simpleType name="MobilityServiceConstraintZoneIdType">
+    <xsd:restriction base="ZoneIdType"/>
+  </xsd:simpleType>
+  <xsd:element name="MobilityServiceConstraintZoneRef" substitutionGroup="ZoneRef">
+    <xsd:complexType>
+      <xsd:complexContent>
+        <xsd:extension base="MobilityServiceConstraintZoneRefStructure"/>
+      </xsd:complexContent>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:complexType name="MobilityServiceConstraintZoneRefStructure">
+    <xsd:complexContent>
+      <xsd:extension base="ZoneRefStructure"/>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:complexType name="vehicleTypeZoneRestrictionRefs_RelStructure">
+    <xsd:complexContent>
+      <xsd:extension base="oneToManyRelationshipStructure">
+        <xsd:sequence>
+          <xsd:element ref="VehicleTypeZoneRestrictionRef" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:simpleType name="VehicleTypeZoneRestrictionIdType">
+    <xsd:restriction base="ObjectIdType"/>
+  </xsd:simpleType>
+  <xsd:element name="VehicleTypeZoneRestrictionRef" substitutionGroup="VersionOfObjectRef">
+    <xsd:complexType>
+      <xsd:complexContent>
+        <xsd:extension base="VehicleTypeZoneRestrictionRefStructure"/>
+      </xsd:complexContent>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:complexType name="VehicleTypeZoneRestrictionRefStructure">
+    <xsd:complexContent>
+      <xsd:extension base="ZoneRefStructure"/>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:simpleType name="TransportZoneUseEnumeration">
+    <xsd:restriction base="xsd:string">
+      <xsd:enumeration value="allUsesAllowed"/>
+      <xsd:enumeration value="forbiddenZone"/>
+      <xsd:enumeration value="cannotPickUpAndDropOffInSameZone"/>
+      <xsd:enumeration value="cannotPickUpInZone"/>
+      <xsd:enumeration value="cannotDropOffInZone"/>
+      <xsd:enumeration value="mustPickUpInZone"/>
+      <xsd:enumeration value="mustDropOffInZone"/>
+      <xsd:enumeration value="mustPickUpAndDropOffInSameZone"/>
+      <xsd:enumeration value="noPassThrough"/>
+      <xsd:enumeration value="passThroughUseOnly"/>
+      <xsd:enumeration value="other"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+  <xsd:simpleType name="ZoneRuleApplicabilityEnumeration">
+    <xsd:restriction base="xsd:string">
+      <xsd:enumeration value="inside"/>
+      <xsd:enumeration value="outside"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+  <xsd:complexType name="PoolOfVehiclesRefs_RelStructure">
+    <xsd:complexContent>
+      <xsd:extension base="oneToManyRelationshipStructure">
+        <xsd:sequence>
+          <xsd:element ref="PoolOfVehiclesRef" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:simpleType name="PoolOfVehiclesIdType">
+    <xsd:restriction base="GroupOfEntitiesIdType"/>
+  </xsd:simpleType>
+  <xsd:element name="PoolOfVehiclesRef" substitutionGroup="GroupOfEntitiesRef_">
+    <xsd:complexType>
+      <xsd:complexContent>
+        <xsd:extension base="PoolOfVehiclesRefStructure"/>
+      </xsd:complexContent>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:complexType name="PoolOfVehiclesRefStructure">
+    <xsd:complexContent>
+      <xsd:extension base="GroupOfEntitiesRefStructure"/>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <!-- ======================================================================= -->
+</xsd:schema>

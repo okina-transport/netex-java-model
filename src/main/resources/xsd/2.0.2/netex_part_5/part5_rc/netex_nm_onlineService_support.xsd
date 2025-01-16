@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns="http://www.netex.org.uk/netex" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:netex="http://www.netex.org.uk/netex" targetNamespace="http://www.netex.org.uk/netex" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.2.2" id="netex_nm_onlineService_support">
+  <xsd:include schemaLocation="../../netex_framework/netex_reusableComponents/netex_transportOrganisation_support.xsd"/>
+  <xsd:include schemaLocation="netex_nm_mobilityService_support.xsd"/>
+  <!-- ======================================================================= -->
+  <!-- ====  ONLINE SERVICE OPERATOR ======================================================= -->
+  <xsd:complexType name="onlineServiceOperatorRefs_RelStructure">
+    <xsd:complexContent>
+      <xsd:extension base="oneToManyRelationshipStructure">
+        <xsd:sequence>
+          <xsd:element ref="OnlineServiceRef" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:simpleType name="OnlineServiceOperatorIdType">
+    <xsd:restriction base="OrganisationIdType"/>
+  </xsd:simpleType>
+  <xsd:element name="OnlineServiceOperatorRef" type="OnlineServiceOperatorRefStructure" substitutionGroup="OrganisationRef"/>
+  <xsd:complexType name="OnlineServiceOperatorRefStructure">
+    <xsd:simpleContent>
+      <xsd:restriction base="OrganisationRefStructure">
+        <xsd:attribute name="ref" type="OnlineServiceOperatorIdType" use="required"/>
+      </xsd:restriction>
+    </xsd:simpleContent>
+  </xsd:complexType>
+  <!-- ====== ONLINE SERVICE ================================= -->
+  <xsd:complexType name="onlineServiceRefs_RelStructure">
+    <xsd:complexContent>
+      <xsd:extension base="oneToManyRelationshipStructure">
+        <xsd:sequence>
+          <xsd:element ref="OnlineServiceRef" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:simpleType name="OnlineServiceIdType">
+    <xsd:restriction base="MobilityServiceIdType"/>
+  </xsd:simpleType>
+  <xsd:element name="OnlineServiceRef" type="OnlineServiceRefStructure" substitutionGroup="MobilityServiceRef"/>
+  <xsd:complexType name="OnlineServiceRefStructure">
+    <xsd:simpleContent>
+      <xsd:restriction base="MobilityServiceRefStructure">
+        <xsd:attribute name="ref" type="OnlineServiceIdType" use="required"/>
+      </xsd:restriction>
+    </xsd:simpleContent>
+  </xsd:complexType>
+  <!-- ======================================================================= -->
+</xsd:schema>
