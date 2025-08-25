@@ -18,11 +18,11 @@ package org.rutebanken.netex.model;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBElement;
-import javax.xml.bind.JAXBException;
-import javax.xml.bind.Marshaller;
-import javax.xml.bind.Unmarshaller;
+import jakarta.xml.bind.JAXBContext;
+import jakarta.xml.bind.JAXBElement;
+import jakarta.xml.bind.JAXBException;
+import jakarta.xml.bind.Marshaller;
+import jakarta.xml.bind.Unmarshaller;
 import javax.xml.stream.XMLOutputFactory;
 import javax.xml.stream.XMLStreamWriter;
 import java.io.*;
@@ -53,7 +53,7 @@ public class MarshalUnmarshalTest {
 		Marshaller marshaller = jaxbContext.createMarshaller();
 
 		PublicationDeliveryStructure publicationDelivery = new PublicationDeliveryStructure()
-				.withDescription(new MultilingualString().withValue("value").withLang("no").withTextIdType("")).withPublicationTimestamp(LocalDateTime.now())
+				.withDescription(new MultilingualString().withValue("value").withLang("no").withTextIdType("")).withPublicationTimestamp(LocalDateTime.now().withNano(0))
 				.withParticipantRef("participantRef");
 
 		marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
@@ -293,8 +293,8 @@ public class MarshalUnmarshalTest {
 		JAXBContext netexJaxBContext = JAXBContext.newInstance("net.opengis.gml._3:org.rutebanken.netex.model:uk.org.siri.siri");
 		Marshaller marshaller = netexJaxBContext.createMarshaller();
 
-		marshaller.setProperty(javax.xml.bind.Marshaller.JAXB_ENCODING, StandardCharsets.UTF_8.name());
-		marshaller.setProperty(javax.xml.bind.Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
+		marshaller.setProperty(jakarta.xml.bind.Marshaller.JAXB_ENCODING, StandardCharsets.UTF_8.name());
+		marshaller.setProperty(jakarta.xml.bind.Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
 		marshaller.setProperty(Marshaller.JAXB_FRAGMENT, Boolean.TRUE);
 
 		StringWriter stringWriter = new StringWriter();
